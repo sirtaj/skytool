@@ -20,13 +20,12 @@ class Game:
             return _winreg.QueryValueEx(reg_key, key[1])[0]
 
     def get_user_data_path(self):
-        home = os.getenv("HOME")
-        return path_join(home, self.USER_SUBPATH)
+        return path_join(os.getenv("LOCALAPPDATA"), self.USER_SUBPATH)
 
 
 class Skyrim(Game):
     REG_GAME_PATH = ("Software\\Bethesda Softworks\\Skyrim", "Installed Path")
-    USER_SUBPATH = "AppData\\Local\\Skyrim"
+    USER_SUBPATH = "Skyrim"
     MASTER_PLUGIN = "Skyrim.esm"
 
 
@@ -123,6 +122,9 @@ class Plugin:
             return True
         except OSError:
             return False
+
+    def open(self, mode='rb'):
+        return open(self.full_path, mode)
         
 
 
