@@ -4,17 +4,6 @@ import struct
 from struct import unpack as st_unpack
 
 RECORD_TYPES = {}
-KNOWN_RECORDS = '''
-'''.strip().split()
-
-KNOWN_GROUPS = '''GMST KYWD LCRT AACT TXST GLOB CLAS FACT HDPT HAIR EYES RACE
-SOUN ASPC MGEF SCPT LTEX ENCH SPEL SCRL ACTI TACT ARMO BOOK CONT DOOR INGR LIGH
-MISC APPA STAT SCOL MSTT PWAT GRAS TREE CLDC FLOR FURN WEAP AMMO NPC_ LVLN KEYM
-ALCH IDLM COBJ PROJ HAZD SLGM LVLI WTHR CLMT SPGD RFCT REGN NAVI CELL WRLD DIAL
-QUST IDLE PACK CSTY LSCR LVSP ANIO WATR EFSH EXPL DEBR IMGS IMAD FLST PERK BPTD
-ADDN AVIF CAMS CPTH VTYP MATT IPCT IPDS ARMA ECZN LCTN MESG RGDL DOBJ LGTM MUSC
-FSTP FSTS SMBN SMQN SMEN DLBR MUST DLVW WOOP SHOU EQUP RELA SCEN ASTP OTFT ARTO
-MATO MOVT HAZD SNDR DUAL SNCT SOPM COLL CLFM REVB'''.strip().split()
 KNOWN_SUBGROUPS = '''REFR ACHR NAVM PGRE PHZD LAND INFO'''.strip().split()
 EMPTY_GROUP_RECORDS = '''CLDC HAIR RGDL SCPT SCOL PWAT'''.strip().split()
 
@@ -36,7 +25,15 @@ class BaseRecord(object):
     @staticmethod
     def read_from(fd):
         record_offset = fd.tell()
-        rec_type, = st_unpack("4s", fd.read(4))
+        typed = fd.read(4)
+        if not typed: return None
+
+        try:
+            rec_type, = st_unpack("4s", typed)
+        except:
+            print "Fail read header at:", repr(typed)
+            raise
+
         rc_class = RECORD_TYPES.get(rec_type, Record)
         rec = rc_class()
         rec.type = rec_type
@@ -144,6 +141,8 @@ class Group(BaseRecord):
         return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
 
+class ChildGroup: pass
+
 class Field(BaseRecord):
     HEADER_STRUCT = struct.Struct("<H")
     HEADER_SIZE = HEADER_STRUCT.size + 4
@@ -163,14 +162,12 @@ class Field(BaseRecord):
         return "<Field %s>" % (getattr(self, "type", "None"))
 
 
-@record_type('TES4')
-class TES4(Record):
-    pass
-
 def test_read(plugin):
     with plugin.open() as plug:
         while True:
             rec = Record.read_from(plug)
+            if rec is None: break
+
             print "=== %s: size %s ===" % (rec, rec.record_size())
             flag_list = rec.flag_list()
             if flag_list:
