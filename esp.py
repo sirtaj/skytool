@@ -31,59 +31,50 @@ def record_type(rec_tag):
         return klazz
     return tag_record_class
 
-HEADER_STRUCT = struct.Struct("4s4I2H")
 
-class Record(object):
+class BaseRecord(object):
     @staticmethod
     def read_from(fd):
-        rec = Record()
-        rec.file_offset = fd.tell()
-        (rec.type,
-         rec.dataSize,
-         rec.flags,
-         rec.id,
-         rec.revision,
-         rec.version,
-         rec.unknown) = HEADER_STRUCT.unpack(fd.read(HEADER_STRUCT.size))
-
+        record_offset = fd.tell()
+        rec_type, = st_unpack("4s", fd.read(4))
+        rc_class = RECORD_TYPES.get(rec_type, Record)
+        rec = rc_class()
+        rec.type = rec_type
+        rec.file_offset = record_offset
+        rec.read_header(fd)
         return rec
 
-    def data_offset(self):
-        return self.file_offset + HEADER_STRUCT.size
+    HEADER_STRUCT = struct.Struct("<4I2H")
+    HEADER_SIZE = HEADER_STRUCT.size + 4
 
-    def data_end_offset(self):
-        return self.file_offset + HEADER_STRUCT.size + self.dataSize - 1
+    def read_header(self, fd):
+        (self.dataSize,
+         self.flags,
+         self.id,
+         self.revision,
+         self.version,
+         self.unknown) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+
+    def record_size(self):      return self.HEADER_SIZE + self.dataSize
+    def data_size(self):        return self.dataSize
+    def data_offset(self):      return self.file_offset + self.HEADER_SIZE
+    def data_end_offset(self):  return self.file_offset + self.record_size()
 
     def go_data(self, fd):
-        '''Jump the fd to the data offset.
-        Returns data length.
-        '''
-        fd.seek(self.file_offset + HEADER_STRUCT.size)
-        return self.dataSize
+        fd.seek(self.data_offset())
+        return self.data_size()
 
     def read_data(self, fd):
-        fd.seek(self.file_offset + HEADER_STRUCT.size)
-        return fd.read(self.dataSize)
+        self.go_data(fd)
+        return fd.read(self.data_size())
 
-    def skip_past(self, fd):
-        fd.seek(self.file_offset + HEADER_STRUCT.size + self.dataSize)
+    def skip(self, fd):
+        fd.seek(self.data_end_offset())
 
-    def read_fields(self, fd):
-        if self.flags & self.F_COMPRESSED:
-            raise Warning, "No reading of compressed data yet."
-            return
+    def has_fields(self): return False
+    def has_subrecords(self): return False
 
-        end_offset = self.data_end_offset()
-        fd.seek(self.data_offset())
-
-        prev_field = None
-        while fd.tell() < end_offset:
-            field = Field.read(fd)
-            #if prev_field
-            yield field
-            prev_field = field
-            fd.seek(field.file_offset + field_header_struct.size + field.dataSize)
-
+class Record(BaseRecord):
     F_MASTER    = 0x01
     F_DELETED   = 0x20
     F_SHIELDS   = 0x40
@@ -98,45 +89,99 @@ class Record(object):
     F_COMPRESSED =0x40000
     F_NO_WAIT   = 0x80000
 
+    def __repr__(self):
+        return "<%s %s at %s>" % (self.__class__.__name__, getattr(self, "type", "None"), id(self))
+
     def flag_list(self):
         return [fname for (fname, mask) in self.__FLAGS__.items()
                         if self.flags & mask]
 
-def make_flag_defrag():
-    Record.__FLAGS__ = dict((k,v) for (k,v) in Record.__dict__.items() if k.startswith('F_'))
+    def has_subrecords(self): return True
+    def has_fields(self):   return True
 
-make_flag_defrag()
+    def read_fields(self, fd):
+        if self.flags & self.F_COMPRESSED:
+            #raise Warning, "No reading of compressed data yet."
+            self.skip(fd)
+            return
+
+        end_offset = self.data_end_offset()
+        fd.seek(self.data_offset())
+
+        prev_field = None
+        while fd.tell() < end_offset:
+            field = Field.read(fd)
+            #if prev_field
+            yield field
+            prev_field = field
+            field.skip(fd)
+
+Record.__FLAGS__ = dict((fk,fv) for (fk,fv) in Record.__dict__.items() if fk.startswith('F_'))
+
+@record_type('GRUP')
+class Group(BaseRecord):
+    HEADER_STRUCT = struct.Struct("<I4BI4H")
+    HEADER_SIZE = HEADER_STRUCT.size + 4
+
+    def read_header(self, fd):
+        self.label = [0, 0, 0, 0]
+        (self.groupSize,
+        self.label[0], self.label[1], self.label[2], self.label[3],
+        self.groupType,
+        self.stamp,
+        self.unknown1,
+        self.version,
+        self.unknown2) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+
+    def record_size(self):  return self.groupSize
+    def data_size(self):    return self.groupSize - self.HEADER_SIZE
+    def flag_list(self):    return [] # TODO
+    def has_subrecords(self): return True
+    def has_fields(self): return False
+    def read_fields(self, fd): return []
+
+    def __repr__(self):
+        return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
 
-field_header_struct = struct.Struct("4sH")
-class Field:
+class Field(BaseRecord):
+    HEADER_STRUCT = struct.Struct("<H")
+    HEADER_SIZE = HEADER_STRUCT.size + 4
+
     @staticmethod
     def read(fd):
-        f = Field()
-        f.file_offset = fd.tell()
-        (f.type, f.dataSize) = field_header_struct.unpack(fd.read(field_header_struct.size))
-        return f
-    def read_data(self, fd):
-        fd.seek(self.file_offset + field_header_struct.size)
-        return fd.read(self.dataSize)
+        rec = Field()
+        rec.file_offset = fd.tell()
+        rec.type, = st_unpack("4s", fd.read(4))
+        rec.read_header(fd)
+        return rec
+
+    def read_header(self, fd):
+        self.dataSize, = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+
+    def __repr__(self):
+        return "<Field %s>" % (getattr(self, "type", "None"))
+
 
 @record_type('TES4')
 class TES4(Record):
     pass
 
-
 def test_read(plugin):
     with plugin.open() as plug:
         while True:
             rec = Record.read_from(plug)
-            print "=== RECORD %s: id %s ===" % (rec.type, rec.id)
-            print "flags:", rec.flag_list()
+            print "=== %s: size %s ===" % (rec, rec.record_size())
+            flag_list = rec.flag_list()
+            if flag_list:
+                print "flags:", ", ".join(flag_list)
             for f in rec.read_fields(plug):
                 print "F:", f.type, repr(f.read_data(plug))
-            rec.skip_past(plug)
+            if not rec.has_subrecords():
+                rec.skip(plug)
 
 if __name__ == '__main__':
     game = game_.Skyrim()
-    #plugin = game.plugins.get(game.MASTER_PLUGIN)
-    plugin = game.plugins.get("zs - npc - Cass.esp")
+    plugin = game.plugins.get(game.MASTER_PLUGIN)
+    plugin = game.plugins.get("LevelersTower.esm")
     test_read(plugin)
