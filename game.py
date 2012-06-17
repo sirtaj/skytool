@@ -126,34 +126,6 @@ class Plugin:
     def open(self, mode='rb'):
         return open(self.full_path, mode)
         
-
-
-class TesType(object): pass
-
-class uint8(TesType): pass
-    
-class uint16(TesType): pass
-class uint32(TesType): pass
-class uint64(TesType): pass
-
-class String(TesType): pass
-
-class Float(TesType): pass
-class Data(TesType): pass
-
-class Records(object):
-    def __init__(self):
-        self.records = []
-
-class BaseRecord(object):
-    '''
-    '''
-
-class Record(BaseRecord): pass
-class Subrecord(BaseRecord): pass
-class Group(BaseRecord): pass
-class Element(BaseRecord): pass
-
 ### Specific plugins
 
 class PluginASIS(Plugin):
