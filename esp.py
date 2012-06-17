@@ -22,6 +22,7 @@ def record_type(rec_tag):
 
 
 class BaseRecord(object):
+    # Read constructor for all record subclasses
     @staticmethod
     def read_from(fd):
         record_offset = fd.tell()
@@ -34,28 +35,24 @@ class BaseRecord(object):
             print "Fail read header at:", repr(typed)
             raise
 
-        rc_class = RECORD_TYPES.get(rec_type, Record)
+        #rc_class = RECORD_TYPES.get(rec_type, Record)
+        rc_class = RECORD_TYPES[rec_type]
         rec = rc_class()
         rec.type = rec_type
         rec.file_offset = record_offset
         rec.read_header(fd)
         return rec
 
-    HEADER_STRUCT = struct.Struct("<4I2H")
-    HEADER_SIZE = HEADER_STRUCT.size + 4
-
-    def read_header(self, fd):
-        (self.dataSize,
-         self.flags,
-         self.id,
-         self.revision,
-         self.version,
-         self.unknown) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
-
+    ## Concrete subclasses should override
+    def read_header(self, fd):  raise NotImplementedError
+    def has_subrecords(self):       return False
+    def has_subrecords(self):   return False
     def record_size(self):      return self.HEADER_SIZE + self.dataSize
     def data_size(self):        return self.dataSize
     def data_offset(self):      return self.file_offset + self.HEADER_SIZE
     def data_end_offset(self):  return self.file_offset + self.record_size()
+
+    ## Convenience functions - common
 
     def go_data(self, fd):
         fd.seek(self.data_offset())
@@ -68,35 +65,23 @@ class BaseRecord(object):
     def skip(self, fd):
         fd.seek(self.data_end_offset())
 
-    def has_fields(self): return False
-    def has_subrecords(self): return False
 
 class Record(BaseRecord):
-    F_MASTER    = 0x01
-    F_DELETED   = 0x20
-    F_SHIELDS   = 0x40
-    F_LOCALIZED = 0x80
-    F_HIDDEN    = 0x200 # REFR
-    F_DEAD      = 0x200 # ACHR
-    F_QUEST_ITEM= 0x400
-    F_MENU_DISLAY= F_QUEST_ITEM # # LSCR
-    F_INITIALLY_DISABLED = 0x800
-    F_IGNORED   = 0x1000
-    F_DANGEROUS = 0x20000 # CELL
-    F_COMPRESSED =0x40000
-    F_NO_WAIT   = 0x80000
+    HEADER_STRUCT = struct.Struct("<4I2H")
+    HEADER_SIZE = HEADER_STRUCT.size + 4
 
-    def __repr__(self):
-        return "<%s %s at %s>" % (self.__class__.__name__, getattr(self, "type", "None"), id(self))
-
-    def flag_list(self):
-        return [fname for (fname, mask) in self.__FLAGS__.items()
-                        if self.flags & mask]
+    def read_header(self, fd):
+        (self.dataSize,
+         self.flags,
+         self.record_id,
+         self.revision,
+         self.version,
+         self.unknown) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
 
     def has_subrecords(self): return True
-    def has_fields(self):   return True
+    def has_subrecords(self):   return True
 
-    def read_fields(self, fd):
+    def read_subrecords(self, fd):
         if self.flags & self.F_COMPRESSED:
             #raise Warning, "No reading of compressed data yet."
             self.skip(fd)
@@ -105,15 +90,40 @@ class Record(BaseRecord):
         end_offset = self.data_end_offset()
         fd.seek(self.data_offset())
 
-        prev_field = None
+        prev_subrecord = None
         while fd.tell() < end_offset:
-            field = Field.read(fd)
-            #if prev_field
-            yield field
-            prev_field = field
-            field.skip(fd)
+            subrecord = Subrecord.read(fd)
+            #if prev_subrecord
+            yield subrecord
+            prev_subrecord = subrecord
+            subrecord.skip(fd)
+
+    F_MASTER    = 0x01
+    F_DELETED   = 0x20
+    F_SHIELDS   = 0x40
+    F_LOCALIZED = 0x80
+    F_HIDDEN    = 0x200 # REFR
+    F_DEAD      = 0x200 # ACHR
+    F_QUEST_ITEM= 0x400
+    F_MAIN_MENU_DISPLAY= F_QUEST_ITEM # # LSCR
+    F_INITIALLY_DISABLED = 0x800
+    F_IGNORED   = 0x1000
+    F_DANGEROUS = 0x20000 # CELL
+    F_COMPRESSED =0x40000
+    F_NO_WAIT   = 0x80000
+
+    def __repr__(self):
+        return "<%s %s at %08X>" % (self.__class__.__name__,
+                                getattr(self, "type", "None"),
+                                getattr(self, "record_id", 0))
+
+    def flag_list(self):
+        return [fname for (fname, mask) in self.__FLAGS__.items()
+                        if self.flags & mask]
+
 
 Record.__FLAGS__ = dict((fk,fv) for (fk,fv) in Record.__dict__.items() if fk.startswith('F_'))
+
 
 @record_type('GRUP')
 class Group(BaseRecord):
@@ -134,51 +144,81 @@ class Group(BaseRecord):
     def data_size(self):    return self.groupSize - self.HEADER_SIZE
     def flag_list(self):    return [] # TODO
     def has_subrecords(self): return True
-    def has_fields(self): return False
-    def read_fields(self, fd): return []
+    def has_subrecords(self): return False
+    def read_subrecords(self, fd): return []
 
     def __repr__(self):
         return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
-
 class ChildGroup: pass
 
-class Field(BaseRecord):
+class Subrecord(BaseRecord):
     HEADER_STRUCT = struct.Struct("<H")
     HEADER_SIZE = HEADER_STRUCT.size + 4
 
     @staticmethod
     def read(fd):
-        rec = Field()
+        rec = Subrecord()
         rec.file_offset = fd.tell()
         rec.type, = st_unpack("4s", fd.read(4))
         rec.read_header(fd)
         return rec
 
     def read_header(self, fd):
-        self.dataSize, = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+        self.dataSize, = self.HEADER_STRUCT.unpack(
+            fd.read(self.HEADER_STRUCT.size))
 
     def __repr__(self):
-        return "<Field %s>" % (getattr(self, "type", "None"))
+        return "<Subrecord %s>" % (getattr(self, "type", "None"))
+
+class Scalar(SubRecord):
+    # single data value
+class Struct(SubRecord):
+    # named sequence of data values of individual type
+
+class Sequence(SubRecord):
+    # sequence of homogenuous data values
+
+## Data types
+class DataValue: pass
+class Blob(DataValue): pass
+
+class CharSequence(DataValue): pass
+class Str4(CharSequence): pass
+class String(CharSequence): pass
+class LString(CharSequence): pass
+
+class Number(DataValue): pass
+class Byte(Number): pass
+class UnsignedByte(Number): pass
+class UnsignedInteger(Number): pass
+class Integer(Number): pass
+class UnsignedShort(Number): pass
+class Short(Number): pass
+class Float(Number): pass
+
+class FormId(DataValue): pass
+class Reference(FormId): pass
+class OwnedReference(FormId): pass
 
 
 def test_read(plugin):
-    with plugin.open() as plug:
+    with plugin.open() as fd:
         while True:
-            rec = Record.read_from(plug)
+            rec = Record.read_from(fd)
             if rec is None: break
 
             print "=== %s: size %s ===" % (rec, rec.record_size())
             flag_list = rec.flag_list()
             if flag_list:
                 print "flags:", ", ".join(flag_list)
-            for f in rec.read_fields(plug):
-                print "F:", f.type, repr(f.read_data(plug))
+            for f in rec.read_subrecords(fd):
+                print "F:", f.type, repr(f.read_data(fd))
             if not rec.has_subrecords():
-                rec.skip(plug)
+                rec.skip(fd)
 
 if __name__ == '__main__':
     game = game_.Skyrim()
-    plugin = game.plugins.get(game.MASTER_PLUGIN)
+    #plugin = game.plugins.get(game.MASTER_PLUGIN)
     plugin = game.plugins.get("LevelersTower.esm")
     test_read(plugin)
