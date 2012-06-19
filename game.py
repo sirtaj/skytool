@@ -6,7 +6,8 @@ import os, os.path
 path_join = os.path.join
 
 class Game:
-    def __init__(self):
+    def __init__(self, name = None):
+        self.name = name or self.__class__.__name__
         self.install_path = self.get_game_path()
         self.data_path = self.install_path + "Data"
         self.user_data_path = self.get_user_data_path()
@@ -141,10 +142,11 @@ class PluginASIS(Plugin):
         finally:
             os.chdir(old_cwd)
 
+
 ##############
 if __name__ == '__main__':
     game = Skyrim()
-    print game.install_path
+    print game.name, "is installed in", game.install_path
     print game.user_data_path
     for (order, p) in enumerate(game.plugins):
         print "%02X" % order, p.name,":\t", p.active, p.exists()
