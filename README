@@ -1,0 +1,37 @@
+
+Skytools WIP
+============
+
+
+EARLY GOAL
+==========
+
+The early goal is to create an easy pythonic object model for Skyrim ESP and
+ESM files.  This includes transparent read, write and safe modification. The
+model should also contain enough reflection capability to allow code to
+generate views and transforms of the model through metadata alone.
+
+Since the most complete machine-parseable specification of the file format is
+currently the RecordStructure.xml file shipped with TESVsnip, I'm using this to
+generate the python model heuristically.
+
+Once the model is complete, the plan is to analyze the subrecord structure to
+identify common patterns and groups of subrecords. This will be used to
+generate a better inheritance structure for records and to identify hidden
+abstract record classes.
+
+
+INTERMEDIATE GOAL
+=================
+
+Use the object model to allow easy creation of one-off modding operations such
+as merging, splitting, cleaning, and automatic generation of records like
+leveled lists and actors. With enough support from the python object model,
+this should be relatively straightforward.
+
+
+LEGAL
+=====
+
+Copyright Sirtaj Singh Kang, 2012
+All code and artifacts currently released under the terms of the LGPL.
