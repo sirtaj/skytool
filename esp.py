@@ -10,11 +10,10 @@ EMPTY_GROUP_RECORDS = '''CLDC HAIR RGDL SCPT SCOL PWAT'''.strip().split()
 def record_type(rec_tag):
     def tag_record_class(klazz):
         if rec_tag in RECORD_TYPES:
-            raise AssertionError, ("trying to register %s for existing tag %s, mapped to %s" %
+            raise AssertionError,  \
+                ("trying to register %s for existing tag %s, mapped to %s" %
                             (rec_tag, klazz, RECORD_TYPES[rec_tag]))
         RECORD_TYPES[rec_tag] = klazz
-        #if rec_tag not in KNOWN_TAGS:
-        #    raise Warning, "Setting %s to unknown record tag %s" % (klazz, rec_tag)
         klazz.___REC___ = rec_tag
 
         return klazz
@@ -35,7 +34,6 @@ class BaseRecord(object):
             print "Fail read header at:", repr(typed)
             raise
 
-        #rc_class = RECORD_TYPES.get(rec_type, Record)
         rc_class = RECORD_TYPES[rec_type]
         rec = rc_class()
         rec.type = rec_type
@@ -54,12 +52,12 @@ class BaseRecord(object):
 
     ## Convenience functions - common
 
-    def go_data(self, fd):
+    def seek_data(self, fd):
         fd.seek(self.data_offset())
         return self.data_size()
 
     def read_data(self, fd):
-        self.go_data(fd)
+        self.seek_data(fd)
         return fd.read(self.data_size())
 
     def skip(self, fd):
@@ -76,9 +74,10 @@ class Record(BaseRecord):
          self.record_id,
          self.revision,
          self.version,
-         self.unknown) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+         self.unknown) = self.HEADER_STRUCT.unpack(
+                fd.read(self.HEADER_STRUCT.size))
 
-    def has_subrecords(self): return True
+    def has_subrecords(self):   return True
     def has_subrecords(self):   return True
 
     def read_subrecords(self, fd):
