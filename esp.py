@@ -149,7 +149,7 @@ class Group(BaseRecord):
     def __repr__(self):
         return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
-class ChildGroup: pass
+class AttributeGroup: pass
 
 class Subrecord(BaseRecord):
     HEADER_STRUCT = struct.Struct("<H")
@@ -170,17 +170,23 @@ class Subrecord(BaseRecord):
     def __repr__(self):
         return "<Subrecord %s>" % (getattr(self, "type", "None"))
 
-class Scalar(SubRecord):
+class Scalar(Subrecord):
     # single data value
-class Struct(SubRecord):
-    # named sequence of data values of individual type
+    pass
 
-class Sequence(SubRecord):
+class Struct(Subrecord):
+    # named sequence of data values of individual type
+    pass
+
+class Sequence(Subrecord):
     # sequence of homogenuous data values
+    pass
 
 ## Data types
 class DataValue: pass
 class Blob(DataValue): pass
+
+class NoValue(DataValue): pass # Null/zero size data
 
 class CharSequence(DataValue): pass
 class Str4(CharSequence): pass
@@ -199,6 +205,36 @@ class Float(Number): pass
 class FormId(DataValue): pass
 class Reference(FormId): pass
 class OwnedReference(FormId): pass
+
+
+class FilePath: pass
+class Color: pass
+class Point3D: pass
+class Line3D: pass
+class Box3D: pass
+class Text(String): pass
+
+#########
+
+
+class AttributeBase(object):
+    def __init__(self, record_tag, desc, data_type, size,
+                    nullable = False): pass
+class Attribute(AttributeBase): pass
+
+class SingleSelect(Attribute): pass
+class MultiSelect(Attribute): pass
+
+class AttributeSequence(AttributeBase): pass
+
+class SingleSelectSequence(AttributeSequence): pass
+class MultiSelectSequence(AttributeSequence): pass
+
+
+class ReferenceAttributeBase(AttributeBase): pass
+class Reference(ReferenceAttributeBase): pass
+class ReferenceSequence(ReferenceAttributeBase): pass
+
 
 
 def test_read(plugin):
