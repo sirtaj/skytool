@@ -44,29 +44,49 @@ class ModFilterModel(qg.QSortFilterProxyModel):
             self.invalidateFilter()
 
     def filterAcceptsRow(self, source_row, source_parent):
+
         if not self.enabled:
             return True
 
         sm = self.sourceModel()
+        source_index = sm.index
+        source_path = sm.filePath
 
-        sub_idx = sm.index(source_row, 0, source_parent)
-        filename = str(sm.filePath( sub_idx )).lower()
+        sub_idx = source_index(source_row, 0, source_parent)
+        filename = unicode(source_path( sub_idx )).lower()
+
         if (len(filename) <= self.base_len):
             return True
+        filename = filename[self.base_len:]
 
-        if sm.isDir(sub_idx):
+        if filename in self.mod_log.data_files:
+            return False
+
+        if filename not in self.mod_log.contained_dirs:
             return True
 
-        return filename[self.base_len:] not in self.mod_log.data_files
+        if not sm.isDir(sub_idx):
+            return True
+
+        # its a directory that has mods and _possibly_ non-mod files.
+        sm.fetchMore(sub_idx)
+        if not sm.hasChildren(sub_idx):
+            return False
+
+        for row in range(sm.rowCount(sub_idx)):
+            if self.filterAcceptsRow(row, sub_idx):
+                return True
+
+        return False
 
 
 class GameDataFolderModel(qg.QFileSystemModel):
     pass
 
 
-class App(qc.QObject):
+class App:
     def __init__(self):
-        super(qc.QObject, self).__init__()
+        #super(qc.QObject, self).__init__()
 
         self.game = None
         self.nexus = None
@@ -83,6 +103,8 @@ class App(qc.QObject):
         self.mods = Nexus(self.game)
 
         self.mods.parse_install()
+        print "DIRS:"
+        print sorted(self.mods.mod_log.contained_dirs.keys())
 
         self.run_base = find_run_base()
         self.app, self.ui = self.create_gui(self.run_base)
@@ -124,5 +146,4 @@ class App(qc.QObject):
 
 
 if __name__ == '__main__':
-    app = App()
-    app.run()
+    App().run()
