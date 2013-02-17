@@ -59,6 +59,11 @@ path_join = os.path.join
 path_exists = os.path.exists
 
 
+def all_super_dirs(fname, sep='/'):
+    dir_parts = fname.split(sep)[:-1]
+    for count in range(len(dir_parts)):
+        yield '/'.join(dir_parts[:count+1])
+
 
 class ModLog:
     def __init__(self, nexus):
@@ -71,17 +76,11 @@ class ModLog:
         self.mods[mod.key] = mod
 
     def add_data_file(self, data_file):
-        df_idx = data_file.path.lower().replace("\\", '/')
+        df_idx = data_file.path.lower().replace('\\', '/')
+
         self.data_files[df_idx] = data_file
-
+        self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
         
-        '''dirs = []
-        for part in df_idx.split('.')[:-1]:
-            dirs.append(part)
-            self.contained_dirs[ '/'.join(dirs)'''
-
-
-
 
 class Mod(FileSource):
     def __init__(self, name, key, path, version, install_date):
