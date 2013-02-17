@@ -1,45 +1,93 @@
 
+'''
+Tools for loading Nexus Mod Manager file install history
+and comparing it with the data folder of an installed TES game.
 
-import game
 
-import os, os.path, re, datetime
+Known "distribution" Skyrim Data files (incomplete!)
+----------------------------------------------------
+
+Skyrim.esm
+
+Update.bsa
+Update.esm
+
+Skyrim - Textures.bsa
+Skyrim - Sounds.bsa
+Skyrim - Shaders.bsa
+Skyrim - Misc.bsa
+Skyrim - Meshes.bsa
+Skyrim - Interface.bsa
+Skyrim - Animations.bsa
+Skyrim - VoicesExtra.bsa
+Skyrim - Voices.bsa
+Skyrim - Textures.bsa
+Skyrim - Textures.bsa
+
+HighResTexturePack01.bsa
+HighResTexturePack01.esp
+
+HighResTexturePack02.bsa
+HighResTexturePack02.esp
+
+Video (folder)
+    BGS_Logo.bik
+
+Interface (folder)
+    Translate_ENGLISH.txt
+
+Strings (folder)
+    Update_English.STRINGS
+    Update_English.ILSTRINGS
+    Update_English.DLSTRINGS
+    Skyrim_English.STRINGS
+    Skyrim_English.ILSTRINGS
+    Skyrim_English.DLSTRINGS
+
+Scripts
+
+Scripts/Source
+
+'''
+
+from files import FileSource
+from game import Skyrim
+
+from datetime import datetime
+import os, os.path, re
 path_join = os.path.join
 path_exists = os.path.exists
 
-nexus_time_re = re.compile(r'^(?P<month>\d+)/(?P<day>\d+)/(?P<year>\d+)\s+(?P<hour>\d+):(?P<min>\d+):(?P<sec>\d+)\s+(?P<tod>AM|PM)$')
 
-
-def parse_nexus_time(text_stamp):
-    m = nexus_time_re.match(text_stamp)
-    if not m:
-        return None
-
-    d = (month, day, year, hour, minu, sec) = tuple(int(v) for v in m.group(1,2,3,4,5,6))
-
-    hour %= 12
-    if m.group('tod') == 'PM':
-        hour += 12
-
-    return datetime.datetime(year, month, day, hour, minu, sec)
 
 class ModLog:
     def __init__(self, nexus):
         self.nexus = nexus
         self.mods = {}
-        self.data_files = {}
+        self.data_files = {} # relative data file name -> DataFile Object
+        self.contained_dirs = {}
 
-    def add_mod(self, key, mod):
-        self.mods[key] = mod
+    def add_mod(self, mod):
+        self.mods[mod.key] = mod
 
     def add_data_file(self, data_file):
-        self.data_files[data_file.path.lower()] = data_file
+        df_idx = data_file.path.lower().replace("\\", '/')
+        self.data_files[df_idx] = data_file
+
+        
+        '''dirs = []
+        for part in df_idx.split('.')[:-1]:
+            dirs.append(part)
+            self.contained_dirs[ '/'.join(dirs)'''
 
 
 
-class Mod:
-    def __init__(self, name, path, version, install_date):
-        self.name = name
-        self.path = path
+
+class Mod(FileSource):
+    def __init__(self, name, key, path, version, install_date):
+        FileSource.__init__(self, name, path)
+
+        self.key = key
         self.version = version
         self.install_date = install_date
 
@@ -49,95 +97,110 @@ class DataFile:
         self.path = path
         self.installing_mods = installing_mods
 
-
     F_OK = 0
     F_MISSING = 1
     F_CHANGED = 2
 
 
 class Nexus:
-    def __init__(self):
-        self.sky = game.Skyrim()
-        self.install_log_path = path_join(self.sky.install_path, 'Install Info', 'InstallLog.xml')
+    def __init__(self, game):
+        self.game = game or Skyrim()
+        self.install_log_path = path_join(self.game.install_path, 'Install Info', 'InstallLog.xml')
+        self.mod_respository = path_join(self.game.install_path, 'Mods')
         self.mod_log = ModLog(self)
 
     def parse_install(self):
         from xml.etree.ElementTree import parse as xml_parse
         log = self.mod_log
 
-        tree = xml_parse(self.install_log_path)
+        tree = xml_parse(self.install_log_path).getroot()
+        self.parse_mods(tree, log)
+        self.parse_files(tree, log)
 
+    def parse_mods(self, root, log):
         # installed mods
-        for mod_el in tree.getroot().find('modList').iterfind('mod'):
-            log.add_mod( mod_el.get('key'),
-                        Mod( mod_el.find('name').text,
+        for mod_el in root.find('modList').iterfind('mod'):
+            log.add_mod(Mod( mod_el.find('name').text,
+                            mod_el.get('key'),
                             mod_el.get('path'),
                             mod_el.find('version'),
-                            parse_nexus_time(mod_el.find('installDate').text)))
+                            self.parse_timestamp(mod_el.find('installDate').text)))
 
-
+    def parse_files(self, root, log):
         # installed files
-        for f_el in tree.getroot().find('dataFiles').iterfind('file'):
-            dfile = DataFile( f_el.get('path'),
+        for f_el in root.find('dataFiles').iterfind('file'):
+            log.add_data_file(DataFile( f_el.get('path'),
                                 [log.mods[k.get('key')]
-                                    for k in f_el.find('installingMods').iterfind('mod')])
-            log.add_data_file(dfile)
+                                    for k in f_el.find('installingMods').iterfind('mod')]))
 
 
+    def full_path(self, data_file):
+        return path_join(self.game.install_path, data_file.path)
 
-    def full_path(self, data_file ):
-        return path_join(self.sky.install_path, data_file.path)
-
-    def verify_file(self, data_file):
+    def file_exists(self, data_file):
         return path_exists(self.full_path(data_file))
 
+    @staticmethod
+    def parse_timestamp(stamp,
+                _match = re.compile(r'^(\d+)/(\d+)/(\d+)\s+(\d+):(\d+):(\d+)\s+(AM|PM)$').match):
+        m = _match(stamp)
+        if not m: return None
 
-# queries
+        (month, day, year, hour, minu, sec) = (int(v) for v in m.group(1,2,3,4,5,6))
 
-def missing_files(nexus):
-    verify = n.verify_file
+        hour %= 12
+        if m.group(7) == 'PM':
+            hour += 12
 
-    for df in nexus.mod_log.data_files.itervalues():
-        if not verify(df):
-            print [m.name for m in df.installing_mods], df.path
-
-
-def unhandled_files(nexus, data_only = True):
-    if data_only:
-        root = nexus.sky.data_path
-    else:
-        root = nexus.sky.install_path
-    root_len = len(nexus.sky.install_path)
-    d_files = nexus.mod_log.data_files
-
-    total_files = 0
-    unmanaged_files = 0
+        return datetime(year, month, day, hour, minu, sec)
 
 
-    for (dirpath, dirnames, filenames) in os.walk(root):
-        rel_pfx = dirpath[root_len:]
-        for fnam in filenames:
-            total_files += 1
-            rel_name = path_join(rel_pfx, fnam)
-            if rel_name.lower() not in d_files:
-                unmanaged_files += 1
-                yield rel_name
+    #### Queries
 
-    print 'files: total:', total_files, 'unmanaged:', unmanaged_files
+    def untracked_files(self, data_only = True):
+        game = self.game
+        root = game.data_path if data_only else game.install_path
+        root_len = len(game.install_path)
+        d_files = self.mod_log.data_files
 
+        total_files = 0
+        total_untracked = 0
+
+
+        for (dirpath, dirnames, filenames) in os.walk(root):
+            rel_pfx = dirpath[root_len:]
+            for fnam in filenames:
+                total_files += 1
+                rel_name = path_join(rel_pfx, fnam)
+                if rel_name.lower() not in d_files:
+                    total_untracked += 1
+                    yield rel_name
+
+        print 'files: total:', total_files, 'untracked:', total_untracked
+
+
+    def missing_files(self):
+        verify = self.file_exists
+
+        for df in self.mod_log.data_files.itervalues():
+            if not verify(df):
+                print [m.name for m in df.installing_mods], df.path
 
 # Main
 
-def run():
+def test_run():
     n = Nexus()
-    n.parse_install()
-    # report
-    print 'Found', len(n.mod_log.mods), 'mods'
-    print 'Found', len(n.mod_log.data_files), 'files'
 
-    for uf in unhandled_files(n):
-        print uf
+    print "loading..."
+    n.parse_install()
+    print 'Mods:', len(n.mod_log.mods)
+    print 'Files:', len(n.mod_log.data_files)
+
+    print "untracked files:"
+    for uf in n.untracked_files(n):
+        print '\t', uf
+
 
 
 if __name__ == '__main__':
-    run()
+    test_run()
