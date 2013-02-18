@@ -9,7 +9,7 @@ from qutil import qmicro
 
 def find_run_base():
     for pth in reversed(sys.path):
-        if os.path.exists(os.path.join(pth, 'gui', 'skytool.ui')):
+        if os.path.exists(os.path.join(pth, "..", 'gui', 'skytool.ui')):
             return pth
     
     raise Exception, "Application run base directory not found."
@@ -103,8 +103,6 @@ class App:
         self.mods = Nexus(self.game)
 
         self.mods.parse_install()
-        print "DIRS:"
-        print sorted(self.mods.mod_log.contained_dirs.keys())
 
         self.run_base = find_run_base()
         self.app, self.ui = self.create_gui(self.run_base)
@@ -116,13 +114,12 @@ class App:
 
     def create_gui(self, run_dir):
         app = qg.QApplication(sys.argv)
-        ui = uic.loadUi(os.path.join(run_dir, 'gui', 'skytool.ui'))
+        ui = uic.loadUi(os.path.join(run_dir, "..", 'gui', 'skytool.ui'))
         ui.show()
 
         return app, ui
 
     def populate_file_tree(self):
-        print "start"
         tree = self.ui.dataFileBrowser
 
         mod = self.df_model = qg.QFileSystemModel(tree)
