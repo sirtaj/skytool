@@ -4,50 +4,6 @@ Tools for loading Nexus Mod Manager file install history
 and comparing it with the data folder of an installed TES game.
 
 
-Known "distribution" Skyrim Data files (incomplete!)
-----------------------------------------------------
-
-Skyrim.esm
-
-Update.bsa
-Update.esm
-
-Skyrim - Textures.bsa
-Skyrim - Sounds.bsa
-Skyrim - Shaders.bsa
-Skyrim - Misc.bsa
-Skyrim - Meshes.bsa
-Skyrim - Interface.bsa
-Skyrim - Animations.bsa
-Skyrim - VoicesExtra.bsa
-Skyrim - Voices.bsa
-Skyrim - Textures.bsa
-Skyrim - Textures.bsa
-
-HighResTexturePack01.bsa
-HighResTexturePack01.esp
-
-HighResTexturePack02.bsa
-HighResTexturePack02.esp
-
-Video (folder)
-    BGS_Logo.bik
-
-Interface (folder)
-    Translate_ENGLISH.txt
-
-Strings (folder)
-    Update_English.STRINGS
-    Update_English.ILSTRINGS
-    Update_English.DLSTRINGS
-    Skyrim_English.STRINGS
-    Skyrim_English.ILSTRINGS
-    Skyrim_English.DLSTRINGS
-
-Scripts
-
-Scripts/Source
-
 '''
 
 from files import FileSource, all_super_dirs
