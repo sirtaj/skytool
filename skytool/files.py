@@ -8,7 +8,16 @@ Contained files can have arbitrary metadata added.
 
 import os, os.path
 
-path_join=os.path.join
+path_join = os.path.join
+path_exists = os.path.exists
+
+def all_super_dirs(fname, sep='/'):
+    '''Sequence of all subpaths that make up the path to the filename.
+    Filename itself (last part of fname) is assumed to be a file and ignored.
+    '''
+    dir_parts = fname.split(sep)[:-1]
+    for count in range(len(dir_parts)):
+        yield '/'.join(dir_parts[:count+1])
 
 
 class FileTree:
@@ -78,9 +87,6 @@ class MetadataOverlay:
     def get(self, file_entry, key):
         return file_entry.metadata.get(self.keys_complete[key], self.defaults[key])
 
-
-
-from os.path import exists as path_exists
 
 
 class PhysicalFileTree(FileTree):

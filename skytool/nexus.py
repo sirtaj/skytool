@@ -50,19 +50,14 @@ Scripts/Source
 
 '''
 
-from files import FileSource
+from files import FileSource, all_super_dirs
 from game import Skyrim
 
 from datetime import datetime
 import os, os.path, re
+
 path_join = os.path.join
 path_exists = os.path.exists
-
-
-def all_super_dirs(fname, sep='/'):
-    dir_parts = fname.split(sep)[:-1]
-    for count in range(len(dir_parts)):
-        yield '/'.join(dir_parts[:count+1])
 
 
 class ModLog:
