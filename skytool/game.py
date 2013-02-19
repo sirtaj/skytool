@@ -11,7 +11,7 @@ class Game:
         self.install_path = self.get_game_path()
         self.data_path = self.install_path + "Data"
         self.user_data_path = self.get_user_data_path()
-        self.plugins = Plugins(self)
+        self.plugins = self.get_plugins()
 
     def get_game_path(self, key = None):
         import _winreg
@@ -23,14 +23,28 @@ class Game:
     def get_user_data_path(self):
         return path_join(os.getenv("LOCALAPPDATA"), self.USER_SUBPATH)
 
+    def get_plugins(self):
+        raise NotImplementedError
+
 
 class Skyrim(Game):
     REG_GAME_PATH = ("Software\\Bethesda Softworks\\Skyrim", "Installed Path")
     USER_SUBPATH = "Skyrim"
     MASTER_PLUGIN = "Skyrim.esm"
 
+    def get_plugins(self):
+        return Plugins(self)
+
+
+#########
 
 class Plugins:
+    '''Represents ESP/ESP plugins registered and enabled with the game.
+
+    Alows reading and writing of the load order.
+
+    Currently this is implemented for Skyrim (new style loadorder.txt) only.
+    '''
     def __init__(self, game):
         self.game = game
         self.loadorder_path = path_join(game.user_data_path, self.ORDER_FILE)
@@ -95,6 +109,7 @@ class Plugins:
     def __iter__(self):
         return iter(self.by_order)
 
+
 ########### ES* Files
 
 class Plugin:
@@ -141,6 +156,7 @@ class PluginASIS(Plugin):
             os.chdir(run_path)
         finally:
             os.chdir(old_cwd)
+
 
 
 ##############
