@@ -77,7 +77,7 @@ class App(qc.QObject):
             root_idx = tree_model.setRootPath( self.game.install_path )
 
             tree_model = ModFilterModel(self.game,
-                                        self.mod_collection.mod_log, 
+                                        self.mod_collection,
                                         tree_model,
                                         parent = tree)
             root_idx = tree_model.mapFromSource( root_idx )

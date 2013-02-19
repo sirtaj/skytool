@@ -16,28 +16,6 @@ path_join = os.path.join
 path_exists = os.path.exists
 
 
-class ModLog:
-    def __init__(self, nexus):
-        self.nexus = nexus
-        self.mods = {}
-        self.data_files = {} # relative data file name -> DataFile Object
-        self.contained_dirs = {}
-
-    def add_mod(self, mod):
-        self.mods[mod.key] = mod
-
-    def add_data_file(self, data_file):
-        df_idx = data_file.path.lower().replace('\\', '/')
-
-        self.data_files[df_idx] = data_file
-        self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
-
-    def has_dir(self, relative_path):
-        return relative_path in self.contained_dirs
-
-    def has_file(self, relative_path):
-        return relative_path in self.data_files
-
 class Mod(FileSource):
     def __init__(self, name, key, path, version, install_date):
         FileSource.__init__(self, name, path)
@@ -57,36 +35,90 @@ class DataFile:
     F_CHANGED = 2
 
 
-class Nexus:
+class ModCollection(object):
     def __init__(self, game):
-        self.game = game or Skyrim()
+        self.game = game
+
+    def parse_install(self):
+        '''Update information on available and installed mods.
+
+        This is a separate method since it's expected to be slow.
+
+        Users of the collection should assume that info is not available until this is
+        called.
+        '''
+        pass
+
+    def has_file(self, relative_path):
+        raise NotImplementedError
+
+    def has_dir(self, relative_path):
+        raise NotImplementedError
+
+
+class DumbModCollection(ModCollection):
+    '''Tracks paths with dictionaries
+    '''
+    def __init__(self, game):
+        super(DumbModCollection, self).__init__(game)
+        self.mods = {}
+        self.data_files = {}        # relative data file name -> DataFile Object
+        self.contained_dirs = {}
+
+        # implement the lookup interface
+        self.has_file = self.data_files.get
+        self.has_dir = self.contained_dirs.get
+
+    # build helpers
+
+    def add_mod(self, mod):
+        self.mods[mod.key] = mod
+
+    def add_data_file(self, data_file):
+        df_idx = data_file.path.lower().replace('\\', '/')
+
+        self.data_files[df_idx] = data_file
+        self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
+
+
+
+
+
+
+
+
+################
+
+class Nexus(DumbModCollection):
+    def __init__(self, game):
+        super(Nexus, self).__init__(game)
         self.install_log_path = path_join(self.game.install_path, 'Install Info', 'InstallLog.xml')
         self.mod_respository = path_join(self.game.install_path, 'Mods')
-        self.mod_log = ModLog(self)
 
     def parse_install(self):
         from xml.etree.ElementTree import parse as xml_parse
-        log = self.mod_log
-
         tree = xml_parse(self.install_log_path).getroot()
-        self.parse_mods(tree, log)
-        self.parse_files(tree, log)
+        self.parse_mods(tree)
+        self.parse_files(tree)
 
-    def parse_mods(self, root, log):
+    ### Loader helpers
+
+    def parse_mods(self, root):
         # installed mods
         for mod_el in root.find('modList').iterfind('mod'):
-            log.add_mod(Mod( mod_el.find('name').text,
+            self.add_mod(Mod( mod_el.find('name').text,
                             mod_el.get('key'),
                             mod_el.get('path'),
                             mod_el.find('version'),
                             self.parse_timestamp(mod_el.find('installDate').text)))
 
-    def parse_files(self, root, log):
+    def parse_files(self, root):
         # installed files
         for f_el in root.find('dataFiles').iterfind('file'):
-            log.add_data_file(DataFile( f_el.get('path'),
-                                [log.mods[k.get('key')]
+            self.add_data_file(DataFile( f_el.get('path'),
+                                [self.mods[k.get('key')]
                                     for k in f_el.find('installingMods').iterfind('mod')]))
+
 
 
     ### physical file stuff - don't use these
@@ -111,49 +143,51 @@ class Nexus:
         return datetime(year, month, day, hour, minu, sec)
 
 
-    #### Queries
 
-    def untracked_files(self, data_only = True):
-        game = self.game
-        root = game.data_path if data_only else game.install_path
-        root_len = len(game.install_path)
-        d_files = self.mod_log.data_files
+#### Queries
 
-        total_files = 0
-        total_untracked = 0
+def untracked_files(mod_collection, data_only = True):
+    game = mod_collection.game
+    root = game.data_path if data_only else game.install_path
+    root_len = len(game.install_path)
+    d_files = mod_collection.data_files
 
-
-        for (dirpath, dirnames, filenames) in os.walk(root):
-            rel_pfx = dirpath[root_len:]
-            for fnam in filenames:
-                total_files += 1
-                rel_name = path_join(rel_pfx, fnam)
-                if rel_name.lower() not in d_files:
-                    total_untracked += 1
-                    yield rel_name
-
-        print 'files: total:', total_files, 'untracked:', total_untracked
+    total_files = 0
+    total_untracked = 0
 
 
-    def missing_files(self):
-        verify = self.file_exists
+    for (dirpath, dirnames, filenames) in os.walk(root):
+        rel_pfx = dirpath[root_len:]
+        for fnam in filenames:
+            total_files += 1
+            rel_name = path_join(rel_pfx, fnam)
+            if rel_name.lower() not in d_files:
+                total_untracked += 1
+                yield rel_name
 
-        for df in self.mod_log.data_files.itervalues():
-            if not verify(df):
+    print 'files: total:', total_files, 'untracked:', total_untracked
+
+
+def missing_files(mod_collection):
+    verify = mod_collection.file_exists
+
+    for df in mod_collection.data_files.itervalues():
+        if not verify(df):
                 print [m.name for m in df.installing_mods], df.path
 
 # Main
 
 def test_run():
-    n = Nexus()
+    game = Skyrim()
+    n = Nexus(game)
 
     print "loading..."
     n.parse_install()
-    print 'Mods:', len(n.mod_log.mods)
-    print 'Files:', len(n.mod_log.data_files)
+    print 'Mods:', len(n.mods)
+    print 'Files:', len(n.data_files)
 
     print "untracked files:"
-    for uf in n.untracked_files(n):
+    for uf in untracked_files(n):
         print '\t', uf
 
 
