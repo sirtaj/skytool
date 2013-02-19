@@ -18,7 +18,7 @@ def find_resource_base():
 
 class App(qc.QObject):
     def __init__(self, parent = None):
-        super(qc.QObject, self).__init__(parent)
+        super(App, self).__init__(parent)
 
         self.game = None
         self.nexus = None
