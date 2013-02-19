@@ -3,6 +3,15 @@ import PyQt4.QtCore as qc
 import PyQt4.QtGui as qg
 from PyQt4.QtCore import SIGNAL
 
+from contextlib import contextmanager
+
+@contextmanager
+def widget_update(widget):
+    widget.setUpdatesEnabled(False)
+    yield
+    widget.setUpdatesEnabled(True)
+
+
 def qmicro(iterations=500):
      '''Qt fire-and-forget microprocess decorator.
      '''
