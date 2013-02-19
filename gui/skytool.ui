@@ -90,34 +90,59 @@
            </layout>
           </item>
           <item>
-           <widget class="QTreeView" name="dataFileBrowser">
+           <widget class="QSplitter" name="splitter">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="dragEnabled">
-             <bool>true</bool>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
-            <property name="dragDropMode">
-             <enum>QAbstractItemView::DragOnly</enum>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>true</bool>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::MultiSelection</enum>
-            </property>
-            <property name="uniformRowHeights">
-             <bool>true</bool>
-            </property>
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
-            <property name="allColumnsShowFocus">
-             <bool>true</bool>
-            </property>
+            <widget class="QListView" name="modSourceSelector">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+            <widget class="QTreeView" name="dataFileBrowser">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="dragDropMode">
+              <enum>QAbstractItemView::DragOnly</enum>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::MultiSelection</enum>
+             </property>
+             <property name="uniformRowHeights">
+              <bool>true</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="allColumnsShowFocus">
+              <bool>true</bool>
+             </property>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -252,4 +277,7 @@
  </widget>
  <resources/>
  <connections/>
+ <slots>
+  <signal>modSourceSelected(QString)</signal>
+ </slots>
 </ui>
