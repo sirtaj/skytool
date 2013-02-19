@@ -31,7 +31,12 @@ class ModLog:
 
         self.data_files[df_idx] = data_file
         self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
-        
+
+    def has_dir(self, relative_path):
+        return relative_path in self.contained_dirs
+
+    def has_file(self, relative_path):
+        return relative_path in self.data_files
 
 class Mod(FileSource):
     def __init__(self, name, key, path, version, install_date):
@@ -84,6 +89,7 @@ class Nexus:
                                     for k in f_el.find('installingMods').iterfind('mod')]))
 
 
+    ### physical file stuff - don't use these
     def full_path(self, data_file):
         return path_join(self.game.install_path, data_file.path)
 
