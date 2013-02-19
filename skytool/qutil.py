@@ -91,7 +91,7 @@ class MyThread(qc.QThread):
         self.finished.connect( self.handle_finished )
         self.terminated.connect( self.handle_finished )
 
-    def null_finish(self): pass
+    def null_finish(self, *args, **kwargs): pass
 
     def handle_finished(self):
         try:
@@ -129,14 +129,14 @@ class MyThread(qc.QThread):
         return thread
 
     @classmethod
-    def process(Cls, process_fn, on_error = None):
+    def process(Cls, process_fn):
         '''A decorator to mark a fire and forget threaded process.
         '''
         def wrapped_process(*args, **kwargs):
-            def run_it():
+            def run_process():
                 process_fn(*args, **kwargs)
 
-            Cls.one_shot(thread_fn = run_it, on_finish = None, on_error = None, parent = None)
+            Cls.one_shot(thread_fn = run_process, on_finish = None, on_error = None, parent = None)
 
         return wrapped_process
 
