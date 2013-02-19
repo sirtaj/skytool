@@ -116,10 +116,10 @@ class MyThread(qc.QThread):
             return
 
     def display_error(self, exc):
-        qc.QMessageBox.critical(
-                parent = self,
-                title = "Unhandled Error: %s" % (exc.__class__.__name__),
-                text = str(exc) )
+        qg.QMessageBox.critical(
+                self.parent(),
+                "Unhandled Error: %s" % (exc.__class__.__name__),
+                str(exc) )
 
     @classmethod
     def one_shot(Cls, thread_fn, on_finish = None, on_error = None, parent = None):
