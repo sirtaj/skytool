@@ -307,48 +307,153 @@ def match_attr_type(v, matchers = [match_float, match_int, match_csv, match_text
 ########################################################
 # Python gen
 
+#####
+# Read helpers for generated code
+
+TYPE_MAP = {
+    'ident': unicode,
+    'int' : int,
+    'text': unicode,
+    'float': float
+}
 
 
-def generate_classes(el):
-    ctor_args_self = ['self']
-    ctor_args_required = [a for a in el.required_attrs()]
-    ctor_args_optional = [("%s = None" % a) for a in el.attrs.keys() if a not in ctor_args_required]
+class typed_property(object):
+    def __init__(self, name, type_str, default = None):
+        self.name = name
+        self.type_map = TYPE_MAP[type_str]
+        self.default = default = None
 
-    ctor_args = ', '.join(ctor_args_self + ctor_args_required + ctor_args_optional)
+    def __get__(self, obj, type = None):
+        return obj.__dict__.get(self.name, self.default)
 
-    print
-    print "class %s(object):" % (el.name)
-    print "    ''''"
-
-
-    print "    ''''"
-    print "    def __init__(%s):" % ctor_args
-    print "        pass"
-
-    slots = [repr(a) for a in el.attrs.iterkeys()]
-
-    if not el.is_leaf():
-        if len(el.sub_elements.keys()) == 1:
-            collection_name = repr(el.sub_elements.keys()[0].lower() + 's')
-        else:
-            collection_name = repr('children')
-
-        slots.append(collection_name)
-
-    print
-    print "    __slots__ = (%s,)" % ', '.join(slots)
-    print
-
-    for attr in el.attrs.itervalues():
-        print "    %s = typed_property(%s)" % (attr.name, repr(attr.best_guess_type()))
+    def __set__(self, obj, value):
+        try:
+            obj.__dict__[self.name] = self.type_map(value)
+        except Exception, e:
+            print "Error in object", obj, 'attribute', self.name, 'value:', repr(value)
+            raise
 
 
+class typed_collection(object):
+    def __init__(self, name, content_types):
+        self.name = name
+        self.content_types = content_types
+
+    def __get__(self, obj, type = None):
+        try:
+            return obj.__dict__[ self.name ]
+        except KeyError:
+            vals = obj.__dict__[ self.name ] = []
+            return vals
+
+########
+
+
+def generate_python(schema, py_file):
+    import pytext
+
+    with pytext.PythonFile.do(py_file) as pf:
+        pf.blank()
+        with pf.doc() as mdoc:
+            mdoc.write("Root element: %s" % (schema.root.name))
+
+        pf.blank()
+        pf.write('from xrev import typed_property, typed_collection')
+
+        for snip_el in schema.all_elements.itervalues():
+            with pf.python_class(snip_el.name) as pcls:
+                with pcls.doc() as cdoc:
+                    if not snip_el.is_root():
+                        cdoc.write("Contained by:", ', '.join(sorted(snip_el.containers.keys())))
+                    if not snip_el.is_leaf():
+                        cdoc.write("Contains:", snip_el.sub_element_order)
+
+                ctor_required = [a for a in snip_el.required_attrs()]
+                ctor_optional = [a for a in snip_el.attrs.keys() if a not in ctor_required]
+
+                ctor_args = ctor_required + ['**kwargs']
+                with pcls.constructor(ctor_args) as ctor:
+                    if len(ctor_args):
+                        for req in ctor_required:
+                            ctor.assign('self.' + req, req)
+                    
+                        ctor.write('for attr, value in kwargs.items():')
+                        with ctor.tab():
+                            ctor.write('setattr(self, attr, value)')
+
+                    else:
+                        ctor.write('pass')
+
+                slots = list(snip_el.attrs.iterkeys())
+
+                collection_name = None
+                collection_types = []
+
+                if not snip_el.is_leaf():
+                    if len(snip_el.sub_elements.keys()) == 1:
+                        collection_name = snip_el.sub_elements.keys()[0].lower() + 's'
+                    else:
+                        collection_name = 'children'
+                    collection_types = list(snip_el.sub_element_order)
+
+                    slots.append(collection_name)
+
+                # FIXME can't get dict if slots is declared
+                #if slots:
+                #    pcls.slots(slots)
+                #    pcls.blank()
+
+                for attr in snip_el.attrs.itervalues():
+                    pcls.assign(attr.name,
+                                "typed_property(%s, %s)"
+                                        % (repr(attr.name), repr(attr.best_guess_type())))
+
+                if collection_name:
+                    if len(slots) > len(collection_types):
+                        pcls.blank()
+                    pcls.assign(collection_name,
+                                "typed_collection(%s, %s)"
+                                        % (repr(collection_name), repr(collection_types)))
+
+
+###################################################
+# Parse a document using the generated object model.
+
+def parse_xreved(xml_file, mod):
+    from xml.etree.ElementTree import ElementTree
+    tree = ElementTree()
+    tree.parse(xml_file)
+
+    return deep_map(tree.getroot(), mod)
+
+def deep_map(el, mod):
+    obj_type = getattr(mod, el.tag)
+    try:
+        obj = obj_type(**el.attrib)
+    except Exception, e:
+        print "error in:", obj_type, el.attrib
+        raise
+
+    for sub_el in el:
+        sub_obj = deep_map(sub_el, mod)
+            child_coll = sub_el.tag.lower() + 's'
+            if hasattr(obj, child_coll):
+                getattr(obj, child_coll).append(sub_obj)
+            else:
+                obj.children.append(sub_obj)
+
+    return obj
+
+
+####################################################
 
 if __name__ == '__main__':
-    schema = Schema()
-    schema.parse(sys.argv[1])
-    schema.dump()
-
-    print "##################"
-    for c in schema.all_elements.itervalues():
-        generate_classes(c)
+    if sys.argv[1] == 'gen':
+        schema = Schema()
+        schema.parse(sys.argv[2])
+        schema.dump()
+        generate_python(schema, sys.argv[3])
+    elif sys.argv[1] == 'parse':
+        import tessnip
+        print parse_xreved(sys.argv[2], tessnip)
