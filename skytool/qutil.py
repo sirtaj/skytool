@@ -1,4 +1,8 @@
 
+__doc__=\
+'''Utilities for PyQt apps.
+'''
+
 import PyQt4.QtCore as qc
 import PyQt4.QtGui as qg
 from PyQt4.QtCore import SIGNAL
@@ -7,10 +11,13 @@ from contextlib import contextmanager
 
 @contextmanager
 def widget_update(widget):
+    '''Context manager for widget updating.
+    '''
     widget.setUpdatesEnabled(False)
     yield
     widget.setUpdatesEnabled(True)
 
+##############
 
 def qmicro(iterations=500):
      '''Qt fire-and-forget microprocess decorator.
@@ -56,6 +63,8 @@ class QtMicroProcess(qc.QObject):
              self.deleteLater()
 
 
+#############
+
 def print_time(fn):
     '''Convenience decorator to print execution time
     '''
@@ -69,6 +78,8 @@ def print_time(fn):
     return run_it
 
 
+##############
+# Threads
 
 class MyThread(qc.QThread):
     '''Basic fire and forget thread that calls thread_fn and calls on_finish when done.
@@ -155,6 +166,9 @@ def test_thread():
     app.exec_()
     import time
     time.sleep(5)
+
+
+###############
 
 if __name__ == '__main__':
     test_thread()
