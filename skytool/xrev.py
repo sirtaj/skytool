@@ -310,11 +310,20 @@ def match_attr_type(v, matchers = [match_float, match_int, match_csv, match_text
 #####
 # Read helpers for generated code
 
+def parse_bool(v):
+    if v in ['0', 'False', 'false', False, None, 0]:
+        return False
+    if v in ['1', 'True', 'true', True, 1]:
+        return True
+    
+    raise ValueError, ("unknown bool value %s" % v)
+
 TYPE_MAP = {
     'ident': unicode,
     'int' : int,
     'text': unicode,
-    'float': float
+    'float': float,
+    'bool': parse_bool
 }
 
 
