@@ -154,25 +154,25 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="TX00" desc="Diffuse Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX01" desc="Normal Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX02" desc="Glow/Skin/Hair Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX03" desc="Height/Parallax Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX04" desc="Environment Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX05" desc="Environment Mask Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="TX07" desc="Specular Map" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="DODT" desc="Lighting Shader Properties" optional="1" size="36">
       <Element name="Unknown float" type="float" />
@@ -238,22 +238,22 @@
     <Subrecord name="DATA" desc="DATA" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="JAIL" desc="Jail (REFR)" optional="1" size="4">
+    <Subrecord name="JAIL" desc="Jail" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="WAIT" desc="Jail Bed? (REFR)" optional="1" size="4">
+    <Subrecord name="WAIT" desc="Jail Bed?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="STOL" desc="Jail Chest? (REFR)" optional="1" size="4">
+    <Subrecord name="STOL" desc="Jail Chest?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="PLCN" desc="PLCN (REFR)" optional="1" size="4">
+    <Subrecord name="PLCN" desc="PLCN" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="CRGR" desc="Crime Group Form List (FLST)" optional="1" size="4">
+    <Subrecord name="CRGR" desc="Crime Group Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="JOUT" desc="Jail Outfit? (OTFT)" optional="1" size="4">
+    <Subrecord name="JOUT" desc="Jail Outfit?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="OTFT" />
     </Subrecord>
     <Subrecord name="CRVA" desc="CRVA" optional="1" notininfo="1">
@@ -270,13 +270,13 @@
         <Element name="Name" type="lstring" />
       </Subrecord>
     </Group>
-    <Subrecord name="VEND" desc="Vendor Form List (FLST)" optional="1" size="4">
+    <Subrecord name="VEND" desc="Vendor Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="VENC" desc="Vendor Chest (REFR)" optional="1" size="4">
+    <Subrecord name="VENC" desc="Vendor Chest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="VENV" desc="VENV (WEAP)" optional="1">
+    <Subrecord name="VENV" desc="VENV" optional="1">
       <Element name="Unknown" type="short" />
       <Element name="Unknown" type="short" />
       <Element name="FormID" type="formid" reftype="WEAP" />
@@ -300,7 +300,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -311,7 +311,7 @@
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="HNAM" desc="Additional Head-Part Mesh (HDPT)" optional="1" repeat="1" size="4">
+    <Subrecord name="HNAM" desc="Additional Head-Part Mesh" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="HDPT" />
     </Subrecord>
     <Group optional="1" repeat="1">
@@ -322,10 +322,10 @@
         <Element name="Name" type="string" />
       </Subrecord>
     </Group>
-    <Subrecord name="TNAM" desc="Base Texture (TXST)" optional="1" size="4">
+    <Subrecord name="TNAM" desc="Base Texture" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="RNAM" desc="Resource Form List (FLST)" optional="1" size="4">
+    <Subrecord name="RNAM" desc="Resource Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
   </Record>
@@ -353,7 +353,7 @@
         <Element name="Name" type="string" />
       </Subrecord>
       <Subrecord name="MODL" desc="Model" optional="1">
-        <Element name="Path\Filename" type="string" />
+        <Element name="Path" type="string" />
       </Subrecord>
       <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
         <Element name="Unknown" type="int" />
@@ -392,13 +392,13 @@
     <Subrecord name="SPCT" desc="Spell Count" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
-    <Subrecord name="SPLO" desc="Learned Spell (SPEL)" optional="1" repeat="1" size="4">
+    <Subrecord name="SPLO" desc="Learned Spell" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="SPEL" />
     </Subrecord>
-    <Subrecord name="WNAM" desc="Naked Armor (ARMO)" optional="1" size="4">
+    <Subrecord name="WNAM" desc="Naked Armor" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARMO" />
     </Subrecord>
-    <Subrecord name="BODT" desc="BODT" optional="1">
+    <Subrecord name="BODT" desc="Body Template" optional="1">
       <Element name="Unknown 1" type="int" />
       <Element name="Unknown 2" type="int" />
       <Element name="Unknown 3" type="int" />
@@ -455,15 +455,15 @@
       <Subrecord name="MTNM" desc="MTNM" optional="1" repeat="1" size="4">
         <Element name="Name" type="str4" />
       </Subrecord>
-      <Subrecord name="VTCK" desc="Voice Type (VTYP)" optional="1" size="8">
+      <Subrecord name="VTCK" desc="Voice Type" optional="1" size="8">
         <Element name="Male Voice FormID" type="formid" reftype="VTYP" />
         <Element name="Female Voice FormID" type="formid" reftype="VTYP" />
       </Subrecord>
-      <Subrecord name="DNAM" desc="Decapitated Head (ARMO)" optional="1" size="8">
+      <Subrecord name="DNAM" desc="Decapitated Head" optional="1" size="8">
         <Element name="Male FormID" type="formid" reftype="ARMO" />
         <Element name="Female FormID" type="formid" reftype="ARMO" />
       </Subrecord>
-      <Subrecord name="HCLF" desc="Hair Color (CLFM)" optional="1" size="8">
+      <Subrecord name="HCLF" desc="Hair Color" optional="1" size="8">
         <Element name="Male FormID" type="formid" reftype="CLFM" />
         <Element name="Female FormID" type="formid" reftype="CLFM" />
       </Subrecord>
@@ -498,7 +498,7 @@
     <Group>
       <Subrecord name="NAM1" desc="NAM1" />
       <Group id="MODEL_NAME" />
-      <Subrecord name="GNAM" desc="Body Part (BPTD)" optional="1" size="4">
+      <Subrecord name="GNAM" desc="Body Part" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="BPTD" />
       </Subrecord>
     </Group>
@@ -506,26 +506,26 @@
       <Subrecord name="NAM3" desc="NAM3" />
       <Group id="MODEL_NAME" />
     </Group>
-    <Subrecord name="NAM4" desc="Material Type (MATT)" optional="1" size="4">
+    <Subrecord name="NAM4" desc="Material Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
-    <Subrecord name="NAM5" desc="Impact Data Set (IPDS)" optional="1" size="4">
+    <Subrecord name="NAM5" desc="Impact Data Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
-    <Subrecord name="NAM7" desc="Art Object (ARTO)" optional="1" size="4">
+    <Subrecord name="NAM7" desc="Art Object" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARTO" />
     </Subrecord>
-    <Subrecord name="ONAM" desc="? Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ONAM" desc="? Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="LNAM" desc="? Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="LNAM" desc="? Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="NAME" desc="NAME" optional="1" repeat="1">
       <Element name="Name" type="string" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="MTYP" desc="Movement Type (MOVT)" size="4">
+      <Subrecord name="MTYP" desc="Movement Type" size="4">
         <Element name="FormID" type="formid" reftype="MOVT" />
       </Subrecord>
       <Subrecord name="SPED" desc="SPED" size="44">
@@ -545,10 +545,10 @@
     <Subrecord name="VNAM" desc="VNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="uint" hexview='1'/>
     </Subrecord>
-    <Subrecord name="QNAM" desc="? Equipment Slot (EQUP)" optional="1" repeat="1" size="4">
+    <Subrecord name="QNAM" desc="? Equipment Slot" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
-    <Subrecord name="UNES" desc="? Equipment Slot (EQUP)" optional="1" size="4">
+    <Subrecord name="UNES" desc="? Equipment Slot" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
     <Subrecord name="PHTN" desc="PHTN" optional="1" repeat="1">
@@ -557,19 +557,19 @@
     <Subrecord name="PHWT" desc="PHWT" optional="1" repeat="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="WKMV" desc="? Movement Type (MOVT)" optional="1" size="4">
+    <Subrecord name="WKMV" desc="? Movement Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MOVT" />
     </Subrecord>
-    <Subrecord name="RNMV" desc="? Movement Type (MOVT)" optional="1" size="4">
+    <Subrecord name="RNMV" desc="? Movement Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MOVT" />
     </Subrecord>
-    <Subrecord name="SWMV" desc="? Movement Type (MOVT)" optional="1" size="4">
+    <Subrecord name="SWMV" desc="? Movement Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MOVT" />
     </Subrecord>
-    <Subrecord name="FLMV" desc="? Movement Type (MOVT)" optional="1" size="4">
+    <Subrecord name="FLMV" desc="? Movement Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MOVT" />
     </Subrecord>
-    <Subrecord name="SNMV" desc="? Movement Type (MOVT)" optional="1" size="4">
+    <Subrecord name="SNMV" desc="? Movement Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MOVT" />
     </Subrecord>
     <Group optional="1" repeat="1">
@@ -578,7 +578,7 @@
         <Group id="MODEL_NAME" />
       </Group>
       <Group optional="1" repeat="1">
-        <Subrecord name="HEAD" desc="Head-Part Mesh (HDPT)" size="4">
+        <Subrecord name="HEAD" desc="Head-Part Mesh" size="4">
           <Element name="FormID" type="formid" reftype="HDPT" />
         </Subrecord>
         <Subrecord name="INDX" desc="INDX" optional="1" size="4">
@@ -604,13 +604,13 @@
         <Subrecord name="RPRM" desc="Male Presets (NPC_)" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="NPC_" />
         </Subrecord>
-        <Subrecord name="AHCM" desc="Male Hair Color Preset (CLFM)" optional="1" repeat="1" size="4">
+        <Subrecord name="AHCM" desc="Male Hair Color Preset" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="CLFM" />
         </Subrecord>
-        <Subrecord name="FTSM" desc="? Texture Set (TXST)" optional="1" repeat="1" size="4">
+        <Subrecord name="FTSM" desc="? Texture Set" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="TXST" />
         </Subrecord>
-        <Subrecord name="DFTM" desc="? Texture Set (TXST)" optional="1" size="4">
+        <Subrecord name="DFTM" desc="? Texture Set" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="TXST" />
         </Subrecord>
         <Group id="TINTING" optional="1" repeat="1"/>
@@ -619,22 +619,22 @@
         <Subrecord name="RPRF" desc="Female Presets (NPC_)" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="NPC_" />
         </Subrecord>
-        <Subrecord name="AHCF" desc="Female Hair Color Preset (CLFM)" optional="1" repeat="1" size="4">
+        <Subrecord name="AHCF" desc="Female Hair Color Preset" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="CLFM" />
         </Subrecord>
-        <Subrecord name="FTSF" desc="? Texture Set (TXST)" optional="1" repeat="1" size="4">
+        <Subrecord name="FTSF" desc="? Texture Set" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="TXST" />
         </Subrecord>
-        <Subrecord name="DFTF" desc="? Texture Set (TXST)" optional="1" size="4">
+        <Subrecord name="DFTF" desc="? Texture Set" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="TXST" />
         </Subrecord>
         <Group id="TINTING" optional="1" repeat="1"/>
       </Group>
     </Group>
-    <Subrecord name="NAM8" desc="? Race Type (RACE)" optional="1" size="4">
+    <Subrecord name="NAM8" desc="? Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
-    <Subrecord name="RNAM" desc="? Race Type (RACE)" optional="1" size="4">
+    <Subrecord name="RNAM" desc="? Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
   </Record>
@@ -666,7 +666,7 @@
       <Element name="CELL FormID" type="formid" reftype="CELL" />
       <Element name="REFR FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="SDSC" desc="Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SDSC" desc="Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
   </Record>
@@ -682,13 +682,13 @@
       <Element name="y2" type="short" />
       <Element name="z2" type="short" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Ambient Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Ambient Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="RDAT" desc="Region (REGN)" optional="1" size="4">
+    <Subrecord name="RDAT" desc="Region" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REGN" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="Reverb (REVB)" optional="1" size="4">
+    <Subrecord name="BNAM" desc="Reverb" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REVB" />
     </Subrecord>
   </Record>
@@ -730,7 +730,7 @@
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="MDOB" desc="Model (STAT)" optional="1" size="4">
+    <Subrecord name="MDOB" desc="Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
@@ -786,10 +786,10 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Texture Set (TXST)" optional="1" size="4">
+    <Subrecord name="TNAM" desc="Texture Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="Material Type (MATT)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="Material Type" optional="1" size="4">
       <Element name="Form ID" type="formid" reftype="MATT" />
     </Subrecord>
     <Subrecord name="HNAM" desc="Havok Data?" optional="1" size="2">
@@ -798,7 +798,7 @@
     <Subrecord name="SNAM" desc="Texture Specular Exponent?" optional="1" size="1">
       <Element name="Value" type="byte" />
     </Subrecord>
-    <Subrecord name="GNAM" desc="Grass (GRAS)" optional="1" repeat="1" size="4">
+    <Subrecord name="GNAM" desc="Grass" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="GRAS" />
     </Subrecord>
   </Record>
@@ -845,10 +845,10 @@
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="MDOB" desc="? (STAT)" optional="1" size="4">
+    <Subrecord name="MDOB" desc="?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
-    <Subrecord name="ETYP" desc="Equipment (EQUP)" optional="1" size="4">
+    <Subrecord name="ETYP" desc="Equipment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
     <Subrecord name="DESC" desc="Description" optional="1">
@@ -883,10 +883,10 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="MDOB" desc="Inv Icon (STAT)" optional="1" size="4">
+    <Subrecord name="MDOB" desc="Inv Icon" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
-    <Subrecord name="ETYP" desc="Equipment (EQUP)" optional="1" size="4">
+    <Subrecord name="ETYP" desc="Equipment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
     <Subrecord name="DESC" desc="Description" optional="1">
@@ -942,7 +942,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model Name" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -957,7 +957,7 @@
       <Element name="Unknown short 2" type="short" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="DSTD" size="20">
+      <Subrecord name="DSTD" desc="Destruction Section" size="20">
         <Element name="Unknown" type="int" />
         <Element name="Unknown 1" type="int" />
         <Element name="EXPL FormID" type="formid" reftype="EXPL" />
@@ -979,13 +979,13 @@
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Ambient Sound? (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Ambient Sound?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="WNAM" desc="Water (WATR)" optional="1" size="4">
+    <Subrecord name="WNAM" desc="Water" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="WATR" />
     </Subrecord>
-    <Subrecord name="VNAM" desc="Use Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="VNAM" desc="Use Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="RNAM" desc="Verbe String" optional="1">
@@ -994,7 +994,7 @@
     <Subrecord name="FNAM" desc="Flags" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="KNAM" desc="Keyword (KYWD)" optional="1" size="4">
+    <Subrecord name="KNAM" desc="Keyword" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="KYWD" />
     </Subrecord>
   </Record>
@@ -1014,7 +1014,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1025,7 +1025,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="VNAM" desc="Voice Type (VTYP)" optional="1" size="4">
+    <Subrecord name="VNAM" desc="Voice Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="VTYP" />
     </Subrecord>
   </Record>
@@ -1047,7 +1047,7 @@
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="EITM" desc="Enchantment ID (ENCH)" optional="1" size="4">
+    <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ENCH" />
     </Subrecord>
     <Subrecord name="MOD2" desc="Male Ground Model Path" optional="1">
@@ -1069,26 +1069,26 @@
       <Element name="Model Data 4S" type="blob" />
     </Subrecord>
     <Subrecord name="BODT" desc="Body Template" optional="1" >
-      <Element name="BodyParts" type="uint" flags="Head;Hair;Chest;Hands;Forearms;Amulet;Ring;Feet;Calves;Shield;Tail;Long Hair;Forehead (Circlet);Ears;Dragon Head;Dragon Left Wing;Dragon Right Wing;Dragon Body;;;Decapitated Head"/>
+      <Element name="BodyParts" type="uint" flags="Head;Hair;Chest;Hands;Forearms;Amulet;Ring;Feet;Calves;Shield;Tail;Long Hair;Forehead;Ears;Dragon Head;Dragon Left Wing;Dragon Right Wing;Dragon Body;;;Decapitated Head"/>
       <Element name="Flags" type="uint" hexview="1" flags=";;;;NonPlayable;;;;"/>
       <Element name="Armor type?" type="uint" optional="1" options="Light Armor;0;Heavy Armor;1;Clothing;2"/>
     </Subrecord>
-    <Subrecord name="ETYP" desc="Equipment Type (EQUP)" optional="1" size="4">
+    <Subrecord name="ETYP" desc="Equipment Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
-    <Subrecord name="BIDS" desc="Bash Impact Data Set (IPDS)" optional="1" size="4">
+    <Subrecord name="BIDS" desc="Weapon Bash Impact Data Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
-    <Subrecord name="BAMT" desc="Bash Material (MATT)" optional="1" size="4">
+    <Subrecord name="BAMT" desc="Bash Material" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="RNAM" desc="Race Type (RACE)" optional="1" size="4">
+    <Subrecord name="RNAM" desc="Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
@@ -1105,7 +1105,7 @@
     <Subrecord name="DNAM" desc="Damage Resistance(DR) -- actual DR is this value*0.01" optional="1">
       <Element name="DR" type="int"/>
     </Subrecord>
-    <Subrecord name="TNAM" desc="Message Type? (ARMO)" optional="1" size="4">
+    <Subrecord name="TNAM" desc="Message Type?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARMO" />
     </Subrecord>
   </Record>
@@ -1128,7 +1128,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Book Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1136,10 +1136,10 @@
     <Subrecord name="DESC" desc="Book Description - Sometimes a copy of the book name." optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
@@ -1156,7 +1156,7 @@
       <Element name="Book Value" type="int" />
       <Element name="Book Weight" type="float" />
     </Subrecord>
-    <Subrecord name="INAM" desc="Model (STAT)" optional="1" size="4">
+    <Subrecord name="INAM" desc="Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
     <Subrecord name="CNAM" desc="Alternate Text" optional="1" size="4">
@@ -1182,7 +1182,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1209,10 +1209,10 @@
       <Element name="Unknown" type="int" />
       <Element name="Unknown" type="byte" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Open Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Open Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="Close Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="Close Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
   </Record>
@@ -1235,7 +1235,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1289,10 +1289,10 @@
       <Element name="Unknown 45" type="short" />
       <Element name="Unknown 46" type="short" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Open Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Open Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ANAM" desc="Close Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ANAM" desc="Close Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="FNAM" desc="Flags" optional="1" size="1">
@@ -1319,15 +1319,15 @@
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1" size="8">
@@ -1353,7 +1353,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1" notininfo="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1381,7 +1381,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="? Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="? Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
   </Record>
@@ -1404,7 +1404,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1412,10 +1412,10 @@
     <Subrecord name="ICON" desc="Item Icon" optional="1" size="19">
       <Element name="File Path" type="string" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
@@ -1466,7 +1466,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1495,7 +1495,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1506,7 +1506,7 @@
       <Element name="Unknown 2" type="short" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="DSTD" size="20">
+      <Subrecord name="DSTD" desc="Destruction Section" size="20">
         <Element name="Unknown" type="int" />
         <Element name="Unknown 1" type="int" />
         <Element name="EXPL FormID" type="formid" reftype="EXPL" />
@@ -1514,7 +1514,7 @@
         <Element name="Unknown 4" type="int" />
       </Subrecord>
       <Subrecord name="DMDL" desc="Destroyed Model" optional="1" repeat="1" notininfo="1">
-        <Element name="Path\Filename" type="blob" />
+        <Element name="Path" type="blob" />
       </Subrecord>
       <Subrecord name="DMDT" desc="Destroyed Model Data" optional="1" repeat="1" size="24">
         <Element name="Unknown" type="int" />
@@ -1532,7 +1532,7 @@
     <Subrecord name="DATA" desc="DATA" optional="1" size="1">
       <Element name="Unknown byte" type="byte" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Ambient Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Ambient Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
   </Record>
@@ -1549,7 +1549,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="24">
       <Element name="Unknown" type="int" />
@@ -1583,15 +1583,15 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="PFIG" desc="Result Item (INGR)" optional="1" size="4">
+    <Subrecord name="PFIG" desc="Result Item" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="INGR" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Use Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Use Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="PFPC" desc="Percent Chance?" optional="1" size="4">
@@ -1634,7 +1634,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1651,10 +1651,10 @@
     <Subrecord name="FNAM" desc="flag?" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="PFIG" desc="Result Item (INGR)" optional="1" size="4">
+    <Subrecord name="PFIG" desc="Result Item" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="INGR" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Use Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Use Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="PFPC" desc="Percent Chance?" optional="1" size="4">
@@ -1680,7 +1680,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1691,7 +1691,7 @@
       <Element name="Unknown 2" type="short" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="DSTD" size="20">
+      <Subrecord name="DSTD" desc="Destruction Section" size="20">
         <Element name="Unknown" type="int" />
         <Element name="Unknown 1" type="int" />
         <Element name="Unknown 2" type="int" />
@@ -1710,7 +1710,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="KNAM" desc="Keyword (KYWD)" optional="1" size="4">
+    <Subrecord name="KNAM" desc="Keyword" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="KYWD" />
     </Subrecord>
     <Subrecord name="MNAM" desc="MNAM" optional="1" size="4">
@@ -1727,7 +1727,7 @@
         <Subrecord name="NAM0" desc="NAM0" optional="1" repeat="1" size="4">
           <Element name="Unknown 4bytes" type="int" />
         </Subrecord>
-        <Subrecord name="FNMK" desc="? Keyword (KYWD)" optional="1" repeat="1" size="4">
+        <Subrecord name="FNMK" desc="? Keyword" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="KYWD" />
         </Subrecord>
       </Group>
@@ -1759,7 +1759,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1774,19 +1774,19 @@
       <Element name="Unknown 6" type="lstring" />
       <Element name="Unknown 7" type="short" />
     </Subrecord>
-    <Subrecord name="EITM" desc="Enchantment (ENCH)" optional="1" size="4">
+    <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="Form ID" type="formid" reftype="ENCH" />
     </Subrecord>
     <Subrecord name="EAMT" desc="Enchantment Charge Amount" optional="1" size="2">
       <Element name="Amount" type="short" />
     </Subrecord>
-    <Subrecord name="ETYP" desc="Equipment (EQUP)" optional="1" size="4">
+    <Subrecord name="ETYP" desc="Equipment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
-    <Subrecord name="BIDS" desc="Weapon Bash Impact Set (IPDS)" optional="1" size="4">
+    <Subrecord name="BIDS" desc="Weapon Bash Impact Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
-    <Subrecord name="BAMT" desc="Weapon Bash Material (MATT)" optional="1" size="4">
+    <Subrecord name="BAMT" desc="Weapon Bash Material" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
@@ -1799,25 +1799,25 @@
       <Element name="Unknown 2" type="short" />
       <Element name="Unknown 3" type="short" />
     </Subrecord>
-    <Subrecord name="INAM" desc="Impact Data Set (IPDS)" optional="1" size="4">
+    <Subrecord name="INAM" desc="Impact Data Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Shoot 3D Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Shoot 3D Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="WNAM" desc="World Static (STAT)" optional="1" size="4">
+    <Subrecord name="WNAM" desc="World Static" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Melee/Swing or Gun/No Ammo Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="TNAM" desc="Melee/Swing or Gun/No Ammo Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="UNAM" desc="Idle Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="UNAM" desc="Idle Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="NAM9" desc="Equip Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="NAM9" desc="Equip Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="NAM8" desc="Unequip Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="NAM8" desc="Unequip Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="DATA" desc="Weapon Data" optional="1" size="10">
@@ -1885,15 +1885,15 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="DESC" desc="Description" optional="1">
@@ -1958,16 +1958,16 @@
       <Element name="Unknown" type="byte" />
       <Element name="Flag" type="ushort" />
     </Subrecord>
-    <Subrecord name="INAM" desc="Death Item (LVLI)" optional="1" size="4">
+    <Subrecord name="INAM" desc="Death Item" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LVLI" />
     </Subrecord>
-    <Subrecord name="VTCK" desc="Voice Type (VTYP)" optional="1" size="4">
+    <Subrecord name="VTCK" desc="Voice Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="VTYP" />
     </Subrecord>
     <Subrecord name="TPLT" desc="Template NPC (NPC_)" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="NPC_" />
     </Subrecord>
-    <Subrecord name="RNAM" desc="Race Type (RACE)" optional="1" size="4">
+    <Subrecord name="RNAM" desc="Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
     <Subrecord name="DEST" desc="Destruction Data" optional="1" size="8">
@@ -1975,7 +1975,7 @@
       <Element name="Unknown 1" type="short" />
       <Element name="Unknown 2" type="short" />
     </Subrecord>
-    <Subrecord name="DSTD" desc="DSTD" optional="1" size="20">
+    <Subrecord name="DSTD" desc="Destruction Section" optional="1" size="20">
       <Element name="Unknown" type="short" />
       <Element name="Unknown" type="short" />
       <Element name="Unknown 1" type="int" />
@@ -1984,22 +1984,22 @@
       <Element name="Unknown 4" type="int" />
     </Subrecord>
     <Subrecord name="DSTF" desc="DSTF" optional="1" size="0"/>
-    <Subrecord name="SPOR" desc="? Form List (FLST)" optional="1" size="4">
+    <Subrecord name="SPOR" desc="? Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
     <Subrecord name="SPCT" desc="Total Spell Count" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
-    <Subrecord name="SPLO" desc="Spell (SPEL)" optional="1" repeat="1" size="4">
+    <Subrecord name="SPLO" desc="Spell" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="SPEL" />
     </Subrecord>
-    <Subrecord name="WNAM" desc="World Static (ARMO)" optional="1" size="4">
+    <Subrecord name="WNAM" desc="World Static" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARMO" />
     </Subrecord>
-    <Subrecord name="ANAM" desc="Armament (ARMO)" optional="1" size="4">
+    <Subrecord name="ANAM" desc="Armament" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARMO" />
     </Subrecord>
-    <Subrecord name="ATKR" desc="Attack Race (RACE)" optional="1" size="4">
+    <Subrecord name="ATKR" desc="Attack Race" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
     <Subrecord name="ATKD" desc="ATKD" optional="1" size="44">
@@ -2018,13 +2018,13 @@
     <Subrecord name="ATKE" desc="ATKE" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="ECOR" desc="? Form List (FLST)" optional="1" size="4">
+    <Subrecord name="ECOR" desc="? Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
     <Subrecord name="PRKZ" desc="Total Perk Count" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
-    <Subrecord name="PRKR" desc="Perk (PERK)" optional="1" repeat="1" size="8">
+    <Subrecord name="PRKR" desc="Perk" optional="1" repeat="1" size="8">
       <Element name="FormID" type="formid" reftype="PERK" />
       <Element name="Unknown" type="uint" hexview="1" />
     </Subrecord>
@@ -2048,11 +2048,11 @@
       <Element name="Aggro Warn/Attack" type="float" />
       <Element name="Aggro Warn/Attack" type="float" />
     </Subrecord>
-    <Subrecord name="PKID" desc="AI Package (PACK)" optional="1" repeat="1" size="4">
+    <Subrecord name="PKID" desc="AI Package" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="PACK" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="CNAM" desc="Class Name (CLAS)" optional="1" size="4">
+    <Subrecord name="CNAM" desc="Class Name" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CLAS" />
     </Subrecord>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
@@ -2108,16 +2108,16 @@
       <Element name="Unknown 2" type="ushort" />
       <Element name="Unknown 3" type="ushort" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="Head-Part Mesh (HDPT)" optional="1" repeat="1" size="4">
+    <Subrecord name="PNAM" desc="Head-Part Mesh" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="HDPT" />
     </Subrecord>
-    <Subrecord name="HCLF" desc="Hair Color (CLFM)" optional="1" size="4">
+    <Subrecord name="HCLF" desc="Hair Color" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CLFM" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Combat Style (CSTY)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Combat Style" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CSTY" />
     </Subrecord>
-    <Subrecord name="GNAM" desc="? Form List (FLST)" optional="1" size="4">
+    <Subrecord name="GNAM" desc="? Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
     <Subrecord name="NAM5" desc="NAM5" optional="1">
@@ -2136,7 +2136,7 @@
       <Subrecord name="CSDT" desc="Sound Type" size="4">
         <Element name="When Sound Plays" type="int" options="Idle;0;Aware;1;Attack;2;Hit;3;Death;4;Weapon;5;Movement Loop;6;Conscious Loop;7"/>
       </Subrecord>
-      <Subrecord name="CSDI" desc="Actor Sound (SNDR)" optional="1" size="4">
+      <Subrecord name="CSDI" desc="Actor Sound" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="SNDR" />
       </Subrecord>
       <Subrecord name="CSDC" desc="Sound Chance" optional="1" size="1">
@@ -2146,19 +2146,19 @@
     <Subrecord name="CSCR" desc="Sound Template (NPC_)" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="NPC_" />
     </Subrecord>
-    <Subrecord name="DOFT" desc="Daily Outfit (OTFT)" optional="1" size="4">
+    <Subrecord name="DOFT" desc="Daily Outfit" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="OTFT" />
     </Subrecord>
-    <Subrecord name="SOFT" desc="Sleep Outfit (OTFT)" optional="1" size="4">
+    <Subrecord name="SOFT" desc="Sleep Outfit" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="OTFT" />
     </Subrecord>
-    <Subrecord name="DPLT" desc="Daily Package List (FLST)" optional="1" size="4">
+    <Subrecord name="DPLT" desc="Daily Package List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="CRIF" desc="Crime Faction (FACT)" optional="1" size="4">
+    <Subrecord name="CRIF" desc="Crime Faction" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FACT" />
     </Subrecord>
-    <Subrecord name="FTST" desc="Skin Complexion (TXST)" optional="1" size="4">
+    <Subrecord name="FTST" desc="Skin Complexion" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
     <Subrecord name="QNAM" desc="QNAM" optional="1" size="12">
@@ -2245,7 +2245,7 @@
       </Subrecord>
     </Group>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12" notininfo="1">
       <Element name="Unknown" type="int" />
@@ -2272,15 +2272,15 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
@@ -2306,7 +2306,7 @@
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="unknown" type="blob" />
@@ -2321,10 +2321,10 @@
       <Element name="TXST FormID" type="formid" reftype="TXST" />
       <Element name="Unknown 7" type="int" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="DATA" desc="Item Data" optional="1" size="4">
@@ -2360,11 +2360,11 @@
     <Subrecord name="IDLT" desc="IDLT" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
-    <Subrecord name="IDLA" desc="Idle Anim (IDLE)" optional="1">
+    <Subrecord name="IDLA" desc="Idle Anim" optional="1">
       <Element name="FormID" type="formid" reftype="IDLE" repeat="1" optional="1" />
     </Subrecord>
   </Record>
-  <Record name="COBJ" desc="Constructible Objects (Recipes)">
+  <Record name="COBJ" desc="Constructible Objects">
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -2379,7 +2379,7 @@
     <Subrecord name="CNAM" desc="Output Object" optional="1" repeat="1">
       <Element name="FormID" type="formid" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="Required Crafting Station (KYWD)" optional="1" size="4">
+    <Subrecord name="BNAM" desc="Required Crafting Station" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="KYWD" />
     </Subrecord>
     <Subrecord name="NAM1" desc="Resulting Quantity" optional="1" size="2">
@@ -2402,7 +2402,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -2413,7 +2413,7 @@
       <Element name="Unknown 2" type="short" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="Destruction Data" size="20">
+      <Subrecord name="DSTD" desc="Destruction Section" size="20">
         <Element name="unknown" type="int" />
         <Element name="unknown" type="int" />
         <Element name="unknown" type="int" notininfo="1" />
@@ -2448,7 +2448,7 @@
       <Element name="Value18" type="int" hexview="1" optional="1"/>
     </Subrecord>
     <Subrecord name="NAM1" desc="Effect Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="NAM2" desc="Effect Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -2473,12 +2473,12 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="? ImageSpace (IMAD)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="? ImageSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IMAD" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1" size="40">
@@ -2510,7 +2510,7 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -2526,7 +2526,7 @@
     <Subrecord name="SLCP" desc="Soul Gem Capacity" optional="1" size="1">
       <Element name="Level" type="byte" options="None;0;Petty;1;Lesser;2;Common;3;Greater;4;Grand;5"/>
     </Subrecord>
-    <Subrecord name="NAM0" desc="? Soul Gem (SLGM)" optional="1" size="4">
+    <Subrecord name="NAM0" desc="? Soul Gem" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SLGM" />
     </Subrecord>
   </Record>
@@ -2548,7 +2548,7 @@
     <Subrecord name="LVLF" desc="List Flags" optional="1" size="1">
       <Element name="Flags" type="byte" />
     </Subrecord>
-    <Subrecord name="LVLG" desc="Global Variable (GLOB)" optional="1" size="4">
+    <Subrecord name="LVLG" desc="Global Variable" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="GLOB" />
     </Subrecord>
     <Subrecord name="LLCT" desc="Leveled Item Count" optional="1" size="1">
@@ -2561,7 +2561,7 @@
     </Subrecord>
   </Record>
   <Record name="WTHR" desc="Weather">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
+    <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="DNAM" desc="DNAM" optional="1" size="35">
@@ -2605,99 +2605,99 @@
       <Element name="Unknown 9" type="short" />
     </Subrecord>
     <Subrecord name="00TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="10TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="20TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="30TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="40TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="50TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="60TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="70TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="80TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="90TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name=":0TX" desc=":Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name=";0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="&lt;0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="=0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="&gt;0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="?0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="@0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="A0TX" desc="Dynamic Cloud Texture" optional="1" >
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="B0TX" desc="Dynamic Cloud Texture" optional="1" >
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="C0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="D0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="E0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="F0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="G0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="H0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="I0TX" desc="Dynamic Cloud Texture" optional="1" >
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="J0TX" desc="Dynamic Cloud Texture" optional="1" >
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="K0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="L0TX" desc="Dynamic Cloud Texture" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="LNAM" desc="LNAM" optional="1" size="4">
       <Element name="Unknown" type="int" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="Shader Particle Geometry (SPGD)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="Shader Particle Geometry" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SPGD" />
     </Subrecord>
-    <Subrecord name="NNAM" desc="Refraction (RFCT)" optional="1" size="4">
+    <Subrecord name="NNAM" desc="Refraction" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RFCT" />
     </Subrecord>
     <Subrecord name="ONAM" desc="ONAM" optional="1" size="4">
@@ -2952,10 +2952,10 @@
       <Element name="SNDR FormID" type="formid" reftype="SNDR" />
       <Element name="(always 0)" type="int" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Static Clouds (STAT)" optional="1" repeat="1" size="4">
+    <Subrecord name="TNAM" desc="Static Clouds" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
-    <Subrecord name="IMSP" desc="Image Spaces (IMGS)" optional="1" size="16">
+    <Subrecord name="IMSP" desc="Image Spaces" optional="1" size="16">
       <Element name="Sunrise FormID" type="formid" reftype="IMGS" />
       <Element name="Day FormID" type="formid" reftype="IMGS" />
       <Element name="Sunset FormID" type="formid" reftype="IMGS" />
@@ -2977,7 +2977,7 @@
       <Element name="Unknown 3" type="int" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
       <Element name="Unknown" type="int" />
@@ -3001,7 +3001,7 @@
       <Element name="Unknown" type="blob" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
       <Element name="Unknown" type="int" />
@@ -3061,16 +3061,16 @@
         <Element name="Name" type="string" />
       </Subrecord>
       <Subrecord name="RDOT" desc="RDOT" optional="1" size="0" />
-      <Subrecord name="RDMO" desc="Music (MUSC)" optional="1" size="4">
+      <Subrecord name="RDMO" desc="Music" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="MUSC" />
       </Subrecord>
-      <Subrecord name="RDWT" desc="Weather (WTHR)" optional="1">
+      <Subrecord name="RDWT" desc="Weather" optional="1">
         <Element name="FormID" type="formid" reftype="WTHR" repeat="1" optional="1" />
       </Subrecord>
       <Subrecord name="RDMP" desc="RDMP" optional="1" size="4">
         <Element name="Name" type="lstring" />
       </Subrecord>
-      <Subrecord name="RDSA" desc="Sound (SNDR)" optional="1">
+      <Subrecord name="RDSA" desc="Sound" optional="1">
         <Element name="FormID" type="formid" reftype="SNDR" repeat="1" optional="1" />
       </Subrecord>
     </Group>
@@ -3085,10 +3085,10 @@
     <Subrecord name="PNAM" desc="Topic Priority" optional="1" size="4">
       <Element name="Priority Value" type="float" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="Dialog Branch (DLBR)" optional="1" size="4">
+    <Subrecord name="BNAM" desc="Dialog Branch" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="DLBR" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1" size="4">
@@ -3121,7 +3121,7 @@
     <Subrecord name="CNAM" desc="CNAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="TCLT" desc="Linked To Dialog Topic (DIAL)" optional="1" repeat="1" size="4">
+    <Subrecord name="TCLT" desc="Linked To Dialog Topic" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="DIAL" />
     </Subrecord>
     <Subrecord name="DNAM" desc="? (INFO)" optional="1">
@@ -3136,7 +3136,7 @@
         <Element name="Unknown 3" type="int" />
         <Element name="Unknown 4" type="int" />
       </Subrecord>
-      <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" size="4">
+      <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="QUST" />
       </Subrecord>
       <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
@@ -3159,11 +3159,11 @@
       <Subrecord name="NAM3" desc="NAM3" >
         <Element name="unknown" type="string" />
       </Subrecord>
-      <Subrecord name="SNAM" desc="Idle Anim (IDLE)" optional="1" size="4">
+      <Subrecord name="SNAM" desc="Idle Anim" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="IDLE" />
       </Subrecord>
     </Group>
-    <Subrecord name="LNAM" desc="Idle Anim (IDLE)" optional="1" size="4">
+    <Subrecord name="LNAM" desc="Idle Anim" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IDLE" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
@@ -3175,10 +3175,10 @@
         <Element name="Name" type="lstring" />
       </Subrecord>
     </Group>
-    <Subrecord name="TWAT" desc="Dialog Topic (DIAL)" optional="1" size="4">
+    <Subrecord name="TWAT" desc="Dialog Topic" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="DIAL" />
     </Subrecord>
-    <Subrecord name="ONAM" desc="Sound Output Marker (SOPM)" optional="1" size="4">
+    <Subrecord name="ONAM" desc="Sound Output Marker" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SOPM" />
     </Subrecord>
   </Record>
@@ -3198,7 +3198,7 @@
     <Subrecord name="ALFA" desc="ALFA" optional="1" repeat="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="ALRT" desc="Alert? Location Ref Type (LCRT)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALRT" desc="Alert? Location Ref Type" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="LCRT" />
     </Subrecord>
     <Subrecord name="ALNA" desc="ALNA" optional="1" repeat="1" size="4">
@@ -3253,31 +3253,31 @@
       <Element name="FormID" type="formid" />
       <Element name="Count" type="int" />
     </Subrecord>
-    <Subrecord name="SPOR" desc="? Form List (FLST)" optional="1" size="4">
+    <Subrecord name="SPOR" desc="? Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="ECOR" desc="? Form List (FLST)" optional="1" repeat="1" size="4">
+    <Subrecord name="ECOR" desc="? Form List" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="ALDN" desc="? MessageBox (MESG)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALDN" desc="? MessageBox" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="MESG" />
     </Subrecord>
-    <Subrecord name="ALSP" desc="? Spell (SPEL)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALSP" desc="? Spell" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="SPEL" />
     </Subrecord>
-    <Subrecord name="ALFC" desc="? Faction (FACT)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALFC" desc="? Faction" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="FACT" />
     </Subrecord>
-    <Subrecord name="ALPC" desc="? AI Package (PACK)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALPC" desc="? AI Package" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="PACK" />
     </Subrecord>
-    <Subrecord name="VTCK" desc="Voice Type (VTYP)" optional="1" repeat="1" size="4">
+    <Subrecord name="VTCK" desc="Voice Type" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="VTYP" />
     </Subrecord>
-    <Subrecord name="KNAM" desc="Keyword (KYWD)" optional="1" repeat="1" size="4">
+    <Subrecord name="KNAM" desc="Keyword" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="KYWD" />
     </Subrecord>
-    <Subrecord name="ALFL" desc="Location (LCTN)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALFL" desc="Location" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="LCTN" />
     </Subrecord>
     <Subrecord name="ALED" desc="ALED" optional="1" repeat="1" size="0" />
@@ -3304,7 +3304,7 @@
     </Subrecord>
     <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     <Group optional="1" repeat="1">
-      <Subrecord name="QTGL" desc="Global Variable (GLOB)" optional="1" repeat="1" size="4">
+      <Subrecord name="QTGL" desc="Global Variable" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="GLOB" />
       </Subrecord>
       <Subrecord name="NEXT" desc="NEXT" optional="1" size="0" />
@@ -3332,7 +3332,7 @@
         <Subrecord name="QSDT" desc="Quest Stage Data" optional="1" repeat="1" size="1">
           <Element name="unknown byte" type="byte" />
         </Subrecord>
-        <Subrecord name="NAM0" desc="Quest (QUST)" optional="1" repeat="1" size="4">
+        <Subrecord name="NAM0" desc="Quest" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="QUST" />
         </Subrecord>
         <Group id="CONDITIONAL" optional="1" repeat="1"/>
@@ -3349,7 +3349,7 @@
         <Subrecord name="SCTX" desc="SCTX" optional="1" notininfo="1">
           <Element name="Unknown" type="blob" />
         </Subrecord>
-        <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" repeat="1" size="4">
+        <Subrecord name="QNAM" desc="Quest" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="QUST" />
         </Subrecord>
       </Group>
@@ -3413,7 +3413,7 @@
     <Subrecord name="ENAM" desc="ENAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="ANAM" desc="Idle Anims (IDLE)" optional="1" size="8">
+    <Subrecord name="ANAM" desc="Idle Anims" optional="1" size="8">
       <Element name="Root FormID" type="formid" reftype="IDLE" />
       <Element name="Halt FormID" type="formid" reftype="IDLE" />
     </Subrecord>
@@ -3453,7 +3453,7 @@
     <Subrecord name="IDLT" desc="IDLT" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
-    <Subrecord name="IDLA" desc="Idle Anim (IDLE)" optional="1">
+    <Subrecord name="IDLA" desc="Idle Anim" optional="1">
       <Element name="FormID" type="formid" reftype="IDLE" repeat="1" optional="1" />
     </Subrecord>
     <Subrecord name="QNAM" desc="? Quest (QUST)" optional="1" repeat="1" size="4">
@@ -3468,7 +3468,7 @@
       <Subrecord name="ANAM" desc="ANAM" optional="1" repeat="1">
         <Element name="Name" type="string" />
       </Subrecord>
-      <Subrecord name="TPIC" desc="Dialog (DIAL)" optional="1" size="4">
+      <Subrecord name="TPIC" desc="Dialog" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="DIAL" />
       </Subrecord>
       <Subrecord name="CNAM" desc="CNAM" optional="1" repeat="1" notininfo="1">
@@ -3537,7 +3537,7 @@
     </Group>
     <Subrecord name="POBA" desc="POBA" optional="1" size="0" />
     <Group optional="1" repeat="1">
-      <Subrecord name="INAM" desc="Idle Anim (IDLE)" optional="1" repeat="1" size="4">
+      <Subrecord name="INAM" desc="Idle Anim" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="IDLE" />
       </Subrecord>
       <Subrecord name="SCHR" desc="SCHR" optional="1" repeat="1" size="20">
@@ -3561,7 +3561,7 @@
       <Subrecord name="SCTX" desc="SCTX" optional="1" repeat="1" notininfo="1">
         <Element name="Unknown" type="blob" />
       </Subrecord>
-      <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" repeat="1" size="4">
+      <Subrecord name="QNAM" desc="Quest" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="QUST" />
       </Subrecord>
       <Subrecord name="PDTO" desc="PDTO" optional="1" repeat="1" size="8">
@@ -3662,7 +3662,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
       <Element name="Unknown" type="int" />
@@ -3689,13 +3689,13 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Material Type (MATT)" optional="1" size="4">
+    <Subrecord name="TNAM" desc="Material Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
     <Subrecord name="MNAM" desc="MNAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1" size="2">
@@ -3815,18 +3815,18 @@
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="EITM" desc="Enchantment (ENCH)" optional="1" size="4">
+    <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ENCH" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="ImageSpace (IMAD)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="ImageSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IMAD" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Explosion Light (LIGH)" optional="1">
+    <Subrecord name="DATA" desc="Explosion Light" optional="1">
       <Element name="FormID" type="formid" reftype="LIGH" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -4231,7 +4231,7 @@
       <Element name="IsPlayable" type="byte" />
       <Element name="IsHidden" type="byte" />
     </Subrecord>
-    <Subrecord name="NNAM" desc="? Perk (PERK)" optional="1" size="4">
+    <Subrecord name="NNAM" desc="? Perk" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="PERK" />
     </Subrecord>
     <Group optional="1" repeat="1">
@@ -4247,7 +4247,7 @@
         <Element name="unused" type="byte" notininfo="1" />
         <Element name="unused" type="byte" notininfo="1" />
       </Subrecord>
-      <Subrecord name="DATA" desc="Perk Effect (SPEL)" optional="1" size="4" condid="1" condition="equal" condvalue="1" >
+      <Subrecord name="DATA" desc="Perk Effect" optional="1" size="4" condid="1" condition="equal" condvalue="1" >
         <Element name="FormID" type="formid" reftype="SPEL" />
       </Subrecord>
       <Subrecord name="DATA" desc="Perk Effect Data" optional="1" size="3" condid="1" condition="equal" condvalue="2" >
@@ -4282,7 +4282,7 @@
       <Subrecord name="EPFD" desc="==> FormID" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="4">
         <Element name="FormID" type="formid" />
       </Subrecord>
-      <Subrecord name="EPFD" desc="==> Spell (SPEL)" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="5">
+      <Subrecord name="EPFD" desc="==> Spell" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="5">
         <Element name="FormID" type="formid" reftype="SPEL" />
       </Subrecord>
       <Subrecord name="EPFD" desc="==> zString" optional="1" repeat="1" condid="2" condition="equal" condvalue="6">
@@ -4299,7 +4299,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
       <Element name="Unknown" type="int" />
@@ -4364,7 +4364,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Effect Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -4400,7 +4400,7 @@
       <Element name="Unknown float 4" type="float" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="PNAM" desc="Perk Name (PERK)" optional="1" repeat="1" size="4">
+      <Subrecord name="PNAM" desc="Perk Name" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="PERK" />
       </Subrecord>
       <Subrecord name="FNAM" desc="FNAM" optional="1" repeat="1" size="4">
@@ -4418,7 +4418,7 @@
       <Subrecord name="VNAM" desc="VNAM" optional="1" repeat="1" size="4">
         <Element name="Unknown float" type="float" />
       </Subrecord>
-      <Subrecord name="SNAM" desc="Skill (AVIF)" optional="1" repeat="1" size="4">
+      <Subrecord name="SNAM" desc="Skill" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="AVIF" />
       </Subrecord>
       <Subrecord name="CNAM" desc="Unlocks" optional="1" repeat="1" size="4">
@@ -4434,7 +4434,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
       <Element name="Unknown" type="int" />
@@ -4453,7 +4453,7 @@
       <Element name="Unknown 8" type="float" />
       <Element name="Unknown 9" type="float" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="ImageSpace (IMAD)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="ImageSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IMAD" />
     </Subrecord>
   </Record>
@@ -4462,14 +4462,14 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Subrecord name="ANAM" desc="Camera Path (CPTH)" optional="1" size="8">
+    <Subrecord name="ANAM" desc="Camera Path" optional="1" size="8">
       <Element name="FormID 1" type="formid" reftype="CPTH" />
       <Element name="FormID 2" type="formid" reftype="CPTH" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Camera Shot (CAMS)" optional="1" repeat="1" size="4">
+    <Subrecord name="SNAM" desc="Camera Shot" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="CAMS" />
     </Subrecord>
   </Record>
@@ -4485,7 +4485,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="Material Type (MATT)" optional="1" size="4">
+    <Subrecord name="PNAM" desc="Material Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
     <Subrecord name="MNAM" desc="MNAM" optional="1">
@@ -4502,7 +4502,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="HNAM" desc="Impact Data (IPDS)" optional="1" size="4">
+    <Subrecord name="HNAM" desc="Impact Data" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
   </Record>
@@ -4511,7 +4511,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="MODL" desc="Impact Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -4535,19 +4535,19 @@
       <Element name="Unknown 7" type="int" />
       <Element name="Unknown 8" type="int" />
     </Subrecord>
-    <Subrecord name="DNAM" desc="Decal Type (TXST)" optional="1">
+    <Subrecord name="DNAM" desc="Decal Type" optional="1">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="ENAM" desc="? Texture Set (TXST)" optional="1" size="4">
+    <Subrecord name="ENAM" desc="? Texture Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Sound Type (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Sound Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="NAM1" desc="? Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="NAM1" desc="? Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="NAM2" desc="? Hazard (HAZD)" optional="1" size="4">
+    <Subrecord name="NAM2" desc="? Hazard" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="HAZD" />
     </Subrecord>
   </Record>
@@ -4564,7 +4564,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="BODT" desc="Unknown" optional="1" size="12">
+    <Subrecord name="BODT" desc="Body Template" optional="1" size="12">
       <Element name="Unknown 4bytes 1" type="int" />
       <Element name="Unknown 4bytes 2" type="int" />
       <Element name="Unknown 4bytes 3" type="int" />
@@ -4578,7 +4578,7 @@
       <Element name="Unknown 4bytes 3" type="float" />
     </Subrecord>
     <Subrecord name="MOD2" desc="Model 2" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MO2T" desc="Model Data 2" optional="1" notininfo="1">
       <Element name="Model Data 2" type="blob" />
@@ -4587,7 +4587,7 @@
       <Element name="Unknown" type="blob" />
     </Subrecord>
     <Subrecord name="MOD3" desc="Model 3" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MO3T" desc="Model Data 3" optional="1" notininfo="1">
       <Element name="Model Data 3" type="blob" />
@@ -4596,40 +4596,40 @@
       <Element name="Unknown" type="blob" />
     </Subrecord>
     <Subrecord name="MOD4" desc="Model 4" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MO4T" desc="Model Data 4" optional="1" size="12">
       <Element name="Unknown 1" type="int" />
       <Element name="Unknown 2" type="int" />
       <Element name="Unknown 3" type="int" />
     </Subrecord>
-    <Subrecord name="MO4S" desc="MO4S" optional="1" notininfo="1">
+    <Subrecord name="MO4S" desc="Model Data 4S" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
     <Subrecord name="MOD5" desc="Model 5" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MO5T" desc="Model Data 5" optional="1" size="12">
       <Element name="Unknown 1" type="int" />
       <Element name="Unknown 2" type="int" />
       <Element name="Unknown 3" type="int" />
     </Subrecord>
-    <Subrecord name="NAM0" desc="Base Male Texture (TXST)" optional="1" size="4">
+    <Subrecord name="NAM0" desc="Base Male Texture" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="NAM1" desc="Base Female Texture (TXST)" optional="1" size="4">
+    <Subrecord name="NAM1" desc="Base Female Texture" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
-    <Subrecord name="NAM2" desc="Base Male 1st Texture (FLST)" optional="1" size="4">
+    <Subrecord name="NAM2" desc="Base Male 1st Texture" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="NAM3" desc="Base Female 1st Texture (FLST)" optional="1" size="4">
+    <Subrecord name="NAM3" desc="Base Female 1st Texture" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="MODL" desc="Included Race (RACE)" optional="1" repeat="1" size="4">
+    <Subrecord name="MODL" desc="Included Race" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
-    <Subrecord name="SNDD" desc="Footstep Sound (FSTS)" optional="1" size="4">
+    <Subrecord name="SNDD" desc="Footstep Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FSTS" />
     </Subrecord>
   </Record>
@@ -4650,44 +4650,44 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="LCPR" desc="Unique Refs (ACHR)" optional="1">
+    <Subrecord name="LCPR" desc="Unique Refs" optional="1">
       <Element name="FormID" type="formid" reftype="ACHR" repeat="1" optional="1" />
     </Subrecord>
     <Subrecord name="LCUN" desc="Actor (NPC_)" optional="1">
       <Element name="FormID" type="formid" reftype="NPC_" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="LCSR" desc="Static Refs (LCRT)" optional="1">
+    <Subrecord name="LCSR" desc="Static Refs" optional="1">
       <Element name="FormID" type="formid" reftype="LCRT" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="LCEC" desc="Encounter (WRLD)" optional="1" repeat="1">
+    <Subrecord name="LCEC" desc="Encounter" optional="1" repeat="1">
       <Element name="FormID" type="formid" reftype="WRLD" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="LCID" desc="? Ref (REFR)" optional="1">
+    <Subrecord name="LCID" desc="? Ref" optional="1">
       <Element name="FormID" type="formid" reftype="REFR" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="LCEP" desc="Actor Enable Points (ACHR)" optional="1">
+    <Subrecord name="LCEP" desc="Actor Enable Points" optional="1">
       <Element name="FormID" type="formid" reftype="ACHR" repeat="1" optional="1" />
     </Subrecord>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="PNAM" desc="Parent Location (LCTN)" optional="1" size="4">
+    <Subrecord name="PNAM" desc="Parent Location" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LCTN" />
     </Subrecord>
-    <Subrecord name="FNAM" desc="Faction (FACT)" optional="1" size="4">
+    <Subrecord name="FNAM" desc="Faction" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FACT" />
     </Subrecord>
-    <Subrecord name="NAM1" desc="Music (MUSC)" optional="1" size="4">
+    <Subrecord name="NAM1" desc="Music" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MUSC" />
     </Subrecord>
-    <Subrecord name="MNAM" desc="Marker (REFR)" optional="1" size="4">
+    <Subrecord name="MNAM" desc="Marker" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
     <Subrecord name="RNAM" desc="RNAM" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
-    <Subrecord name="NAM0" desc="? Ref (REFR)" optional="1" size="4">
+    <Subrecord name="NAM0" desc="? Ref" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
@@ -4707,7 +4707,7 @@
     <Subrecord name="INAM" desc="INAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="DNAM" desc="Description Type?" optional="1">
@@ -4744,7 +4744,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="FNAM" desc="Music File Path" optional="1" size="4">
-      <Element name="Path\Filename" type="lstring" />
+      <Element name="Path" type="lstring" />
     </Subrecord>
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
@@ -4752,7 +4752,7 @@
     <Subrecord name="WNAM" desc="WNAM" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Music Template (MUST)" optional="1">
+    <Subrecord name="TNAM" desc="Music Template" optional="1">
       <Element name="FormID" type="formid" reftype="MUST" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -4760,7 +4760,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Impact Data (IPDS)" optional="1" size="4">
+    <Subrecord name="DATA" desc="Impact Data" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
     <Subrecord name="ANAM" desc="Action Name" optional="1">
@@ -4778,7 +4778,7 @@
       <Element name="Run Forward Alternate Count" type="int" />
       <Element name="Walk Forward Alternate 2 Count" type="int" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Footstep Sets (FSTP)" optional="1">
+    <Subrecord name="DATA" desc="Footstep Sets" optional="1">
       <Element name="FormID" type="formid" reftype="FSTP" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -4810,7 +4810,7 @@
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Story Manager Quest Node (SMQN)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Story Manager Quest Node" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SMQN" />
     </Subrecord>
     <Subrecord name="CITC" desc="CITC" optional="1" size="4">
@@ -4830,7 +4830,7 @@
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="NNAM" desc="Quest (QUST)" optional="1" repeat="1" size="4">
+      <Subrecord name="NNAM" desc="Quest" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="QUST" />
       </Subrecord>
       <Subrecord name="FNAM" desc="FNAM" optional="1" repeat="1" size="4">
@@ -4868,7 +4868,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="TNAM" desc="TNAM" optional="1" size="4">
@@ -4877,7 +4877,7 @@
     <Subrecord name="DNAM" desc="DNAM" optional="1">
       <Element name="Unknown" type="int" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Dialog (DIAL)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Dialog" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="DIAL" />
     </Subrecord>
   </Record>
@@ -4912,7 +4912,7 @@
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Subrecord name="SNAM" desc="Music Track (MUST)" optional="1">
+    <Subrecord name="SNAM" desc="Music Track" optional="1">
       <Element name="FormID" type="formid" reftype="MUST" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -4920,13 +4920,13 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="Quest (QUST)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Dialog (DIAL)" optional="1" repeat="1" size="4">
+    <Subrecord name="TNAM" desc="Dialog" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="DIAL" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="Dialog Branch (DLBR)" optional="1" repeat="1" size="4">
+    <Subrecord name="BNAM" desc="Dialog Branch" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="DLBR" />
     </Subrecord>
     <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
@@ -4954,7 +4954,7 @@
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="MDOB" desc="Inventory Model (STAT)" optional="1" size="4">
+    <Subrecord name="MDOB" desc="Inventory Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
     <Subrecord name="DESC" desc="Description" optional="1">
@@ -4970,7 +4970,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="Hand Reference (EQUP)" optional="1">
+    <Subrecord name="PNAM" desc="Hand Reference" optional="1">
       <Element name="FormID" type="formid" reftype="EQUP" repeat="1" optional="1" />
     </Subrecord>
     <Subrecord name="DATA" desc="Occupies Slot" optional="1" size="4">
@@ -4996,7 +4996,7 @@
       <Element name="Unknown 3" type="int" />
       <Element name="Unknown 4" type="int" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="? Quest (QUST)" optional="1" size="4">
+    <Subrecord name="QNAM" desc="? Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="NEXT" desc="NEXT" optional="1" size="0" />
@@ -5006,7 +5006,7 @@
     <Subrecord name="SCTX" desc="SCTX" optional="1"  notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="SCRO" desc="? Quest (QUST)" optional="1" size="4">
+    <Subrecord name="SCRO" desc="? Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
   </Group>
@@ -5060,7 +5060,7 @@
       <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
       </Subrecord>
-      <Subrecord name="DATA" desc="Dialog (DIAL)" optional="1" size="4">
+      <Subrecord name="DATA" desc="Dialog" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="DIAL" />
       </Subrecord>
       <Subrecord name="HNAM" desc="HNAM" optional="1" size="0" />
@@ -5122,7 +5122,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="INAM" desc="Armature (ARMO)" optional="1">
+    <Subrecord name="INAM" desc="Armature" optional="1">
       <Element name="FormID" type="formid" reftype="ARMO" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -5139,7 +5139,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -5153,7 +5153,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path\Filename" type="string" />
+      <Element name="Path" type="string" />
     </Subrecord>
     <Subrecord name="DNAM" desc="DNAM" optional="1" repeat="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -5195,16 +5195,16 @@
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="GNAM" desc="Sound Category (SNCT)" optional="1" size="4">
+    <Subrecord name="GNAM" desc="Sound Category" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNCT" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="Sound (SNDR)" optional="1" size="4">
+    <Subrecord name="SNAM" desc="Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Subrecord name="ANAM" desc="ANAM" optional="1" repeat="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="ONAM" desc="Sound Output Marker (SOPM)" optional="1" size="4">
+    <Subrecord name="ONAM" desc="Sound Output Marker" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SOPM" />
     </Subrecord>
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
@@ -5250,7 +5250,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="Sound Category (SNCT)" optional="1" size="4">
+    <Subrecord name="PNAM" desc="Sound Category" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNCT" />
     </Subrecord>
     <Subrecord name="VNAM" desc="VNAM" optional="1" size="2">
@@ -5322,7 +5322,7 @@
     <Subrecord name="INTV" desc="Count of Interactables" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="Interactable Collision Layer (COLL)" optional="1">
+    <Subrecord name="CNAM" desc="Interactable Collision Layer" optional="1">
       <Element name="FormID" type="formid" reftype="COLL" repeat="1" optional="1" />
     </Subrecord>
   </Record>
@@ -5403,7 +5403,7 @@
     <Subrecord name="XCLL" desc="Interior Cell Lighting" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="LTMP" desc="Lighting Template (LGTM)" optional="1" size="4">
+    <Subrecord name="LTMP" desc="Lighting Template" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LGTM" />
     </Subrecord>
     <Subrecord name="LNAM" desc="LNAM" optional="1" size="4">
@@ -5416,7 +5416,7 @@
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="XCLR" desc="Region (REGN)" optional="1">
+      <Subrecord name="XCLR" desc="Region" optional="1">
         <Element name="FormID" type="formid" reftype="REGN" repeat="1" optional="1" />
       </Subrecord>
       <Subrecord name="XNAM" desc="XNAM" optional="1">
@@ -5424,25 +5424,25 @@
       </Subrecord>
     </Group>
     <Group optional="1" repeat="1">
-      <Subrecord name="XCIM" desc="Image Space (IMGS)" optional="1" size="4">
+      <Subrecord name="XCIM" desc="Image Space" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="IMGS" />
       </Subrecord>
-      <Subrecord name="XLCN" desc="Location of this Cell (LCTN)" optional="1" size="4">
+      <Subrecord name="XLCN" desc="Location of this Cell" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCTN" />
       </Subrecord>
-      <Subrecord name="XCMO" desc="Music (MUSC)" optional="1" size="4">
+      <Subrecord name="XCMO" desc="Music" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="MUSC" />
       </Subrecord>
-      <Subrecord name="XCAS" desc="Acoustic Space (ASPC)" optional="1" size="4">
+      <Subrecord name="XCAS" desc="Acoustic Space" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="ASPC" />
       </Subrecord>
-      <Subrecord name="XCCM" desc="Interior Cell Climate (REGN)" optional="1" size="4">
+      <Subrecord name="XCCM" desc="Interior Cell Climate" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="REGN" />
       </Subrecord>
-      <Subrecord name="XOWN" desc="Faction Ownership (FACT)" optional="1" size="4">
+      <Subrecord name="XOWN" desc="Faction Ownership" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FACT" />
       </Subrecord>
-      <Subrecord name="XILL" desc="? Form List (FLST)" optional="1" size="4">
+      <Subrecord name="XILL" desc="? Form List" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FLST" />
       </Subrecord>
       <Subrecord name="XWCN" desc="XWCN" optional="1" size="4">
@@ -5451,10 +5451,10 @@
       <Subrecord name="XWCU" desc="XWCU" optional="1" notininfo="1">
         <Element name="Unknown" type="blob" />
       </Subrecord>
-      <Subrecord name="XEZN" desc="Encounter Zone (ECZN)" optional="1" size="4">
+      <Subrecord name="XEZN" desc="Encounter Zone" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="ECZN" />
       </Subrecord>
-      <Subrecord name="XCWT" desc="Water (WATR)" optional="1" size="4">
+      <Subrecord name="XCWT" desc="Water" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="WATR" />
       </Subrecord>
        <Subrecord name="XWEM" desc="XWEM" optional="1">
@@ -5481,7 +5481,7 @@
       <Element name="Unknown float" type="float" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="XLRT" desc="Location Ref Type (LCRT)" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Ref Type" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
       <Subrecord name="XLKR" desc="Linked Ref" optional="1" repeat="1">
@@ -5490,7 +5490,7 @@
       <Subrecord name="XRDS" desc="Light Related" optional="1" size="4">
         <Element name="Unknown float" type="float" />
       </Subrecord>
-      <Subrecord name="XESP" desc="Enable Script Point (REFR)" optional="1">
+      <Subrecord name="XESP" desc="Enable Script Point" optional="1">
         <Element name="FormID" type="formid" reftype="REFR" />
         <Element name="Range?" type="float"/>
       </Subrecord>
@@ -5552,7 +5552,7 @@
        - At this point just lump them all together until a better layout can be determined 
        -->
     <Group optional="1" repeat="1">
-      <Subrecord name="XTNM" desc="MessageBox (MESG)" optional="1" size="4">
+      <Subrecord name="XTNM" desc="MessageBox" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="MESG" />
       </Subrecord>
       <Subrecord name="XMBR" desc="? (REFR)" optional="1" size="4">
@@ -5572,10 +5572,10 @@
       <Subrecord name="XRGD" desc="XRGD" optional="1"  notininfo="1">
         <Element name="Unknown" type="blob" />
       </Subrecord>
-      <Subrecord name="XLIB" desc="Leveled Item Base (LVLI)" optional="1" size="4">
+      <Subrecord name="XLIB" desc="Leveled Item Base" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LVLI" />
       </Subrecord>
-      <Subrecord name="XEZN" desc="Encounter Zone (ECZN)" optional="1" size="4">
+      <Subrecord name="XEZN" desc="Encounter Zone" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="ECZN" />
       </Subrecord>
       <Subrecord name="XCNT" desc="Item Count" optional="1" size="4">
@@ -5585,7 +5585,7 @@
         <Subrecord name="XRDS" desc="Light Related" optional="1" size="4">
           <Element name="Unknown float" type="float" />
         </Subrecord>
-        <Subrecord name="XEMI" desc="Emittance (LIGH)" optional="1" size="4">
+        <Subrecord name="XEMI" desc="Emittance" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="LIGH" />
         </Subrecord>
         <Subrecord name="XPWR" desc="? (REFR)" optional="1" repeat="1" size="4">
@@ -5603,7 +5603,7 @@
           <Element name="Unknown float" type="float" />
         </Subrecord>
         <Subrecord name="XPPA" desc="XPPA" optional="1" size="0" />
-        <Subrecord name="INAM" desc="ImageSpace (IMGS)" optional="1" size="4">
+        <Subrecord name="INAM" desc="ImageSpace" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="IMGS" />
         </Subrecord>
         <Subrecord name="SCHR" desc="SCHR" optional="1" size="20">
@@ -5629,7 +5629,7 @@
       <Subrecord name="XTRI" desc="XTRI" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
       </Subrecord>
-      <Subrecord name="XESP" desc="Enable Script Point (REFR)" optional="1">
+      <Subrecord name="XESP" desc="Enable Script Point" optional="1">
         <Element name="FormID" type="formid" reftype="REFR" />
         <Element name="Range?" type="float"/>
       </Subrecord>
@@ -5650,22 +5650,22 @@
         <Element name="Unknown 3" type="int" />
         <Element name="Unknown 4" type="int" />
       </Subrecord>
-      <Subrecord name="XLRT" desc="Location Ref Type (LCRT)" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Ref Type" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
-      <Subrecord name="XCZC" desc="? (CELL)" optional="1" size="4">
+      <Subrecord name="XCZC" desc="?" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="CELL" />
       </Subrecord>
       <Subrecord name="XCZA" desc="XCZA" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
       </Subrecord>
-      <Subrecord name="XOWN" desc="Faction Ownership (FACT)" optional="1" size="4">
+      <Subrecord name="XOWN" desc="Faction Ownership" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FACT" />
       </Subrecord>
       <Subrecord name="XLCM" desc="XLCM" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
       </Subrecord>
-      <Subrecord name="XLCN" desc="Location of this Cell (LCTN)" optional="1" size="4">
+      <Subrecord name="XLCN" desc="Location of this Cell" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCTN" />
       </Subrecord>
       <Subrecord name="XNDP" desc="door navMesh?" optional="1" size="8">
@@ -5675,14 +5675,14 @@
       <Subrecord name="XAPD" desc="Activation Point Flags" optional="1">
         <Element name="Unknown" type="string" />
       </Subrecord>
-      <Subrecord name="XAPR" desc="Activation Point (REFR)" optional="1" repeat="1" size="8">
+      <Subrecord name="XAPR" desc="Activation Point" optional="1" repeat="1" size="8">
         <Element name="FormID" type="formid" reftype="REFR" />
         <Element name="Unknown float" type="float" />
       </Subrecord>
       <Subrecord name="XLKR" desc="Linked Ref" optional="1" repeat="1">
         <Element name="FormID" type="formid" reftype="KYWD" repeat="1" optional="1" />
       </Subrecord>
-      <Subrecord name="XPOD" desc="Portal Destination (REFR)" optional="1" size="8">
+      <Subrecord name="XPOD" desc="Portal Destination" optional="1" size="8">
         <Element name="Origin FormID" type="formid" reftype="REFR" />
         <Element name="Destination FormID" type="formid" reftype="REFR" />
       </Subrecord>
@@ -5705,13 +5705,13 @@
       <Element name="Count?" type="ushort" />
       <Element name="Flags?" type="ushort" />
     </Subrecord>
-    <Subrecord name="LNAM" desc="Lighting Template (LGTM)" optional="1" size="4">
+    <Subrecord name="LNAM" desc="Lighting Template" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LGTM" />
     </Subrecord>
-    <Subrecord name="INAM" desc="ImageSpace (IMGS)" optional="1" size="4">
+    <Subrecord name="INAM" desc="ImageSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IMGS" />
     </Subrecord>
-    <Subrecord name="XLRM" desc="Location Room Marker (REFR)" optional="1" repeat="1" size="4">
+    <Subrecord name="XLRM" desc="Location Room Marker" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
     <Subrecord name="XMBP" desc="XMBP" optional="1" size="0" />
@@ -5744,22 +5744,22 @@
     <Subrecord name="WCTR" desc="WCTR" optional="1" size="4">
       <Element name="Unknown" type="int" />
     </Subrecord>
-    <Subrecord name="LTMP" desc="Lighting Template (LGTM)" optional="1" size="4">
+    <Subrecord name="LTMP" desc="Lighting Template" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LGTM" />
     </Subrecord>
-    <Subrecord name="XEZN" desc="Encounter Zone (ECZN)" optional="1" size="4">
+    <Subrecord name="XEZN" desc="Encounter Zone" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ECZN" />
     </Subrecord>
-    <Subrecord name="XLCN" desc="Location of this WRLD (LCTN)" optional="1" size="4">
+    <Subrecord name="XLCN" desc="Location of this WRLD" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LCTN" />
     </Subrecord>
-    <Subrecord name="WNAM" desc="Parent WorldSpace (WRLD)" optional="1" size="4">
+    <Subrecord name="WNAM" desc="Parent WorldSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="WRLD" />
     </Subrecord>
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="Climate Data (CLMT)" optional="1" size="4">
+    <Subrecord name="CNAM" desc="Climate Data" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CLMT" />
     </Subrecord>
     <Subrecord name="NAM2" desc="NAM2" optional="1" size="4">
@@ -5803,7 +5803,7 @@
       <Element name="Unknown float 1" type="float" />
       <Element name="Unknown float 2" type="float" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Music Type (MUSC)" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Music Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MUSC" />
     </Subrecord>
     <Subrecord name="TNAM" desc="TNAM" optional="1" size="53">
@@ -5880,7 +5880,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="NAME" desc="Base Form of Hazard (HAZD)" optional="1" size="4">
+    <Subrecord name="NAME" desc="Base Form of Hazard" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="HAZD" />
     </Subrecord>
     <Group optional="1" repeat="1">
@@ -5905,14 +5905,14 @@
     <Subrecord name="EDID" desc="Editor ID Name" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="NAME" desc="Base Form of Grenade (PROJ)" optional="1" size="4">
+    <Subrecord name="NAME" desc="Base Form of Grenade" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="PROJ" />
     </Subrecord>
     <Subrecord name="XSCL" desc="Scale" optional="1" size="4">
       <Element name="Scale" type="float" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="XOWN" desc="Faction Ownership (FACT)" optional="1" size="4">
+      <Subrecord name="XOWN" desc="Faction Ownership" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FACT" />
       </Subrecord>
       <Subrecord name="XESP" desc="Enable Script Point?" optional="1" size="8">
@@ -5952,13 +5952,13 @@
         <Element name="G" type="float" />
         <Element name="B" type="float" />
       </Subrecord>
-      <Subrecord name="XLCN" desc="Location of this Ref (LCTN)" optional="1" size="4">
+      <Subrecord name="XLCN" desc="Location of this Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCTN" />
       </Subrecord>
-      <Subrecord name="XOWN" desc="Faction Ownership (FACT)" optional="1" size="4">
+      <Subrecord name="XOWN" desc="Faction Ownership" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FACT" />
       </Subrecord>
-      <Subrecord name="XLRT" desc="Location Reference Type (LCRT)" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Reference Type" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
       <Subrecord name="XLKR" desc="Linked Ref" optional="1" repeat="1">
@@ -5981,7 +5981,7 @@
           <Element name="Unknown float" type="float" />
         </Subrecord>
         <Subrecord name="XPPA" desc="XPPA" optional="1" size="0" />
-        <Subrecord name="INAM" desc="ImageSpace (IMGS)" optional="1" size="4">
+        <Subrecord name="INAM" desc="ImageSpace" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="IMGS" />
         </Subrecord>
         <Subrecord name="SCHR" desc="SCHR" optional="1" size="20">
@@ -5996,10 +5996,10 @@
           <Element name="DIAL FormID" type="formid" reftype="DIAL" />
         </Subrecord>
       </Group>
-      <Subrecord name="XEZN" desc="Encounter Zone (ECZN)" optional="1" size="4">
+      <Subrecord name="XEZN" desc="Encounter Zone" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="ECZN" />
       </Subrecord>
-      <Subrecord name="XHOR" desc="Owned Horse Ref (ACHR)" optional="1" size="4">
+      <Subrecord name="XHOR" desc="Owned Horse Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="ACHR" />
       </Subrecord>
     </Group>
