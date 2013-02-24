@@ -44,14 +44,14 @@ class Element(object):
             setattr(self, attr, value)
 
     reftype = typed_property('reftype', 'ident')
-    repeat = typed_property('repeat', 'int')
+    repeat = typed_property('repeat', 'int', 0)
     name = typed_property('name', 'text')
-    optional = typed_property('optional', 'int')
+    optional = typed_property('optional', 'int', 0)
     hexview = typed_property('hexview', 'ident')
     condid = typed_property('condid', 'int')
     flags = typed_property('flags', 'text')
-    notininfo = typed_property('notininfo', 'ident')
-    multiline = typed_property('multiline', 'ident')
+    notininfo = typed_property('notininfo', 'int', 0)
+    multiline = typed_property('multiline', 'int', 0)
     type = typed_property('type', 'ident')
     options = typed_property('options', 'text')
     desc = typed_property('desc', 'text')
@@ -66,8 +66,8 @@ class Group(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    repeat = typed_property('repeat', 'int')
-    optional = typed_property('optional', 'int')
+    repeat = typed_property('repeat', 'int', 0)
+    optional = typed_property('optional', 'int', 0)
     id = typed_property('id', 'ident')
 
     children = typed_collection('children', ['Subrecord', 'Group'])
@@ -84,13 +84,13 @@ class Subrecord(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    repeat = typed_property('repeat', 'int')
+    repeat = typed_property('repeat', 'int', 0)
     name = typed_property('name', 'ident')
     condid = typed_property('condid', 'int')
     condvalue = typed_property('condvalue', 'ident')
-    notininfo = typed_property('notininfo', 'int')
+    notininfo = typed_property('notininfo', 'int', 0)
     desc = typed_property('desc', 'text')
-    optional = typed_property('optional', 'int')
+    optional = typed_property('optional', 'int', 0)
     condition = typed_property('condition', 'ident')
     size = typed_property('size', 'int')
 
