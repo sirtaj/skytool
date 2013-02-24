@@ -11,12 +11,12 @@
       <Element name = "Unknown 3" type = "byte" hexview="1"/>
       <Element name = "Comparison Value" type = "float"/>
       <Element name = "Function (+4096)" type = "short"/>
-      <Element name = "unused" type = "short" notininfo="true"/>
+      <Element name = "unused" type = "short" notininfo="1"/>
       <Element name = "Param 1 (can be int / float / formID)" type = "formid"/>
       <Element name = "Param 2 (can be int / float / formID)" type = "formid"/>
       <Element name = "Param 3 (can be int / float / formID)" type = "formid"/>
       <Element name = "Reference" type = "int"/>
-      <Element name = "Unknown (always -1)" type = "int" notininfo="true"/>
+      <Element name = "Unknown (always -1)" type = "int" notininfo="1"/>
     </Subrecord>
     <Subrecord name="CIS1" desc="CIS1" optional="1">
       <Element name="Unknown" type="int" />
@@ -82,7 +82,7 @@
       <Element name="Author" type="string" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Plugin Description" optional="1">
-      <Element name="Description" type="string" multiline="true" />
+      <Element name="Description" type="string" multiline="1" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="MAST" desc="Plugin Master Dependency">
@@ -1202,7 +1202,7 @@
     </Subrecord>
     <Subrecord name="COED" desc="CND extra data" optional="1" size="12">
       <Element name="FACT FormID" type="formid" reftype="FACT" />
-      <Element name="??" type="int" notininfo="true" />
+      <Element name="??" type="int" notininfo="1" />
       <Element name="item condition" type="float" />
     </Subrecord>
     <Subrecord name="DATA" desc="Container Data" optional="1" size="5">
@@ -1912,7 +1912,7 @@
       <Element name="Name" type="string" />
     </Subrecord>
     <Subrecord name="VMAD" desc="Script Data" optional="1">
-      <Element name="Unknown" type="blob" notininfo="true" />
+      <Element name="Unknown" type="blob" notininfo="1" />
     </Subrecord>
     <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
       <Element name="x1" type="short" />
@@ -2026,7 +2026,7 @@
     </Subrecord>
     <Subrecord name="PRKR" desc="Perk (PERK)" optional="1" repeat="1" size="8">
       <Element name="FormID" type="formid" reftype="PERK" />
-      <Element name="Unknown" type="uint" hexview="true" />
+      <Element name="Unknown" type="uint" hexview="1" />
     </Subrecord>
     <Subrecord name="COCT" desc="Container Total Item Count" optional="1" size="4">
       <Element name="Count" type="int" />
@@ -2185,7 +2185,7 @@
       <Element name="Chin Length" type="float" />
       <Element name="Chin Depth" type="float" />
       <Element name="Eyes Depth" type="float" />
-      <Element name="buffer/flags? 4bytes" type="uint" hexview="true" />
+      <Element name="buffer/flags? 4bytes" type="uint" hexview="1" />
     </Subrecord>
     <Subrecord name="NAMA" desc="CharGen Morphs tab pulldowns (face-parts)" optional="1" size="16">
       <Element name="NoseType" type="int" />
@@ -2416,9 +2416,9 @@
       <Subrecord name="DSTD" desc="Destruction Data" size="20">
         <Element name="unknown" type="int" />
         <Element name="unknown" type="int" />
-        <Element name="unknown" type="int" notininfo="true" />
+        <Element name="unknown" type="int" notininfo="1" />
         <Element name="EXPL FormID" type="formid" reftype="EXPL" />
-        <Element name="unknown" type="int" notininfo="true" />
+        <Element name="unknown" type="int" notininfo="1" />
       </Subrecord>
       <Subrecord name="DSTF" desc="Destruction Footer" size="0" />
     </Group>
@@ -4238,7 +4238,7 @@
       <Subrecord name="PRKE" desc="Rank Effect Header" optional="1" repeat="1" size="3">
         <Element name="Effect Type" type="byte" options="Linked Quest Stage;0;Linked SPEL;1;Complex;2" condid="1" />
         <Element name="Rank Index" type="byte" />
-        <Element name="?? -- always 0" type="byte" notininfo="true"/>
+        <Element name="?? -- always 0" type="byte" notininfo="1"/>
       </Subrecord>
       <Subrecord name="DATA" desc="Perk Effect Data" optional="1" size="8" condid="1" condition="equal" condvalue="0" >
         <Element name="QUST FormID" type="formid" reftype="QUST" />
