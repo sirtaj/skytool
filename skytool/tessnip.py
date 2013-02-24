@@ -47,9 +47,10 @@ class Group(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    repeat = typed_property('repeat', 'int', 0)
-    optional = typed_property('optional', 'int', 0)
     id = typed_property('id', 'ident')
+
+    repeat = typed_property('repeat', 'bool', False)
+    optional = typed_property('optional', 'bool', False)
 
     children = typed_collection('children', ['Subrecord', 'Group'])
 
@@ -67,16 +68,19 @@ class Subrecord(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    condid = typed_property('condid', 'int')
-    condition = typed_property('condition', 'ident')
-    condvalue = typed_property('condvalue', 'ident')
-    desc = typed_property('desc', 'text')
     name = typed_property('name', 'ident')
-    notininfo = typed_property('notininfo', 'int', 0)
-    optional = typed_property('optional', 'int', 0)
-    repeat = typed_property('repeat', 'int', 0)
+    desc = typed_property('desc', 'text')
+
+    repeat = typed_property('repeat', 'bool', False)
+    optional = typed_property('optional', 'bool', False)
+
     size = typed_property('size', 'int')
 
+    condid = typed_property('condid', 'int')          # TODO
+    condition = typed_property('condition', 'ident')  # TODO
+    condvalue = typed_property('condvalue', 'ident')  # TODO
+
+    notininfo = typed_property('notininfo', 'int', 0) # TODO
 
     elements = typed_collection('elements', ['Element'])
 
@@ -93,22 +97,25 @@ class Element(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    condid = typed_property('condid', 'int')
-    desc = typed_property('desc', 'text')
-    flags = typed_property('flags', 'text')
-    hexview = typed_property('hexview', 'ident')
-    multiline = typed_property('multiline', 'int', 0)
     name = typed_property('name', 'text')
-    notininfo = typed_property('notininfo', 'int', 0)
-    optional = typed_property('optional', 'int', 0)
-    options = typed_property('options', 'text')
-    reftype = typed_property('reftype', 'ident')
-    repeat = typed_property('repeat', 'int', 0)
     type = typed_property('type', 'ident')
 
-    calculated = typed_property('isCalculated', 'int', 0)
-    isFixedValue = typed_property('isFixedValue', 'int', 0)
-    fixedValue = typed_property('fixedValue', 'text')
+    desc = typed_property('desc', 'text')
+    reftype = typed_property('reftype', 'ident')
+    repeat = typed_property('repeat', 'bool', False)
+    optional = typed_property('optional', 'bool', False)
+
+    multiline = typed_property('multiline', 'bool', False) # TODO
+    condid = typed_property('condid', 'int') # TODO
+    options = typed_property('options', 'text') # TODO
+    flags = typed_property('flags', 'text') # TODO
+
+    hexview = typed_property('hexview', 'ident') # TODO
+    notininfo = typed_property('notininfo', 'bool', False) # TODO
+
+    calculated = typed_property('isCalculated', 'bool', False) # TODO
+    fixedValue = typed_property('fixedValue', 'text') # TODO
+    default = typed_property('default', 'text') # TODO
 
 
     def __iter__(self): return iter([])
