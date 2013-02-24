@@ -15,6 +15,8 @@ class Records(object):
 
     children = typed_collection('children', ['Group', 'Record'])
 
+    def __iter__(self): return iter(self.children)
+
 
 class Record(object):
     '''
@@ -32,6 +34,7 @@ class Record(object):
 
     children = typed_collection('children', ['Subrecord', 'Group'])
 
+    def __iter__(self): return iter(self.children)
 
 class Element(object):
     '''
@@ -72,6 +75,8 @@ class Group(object):
 
     children = typed_collection('children', ['Subrecord', 'Group'])
 
+    def __iter__(self): return iter(self.children)
+
 
 class Subrecord(object):
     '''
@@ -95,4 +100,6 @@ class Subrecord(object):
     size = typed_property('size', 'int')
 
     elements = typed_collection('elements', ['Element'])
+
+    def __iter__(self): return iter(self.elements)
 
