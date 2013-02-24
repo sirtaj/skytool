@@ -77,6 +77,7 @@ class Subrecord(object):
     repeat = typed_property('repeat', 'int', 0)
     size = typed_property('size', 'int')
 
+
     elements = typed_collection('elements', ['Element'])
 
     def __iter__(self): return iter(self.elements)
@@ -104,3 +105,10 @@ class Element(object):
     reftype = typed_property('reftype', 'ident')
     repeat = typed_property('repeat', 'int', 0)
     type = typed_property('type', 'ident')
+
+    calculated = typed_property('isCalculated', 'int', 0)
+    isFixedValue = typed_property('isFixedValue', 'int', 0)
+    fixedValue = typed_property('fixedValue', 'text')
+
+
+    def __iter__(self): return iter([])
