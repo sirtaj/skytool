@@ -1,4 +1,8 @@
 
+__doc__=\
+'''Core object model for ESP/ESM files.
+'''
+
 import game as game_
 import struct
 from struct import unpack as st_unpack
@@ -149,7 +153,14 @@ class Group(BaseRecord):
     def __repr__(self):
         return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
-class AttributeGroup: pass
+
+class AttributeGroup:
+    '''These are abstract groups of Subrecords.
+
+    They are not themselves rendered as subrecords themselves, but their children
+    are rendered, in the declared order.
+    '''
+    pass
 
 class Subrecord(BaseRecord):
     HEADER_STRUCT = struct.Struct("<H")
@@ -220,6 +231,7 @@ class Text(String): pass
 class AttributeBase(object):
     def __init__(self, record_tag, desc, data_type, size,
                     nullable = False): pass
+
 class Attribute(AttributeBase): pass
 
 class SingleSelect(Attribute): pass

@@ -1,6 +1,6 @@
 
-# Skyrim mod file utilities
-# Sirtaj Singh Kang
+'''Core TES/GameBryo game access.
+'''
 
 import os, os.path
 path_join = os.path.join

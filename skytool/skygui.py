@@ -1,4 +1,8 @@
 
+__doc__=\
+'''SkyScraper main GUI app.
+'''
+
 import PyQt4.QtCore as qc
 import PyQt4.QtGui as qg
 import PyQt4.uic as uic
@@ -8,7 +12,10 @@ import sys, os.path
 from qutil import qmicro, widget_update, MyThread
 from contextlib import contextmanager
 
+
 def find_resource_base():
+    '''A bad hack to locate the root of the resource path from
+    sys.path.'''
     for pth in reversed(sys.path):
         if os.path.exists(os.path.join(pth, "..", 'gui', 'skytool.ui')):
             return os.path.split(pth)[0]
@@ -17,6 +24,8 @@ def find_resource_base():
 
 
 class App(qc.QObject):
+    '''Instantiates the GUI and implements user actions.
+    '''
     def __init__(self, parent = None):
         super(App, self).__init__(parent)
 
