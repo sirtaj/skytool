@@ -36,28 +36,6 @@ class Record(object):
 
     def __iter__(self): return iter(self.children)
 
-class Element(object):
-    '''
-        Contained by: Subrecord
-    '''
-    def __init__(self, name, type, **kwargs):
-        self.name = name
-        self.type = type
-        for attr, value in kwargs.items():
-            setattr(self, attr, value)
-
-    reftype = typed_property('reftype', 'ident')
-    repeat = typed_property('repeat', 'int', 0)
-    name = typed_property('name', 'text')
-    optional = typed_property('optional', 'int', 0)
-    hexview = typed_property('hexview', 'ident')
-    condid = typed_property('condid', 'int')
-    flags = typed_property('flags', 'text')
-    notininfo = typed_property('notininfo', 'int', 0)
-    multiline = typed_property('multiline', 'int', 0)
-    type = typed_property('type', 'ident')
-    options = typed_property('options', 'text')
-    desc = typed_property('desc', 'text')
 
 
 class Group(object):
@@ -89,17 +67,40 @@ class Subrecord(object):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
 
-    repeat = typed_property('repeat', 'int', 0)
-    name = typed_property('name', 'ident')
     condid = typed_property('condid', 'int')
-    condvalue = typed_property('condvalue', 'ident')
-    notininfo = typed_property('notininfo', 'int', 0)
-    desc = typed_property('desc', 'text')
-    optional = typed_property('optional', 'int', 0)
     condition = typed_property('condition', 'ident')
+    condvalue = typed_property('condvalue', 'ident')
+    desc = typed_property('desc', 'text')
+    name = typed_property('name', 'ident')
+    notininfo = typed_property('notininfo', 'int', 0)
+    optional = typed_property('optional', 'int', 0)
+    repeat = typed_property('repeat', 'int', 0)
     size = typed_property('size', 'int')
 
     elements = typed_collection('elements', ['Element'])
 
     def __iter__(self): return iter(self.elements)
 
+
+class Element(object):
+    '''
+        Contained by: Subrecord
+    '''
+    def __init__(self, name, type, **kwargs):
+        self.name = name
+        self.type = type
+        for attr, value in kwargs.items():
+            setattr(self, attr, value)
+
+    condid = typed_property('condid', 'int')
+    desc = typed_property('desc', 'text')
+    flags = typed_property('flags', 'text')
+    hexview = typed_property('hexview', 'ident')
+    multiline = typed_property('multiline', 'int', 0)
+    name = typed_property('name', 'text')
+    notininfo = typed_property('notininfo', 'int', 0)
+    optional = typed_property('optional', 'int', 0)
+    options = typed_property('options', 'text')
+    reftype = typed_property('reftype', 'ident')
+    repeat = typed_property('repeat', 'int', 0)
+    type = typed_property('type', 'ident')
