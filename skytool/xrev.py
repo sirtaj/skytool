@@ -437,11 +437,11 @@ def deep_map(el, mod):
 
     for sub_el in el:
         sub_obj = deep_map(sub_el, mod)
-            child_coll = sub_el.tag.lower() + 's'
-            if hasattr(obj, child_coll):
-                getattr(obj, child_coll).append(sub_obj)
-            else:
-                obj.children.append(sub_obj)
+        child_coll = sub_el.tag.lower() + 's'
+        if hasattr(obj, child_coll):
+            getattr(obj, child_coll).append(sub_obj)
+        else:
+            obj.children.append(sub_obj)
 
     return obj
 
