@@ -35,10 +35,13 @@ IDENTS = {}
 IDENT_BY_OBJ = {}
 
 def strip_non_ident(word):
-    return ''.join(c for c in word if c.isalnum() or c.isspace())
+    return ''.join(c for c in str(word) if c.isalnum() or c.isspace())
+
+def to_ident(word):
+    return ''.join(w.capitalize() for w in strip_non_ident(word).split())
 
 def to_attr_ident(word):
-    ident = ''.join(w.capitalize() for w in strip_non_ident(word).split())
+    ident = to_ident(word)
     if ident:
         ident = ident[0].lower() + ident[1:]
     return ident
@@ -49,10 +52,9 @@ def is_ident(word): return ident_re(word) is not None
 
 def to_class_ident(desc, fallback):
     if not desc: return fallback
-    words = [w.capitalize() for w in desc.strip().split() if w.isalnum()]
-    ident = ''.join(words)
+    ident = to_ident(desc)
     if not ident or not is_ident(ident) or ident in IDENTS:
-        return fallback
+        ident = fallback
     IDENTS[ident] = 1
     return ident
 
@@ -96,7 +98,13 @@ def create_ident(obj, pfx = '', parent_idx = 0):
     elif isinstance(obj, Group):
         name = "%sSubGroup%d" % (pfx, parent_idx) if not obj.id else obj.id
     elif isinstance(obj, Subrecord):
-        name = to_class_ident(obj.desc, "%sSubRecord%d" % (pfx, parent_idx))
+        name = to_ident(obj.desc or obj.name)
+        if not name:
+            name = "%sSubRecord%d" % (pfx, parent_idx)
+        if name in IDENTS:
+            name = pfx + name
+        else:
+            IDENTS[name] = 1
     elif isinstance(obj, Element):
         name = "%s%s%s" % (pfx, obj.name, parent_idx)
 
@@ -135,12 +143,16 @@ def write_attributes(py, rec):
             ident = to_attr_ident(child.name)
             base = 'Attribute' if not child.reftype else 'Reference'
             cls = '%sSequence' if child.repeat else '%s'
+
+            if child.reftype:
+                type_str = ('referenced_type', repr(str(child.reftype)))
+            else:
+                type_str = ('data_type', map_type(child.type))
+
             py.assign(ident, '%s(%s)' 
                         % (cls % base,
                             arg_list(
-                                repr(str(child.type)),
-                                ('reftype', repr(str(child.reftype)))
-                                    if child.reftype else None,
+                                type_str,
                                 ('nullable', 'True') if child.optional else None)))
 
         elif isinstance(child, Subrecord):
@@ -155,11 +167,16 @@ def write_attributes(py, rec):
 
         else:
             ident = to_attr_ident(child.id or IDENT_BY_OBJ[child])
-            py.assign(ident, 'ChildGroup(%s)' % repr(str(IDENT_BY_OBJ[child])) )
+            cls = 'ChildGroupSequence' if child.repeat else 'ChildGroup'
+            py.assign(ident, '%s(%s)' % ( cls,
+                            arg_list(
+                                repr(str(IDENT_BY_OBJ[child])),
+                                ('nullable', 'True') if child.optional else None)))
 
         order.append(str(ident))
+    else:
+        py.blank()
 
-    py.blank()
     py.assign( '__order__', repr(order))
 
 
