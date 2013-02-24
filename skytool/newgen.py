@@ -4,6 +4,10 @@ import tessnip
 from tessnip import *
 import re
 
+
+###################################
+# Type and identifier mapping
+
 DATA_TYPES = {
     'blob':	esp.Blob,
 
@@ -34,7 +38,10 @@ def strip_non_ident(word):
     return ''.join(c for c in word if c.isalnum() or c.isspace())
 
 def to_attr_ident(word):
-    return ''.join(w.capitalize() for w in strip_non_ident(word).split())
+    ident = ''.join(w.capitalize() for w in strip_non_ident(word).split())
+    if ident:
+        ident = ident[0].lower() + ident[1:]
+    return ident
 
 ident_re = re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$").match
 
@@ -49,16 +56,21 @@ def to_class_ident(desc, fallback):
     IDENTS[ident] = 1
     return ident
 
+def arg_list(*seq):
+    return ', '.join((s if not isinstance(s, tuple) else ("%s = %s" % s))
+                        for s in seq if s)
+
 
 #############
+# Code gen
 
 def generate_python(snip_file, py_file):
     import xrev, pytext
     records = xrev.parse_xreved(snip_file, tessnip)
-    group_order = [(r.name, r) for r in records.children if isinstance(r, Record)]
+    group_order = [(r.name, r) for r in records if isinstance(r, Record)]
 
     child_ctr = 0
-    for c in records.children:
+    for c in records:
         try:
             create_ident(c, '', child_ctr)
             child_ctr += 1
@@ -74,72 +86,81 @@ def generate_python(snip_file, py_file):
         pf.assign('RECORD_ORDER', [str(n) for (n, r) in group_order])
         pf.blank()
 
-        for child in records.children:
-            write_subrecord_classes(pf, child)
+        for child in records:
+            write_class(pf, child)
 
 
 def create_ident(obj, pfx = '', parent_idx = 0):
     if isinstance(obj, Record):
         name = to_class_ident(obj.desc, obj.name)
-        children = obj.children
     elif isinstance(obj, Group):
-        if obj.id:
-            name = obj.id
-        else:
-            name = "%sSubGroup%d" % (pfx, parent_idx)
-        children = obj.children
+        name = "%sSubGroup%d" % (pfx, parent_idx) if not obj.id else obj.id
     elif isinstance(obj, Subrecord):
         name = to_class_ident(obj.desc, "%sSubRecord%d" % (pfx, parent_idx))
-        children = obj.elements
     elif isinstance(obj, Element):
         name = "%s%s%s" % (pfx, obj.name, parent_idx)
-        children = None
 
     IDENT_BY_OBJ[ obj ] = name
-    if not children: return
 
     child_ctr = 0
     child_pfx = "%s_" % (name)
-    for child in children:
+    for child in obj:
         create_ident(child, child_pfx, child_ctr)
         child_ctr += 1
 
 
-def write_subrecord_classes(py, record):
+def write_class(py, record):
     if isinstance(record, Record):
+        py.blank()
         py.write("########################")
         py.write('@record_type(%s)' % repr(str(record.name)))
         with py.python_class(IDENT_BY_OBJ[record], ['Record']) as subcls:
             write_attributes(py, record)
-        children = record.children
-    if isinstance(record, Group):
+    elif isinstance(record, Group):
         with py.python_class(IDENT_BY_OBJ[record], ['AttributeGroup']) as subcls:
             write_attributes(py, record)
-        children = record.children
     elif isinstance(record, Subrecord):
         with py.python_class(IDENT_BY_OBJ[record], ['Subrecord']) as subcls:
             write_attributes(py, record)
-        return
 
-    for child in children:
-        write_subrecord_classes(py, child)
+    for child in record:
+        write_class(py, child)
 
 
 def write_attributes(py, rec):
-    if isinstance(rec, Subrecord):
-        children = rec.elements
-    else:
-        children = rec.children
+    order = []
 
-    for child in children:
+    for child in rec:
         if isinstance(child, Element):
-            py.assign(to_attr_ident(child.name), 'Attribute(%s)' % (repr(str(child.type))))
+            ident = to_attr_ident(child.name)
+            base = 'Attribute' if not child.reftype else 'Reference'
+            cls = '%sSequence' if child.repeat else '%s'
+            py.assign(ident, '%s(%s)' 
+                        % (cls % base,
+                            arg_list(
+                                repr(str(child.type)),
+                                ('reftype', repr(str(child.reftype)))
+                                    if child.reftype else None,
+                                ('nullable', 'True') if child.optional else None)))
+
         elif isinstance(child, Subrecord):
-            py.assign(to_attr_ident(child.desc or child.name),
-                    'Subrecord(%s, field = "%s")' % (IDENT_BY_OBJ[child], child.name) )
+            cls = 'SubrecordSequence' if child.repeat else 'Subrecord'
+            ident = to_attr_ident(child.desc or child.name)
+            py.assign(ident, '%s(%s)' % (cls,
+                            arg_list(
+                                repr(str(IDENT_BY_OBJ[child])),
+                                ('field', repr(str(child.name))),
+                                ('size', child.size) if child.size else None,
+                                ('nullable', 'True') if child.optional else None)))
+
         else:
-            py.assign(to_attr_ident(child.id or IDENT_BY_OBJ[child]),
-                    'ChildGroup(%s)' % IDENT_BY_OBJ[child] )
+            ident = to_attr_ident(child.id or IDENT_BY_OBJ[child])
+            py.assign(ident, 'ChildGroup(%s)' % repr(str(IDENT_BY_OBJ[child])) )
+
+        order.append(str(ident))
+
+    py.blank()
+    py.assign( '__order__', repr(order))
 
 
 if __name__ == '__main__':
