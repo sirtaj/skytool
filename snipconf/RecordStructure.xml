@@ -16,7 +16,7 @@
       <Element name = "Param 2 (can be int / float / formID)" type = "formid"/>
       <Element name = "Param 3 (can be int / float / formID)" type = "formid"/>
       <Element name = "Reference" type = "int"/>
-      <Element name = "Unknown (always -1)" type = "int" notininfo="1"/>
+      <Element name = "Unknown (always -1)" type = "int" notininfo="1" fixedValue="-1"/>
     </Subrecord>
     <Subrecord name="CIS1" desc="CIS1" optional="1">
       <Element name="Unknown" type="int" />
@@ -75,10 +75,10 @@
   <Record name="TES4" desc="Main plugin header">
     <Subrecord name="HEDR" desc="The main plugin header" optional="1">
       <Element name="File Version" type="float" />
-      <Element name="Record Count" type="int" />
+      <Element name="Record Count" type="int" calculated="1" />
       <Element name="Next FormID" type="formid" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="Author of the Plugin" optional="1">
+    <Subrecord name="CNAM" desc="Author" optional="1">
       <Element name="Author" type="string" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Plugin Description" optional="1">
@@ -91,12 +91,12 @@
       <Subrecord name="SCRN" desc="Screenshot" optional="1" notininfo="1">
         <Element name="Screenshot" type="blob" />
       </Subrecord>
-      <Subrecord name="DATA" desc="(always zeroes)" optional="1" notininfo="1">
-        <Element name="buffer" type="blob" />
+      <Subrecord name="DATA" desc="(always zeroes)" optional="1" notininfo="1" fixedValue="0">
+        <Element name="buffer" type="blob" fixedValue="0" />
       </Subrecord>
     </Group>
     <Subrecord name="INTV" desc="(always 00000001)" optional="1" size="4">
-      <Element name="buffer/flag" type="uint" hexview="1" />
+      <Element name="buffer/flag" type="uint" hexview="1" fixedValue="1" />
     </Subrecord>
   </Record>
   <Record name="GMST" desc="Game setting">
@@ -528,7 +528,7 @@
       <Subrecord name="MTYP" desc="Movement Type" size="4">
         <Element name="FormID" type="formid" reftype="MOVT" />
       </Subrecord>
-      <Subrecord name="SPED" desc="SPED" size="44">
+      <Subrecord name="SPED" desc="Speed Data" size="44">
         <Element name="Strafe 1 Min Speed" type="float" />
         <Element name="Strafe 1 Max Speed" type="float" />
         <Element name="Strafe 2 Min Speed" type="float" />
@@ -765,8 +765,8 @@
       <Element name="DualCast DUAL FormID" type="formid" reftype="DUAL" />
       <Element name="DualCast Scale" type="float" desc="0-3"/>
       <Element name="Enchant ARTO FormID" type="formid" reftype="ARTO" />
-      <Element name="NullData1" type="int" desc="Always 0"/>
-      <Element name="NullData2" type="int" desc="Always 0"/>
+      <Element name="NullData1" type="int" desc="Always 0" fixedValue="0" />
+      <Element name="NullData2" type="int" desc="Always 0" fixedValue="0" />
       <Element name="Equip SPEL FormID" type="formid" reftype="SPEL" />
       <Element name="ImageSpace IPDS FormID" type="formid" reftype="IPDS"/>
       <Element name="PERK FormID" type="formid" reftype="PERK" />
@@ -845,7 +845,7 @@
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
-    <Subrecord name="MDOB" desc="?" optional="1" size="4">
+    <Subrecord name="MDOB" desc="Inventory Icon" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
     <Subrecord name="ETYP" desc="Equipment" optional="1" size="4">
@@ -952,14 +952,14 @@
       <Element name="Unknown" type="blob" />
     </Subrecord>
     <Subrecord name="DEST" desc="Destruction data" optional="1" size="8">
-      <Element name="Unknown 4bytes" type="int" />
-      <Element name="Unknown short 1" type="short" />
-      <Element name="Unknown short 2" type="short" />
+      <Element name="Health" type="uint" />
+      <Element name="Stages" type="ushort" isCalculated="1"/>
+      <Element name="Vats Flag" type="ushort" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="DSTD" desc="Destruction Section" size="20">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
+        <Element name="Health Percent" type="int" />
+        <Element name="Damage Stage" type="ushort" />
         <Element name="EXPL FormID" type="formid" reftype="EXPL" />
         <Element name="Unknown 3" type="int" />
         <Element name="Unknown 4" type="int" />
@@ -1865,7 +1865,7 @@
     <Subrecord name="VNAM" desc="Silenced yes/no" optional="1" size="4">
       <Element name="Silenced or Not" type="int" options="n/a;0;no;1;yes;2" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="? (WEAP)" optional="1" size="4">
+    <Subrecord name="CNAM" desc="Template Weapon" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="WEAP" />
     </Subrecord>
   </Record>
@@ -2333,8 +2333,8 @@
     <Subrecord name="ENIT" desc="'Enchantment Info and Type" optional="1" size="20">
       <Element name="Item Value" type="int" />
       <Element name="Item Type" type="int" />
-      <Element name="Padding" type="int" />
-      <Element name="Padding" type="int" />
+      <Element name="Padding1" type="int" />
+      <Element name="Padding2" type="int" />
       <Element name="Use Sound SNDR FormID" type="formid" reftype="SNDR" />
     </Subrecord>
     <Group id="EFFECT" optional="1" repeat="1"/>
@@ -2950,7 +2950,7 @@
     </Subrecord>
     <Subrecord name="SNAM" desc="Sound Tab" optional="1" repeat="1" size="8">
       <Element name="SNDR FormID" type="formid" reftype="SNDR" />
-      <Element name="(always 0)" type="int" />
+      <Element name="(always 0)" type="int" fixedValue="0" />
     </Subrecord>
     <Subrecord name="TNAM" desc="Static Clouds" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
@@ -3124,7 +3124,7 @@
     <Subrecord name="TCLT" desc="Linked To Dialog Topic" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="DIAL" />
     </Subrecord>
-    <Subrecord name="DNAM" desc="? (INFO)" optional="1">
+    <Subrecord name="DNAM" desc="Show Response Data From Info" optional="1">
       <Element name="FormID" type="formid" reftype="INFO" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
@@ -3207,7 +3207,7 @@
     <Subrecord name="ALNT" desc="ALNT" optional="1" repeat="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="ALEQ" desc="? (QUST)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALEQ" desc="External Alias Reference" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="ALEA" desc="ALEA" optional="1" repeat="1" size="4">
@@ -3223,7 +3223,7 @@
     <Subrecord name="ALFI" desc="ALFI" optional="1" repeat="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="ALFR" desc="? (REFR)" optional="1" repeat="1" size="4">
+    <Subrecord name="ALFR" desc="Alias Forced Reference" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
     <Subrecord name="ALFE" desc="ALFE" optional="1" repeat="1" size="4">
@@ -3307,13 +3307,13 @@
       <Subrecord name="QTGL" desc="Global Variable" optional="1" repeat="1" size="4">
         <Element name="FormID" type="formid" reftype="GLOB" />
       </Subrecord>
-      <Subrecord name="NEXT" desc="NEXT" optional="1" size="0" />
+      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     </Group>
     <Group optional="1" repeat="1">
       <Subrecord name="FLTR" desc="FLTR" optional="1">
         <Element name="Name" type="string" />
       </Subrecord>
-      <Subrecord name="NEXT" desc="NEXT" optional="1" size="0" />
+      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     </Group>
     <Group optional="1" repeat="1">
       <Group id="CONDITIONAL" optional="1" repeat="1"/>
@@ -3456,7 +3456,7 @@
     <Subrecord name="IDLA" desc="Idle Anim" optional="1">
       <Element name="FormID" type="formid" reftype="IDLE" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="QNAM" desc="? Quest (QUST)" optional="1" repeat="1" size="4">
+    <Subrecord name="QNAM" desc="? Quest" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
     <Subrecord name="PKCU" desc="AI Package data" optional="1" size="12">
@@ -3608,7 +3608,7 @@
       <Element name="Description" type="lstring" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Subrecord name="NNAM" desc="? (STAT)" optional="1" size="4">
+    <Subrecord name="NNAM" desc="Static Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
     <Subrecord name="SNAM" desc="SNAM" optional="1" size="4">
@@ -4238,7 +4238,7 @@
       <Subrecord name="PRKE" desc="Rank Effect Header" optional="1" repeat="1" size="3">
         <Element name="Effect Type" type="byte" options="Linked Quest Stage;0;Linked SPEL;1;Complex;2" condid="1" />
         <Element name="Rank Index" type="byte" />
-        <Element name="?? -- always 0" type="byte" notininfo="1"/>
+        <Element name="?? -- always 0" type="byte" notininfo="1" fixedValue="0"/>
       </Subrecord>
       <Subrecord name="DATA" desc="Perk Effect Data" optional="1" size="8" condid="1" condition="equal" condvalue="0" >
         <Element name="QUST FormID" type="formid" reftype="QUST" />
@@ -4268,7 +4268,7 @@
         <Element name="EPF2" type="lstring" />
       </Subrecord>
       <Subrecord name="EPF3" desc="==> Script Data 3 ?? Always 00 00" optional="1" repeat="1" size="4">
-        <Element name="EPF3" type="int" />
+        <Element name="EPF3" type="int" fixedValue="0" />
       </Subrecord>
       <Subrecord name="EPFD" desc="==> Float Value" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="1">
         <Element name="float value" type="float" />
@@ -4999,7 +4999,7 @@
     <Subrecord name="QNAM" desc="? Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
-    <Subrecord name="NEXT" desc="NEXT" optional="1" size="0" />
+    <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     <Subrecord name="SCDA" desc="SCDA" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -5472,6 +5472,14 @@
     <Subrecord name="NAME" desc="Base Object" optional="1" size="4">
       <Element name="FormID" type="formid" />
     </Subrecord>
+    <Subrecord name="XMBO" desc="Object Bounds" optional="1" size="12">
+      <Element name="x1" type="short" />
+      <Element name="y1" type="short" />
+      <Element name="z1" type="short" />
+      <Element name="x2" type="short" />
+      <Element name="y2" type="short" />
+      <Element name="z2" type="short" />
+    </Subrecord>
     <Subrecord name="XCVL" desc="XCVL" optional="1" size="12">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="float" />
@@ -5481,7 +5489,7 @@
       <Element name="Unknown float" type="float" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="XLRT" desc="Location Ref Type" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
       <Subrecord name="XLKR" desc="Linked Ref" optional="1" repeat="1">
@@ -5522,16 +5530,8 @@
       <Element name="Unknown 10" type="int" />
       <Element name="Unknown 11" type="int" />
     </Subrecord>
-    <Subrecord name="XSPC" desc="? (REFR)" optional="1" size="4">
+    <Subrecord name="XSPC" desc="?" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
-    </Subrecord>
-    <Subrecord name="XMBO" desc="Object Bounds" optional="1" size="12">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="XACT" desc="XACT" optional="1" size="4">
@@ -5555,7 +5555,7 @@
       <Subrecord name="XTNM" desc="MessageBox" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="MESG" />
       </Subrecord>
-      <Subrecord name="XMBR" desc="? (REFR)" optional="1" size="4">
+      <Subrecord name="XMBR" desc="?" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="REFR" />
       </Subrecord>
       <Subrecord name="XRGB" desc="XRGB" optional="1" size="12">
@@ -5566,10 +5566,10 @@
       <Subrecord name="XALP" desc="XALP" optional="1" size="2">
         <Element name="Unknown short" type="short" />
       </Subrecord>
-      <Subrecord name="XLTW" desc="? (REFR)" optional="1" size="4">
+      <Subrecord name="XLTW" desc="?" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="REFR" />
       </Subrecord>
-      <Subrecord name="XRGD" desc="XRGD" optional="1"  notininfo="1">
+      <Subrecord name="XRGD" desc="Rag Doll Data" optional="1" notininfo="1">
         <Element name="Unknown" type="blob" />
       </Subrecord>
       <Subrecord name="XLIB" desc="Leveled Item Base" optional="1" size="4">
@@ -5588,7 +5588,7 @@
         <Subrecord name="XEMI" desc="Emittance" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="LIGH" />
         </Subrecord>
-        <Subrecord name="XPWR" desc="? (REFR)" optional="1" repeat="1" size="4">
+        <Subrecord name="XPWR" desc="?" optional="1" repeat="1" size="4">
           <Element name="FormID" type="formid" reftype="REFR" />
         </Subrecord>
         <Subrecord name="XLIG" desc="Light Data" optional="1" size="16">
@@ -5650,7 +5650,7 @@
         <Element name="Unknown 3" type="int" />
         <Element name="Unknown 4" type="int" />
       </Subrecord>
-      <Subrecord name="XLRT" desc="Location Ref Type" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
       <Subrecord name="XCZC" desc="?" optional="1" size="4">
@@ -5958,7 +5958,7 @@
       <Subrecord name="XOWN" desc="Faction Ownership" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="FACT" />
       </Subrecord>
-      <Subrecord name="XLRT" desc="Location Reference Type" optional="1" size="4">
+      <Subrecord name="XLRT" desc="Location Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
       <Subrecord name="XLKR" desc="Linked Ref" optional="1" repeat="1">
@@ -5968,8 +5968,8 @@
         <Element name="Unknown" type="string" />
       </Subrecord>
       <Subrecord name="XIS2" desc="XIS2" optional="1" size="0" />
-      <Subrecord name="XAPR" desc="Activation Point Reference" optional="1" repeat="1" size="8">
-        <Element name="REFR FormID" type="formid" reftype="REFR" />
+      <Subrecord name="XAPR" desc="Activation Point" optional="1" repeat="1" size="8">
+        <Element name="FormID" type="formid" reftype="REFR" />
         <Element name="Unknown float" type="float" />
       </Subrecord>
       <Subrecord name="XESP" desc="Enable Script Point?" optional="1" size="8">
@@ -6016,24 +6016,24 @@
     </Subrecord>
   </Record>
   <Record name="NAVM" desc="NavMesh Reference">
-    <Subrecord name="NVNM" desc="NavMesh Geometry (after FFs are FormIDs of linked NAVMs" optional="1">
-	  <Element name="(same for all NVNM)" type="uint" hexview="1" />
-	  <Element name="(same for all NVNM)" type="uint" hexview="1" />
-      <Element name="Parent WRLD FormID" type="formid" reftype="WRLD" />
-	  <Element name="Cell-Grid or CELL FormID" type="uint" hexview="1" />
-	  <Element name="# of Vertices" type="int" />
+    <Subrecord name="NVNM" desc="NavMesh Geometry" optional="1">
+	  <Element name="Unknown value 1" type="uint" hexview="1" />
+	  <Element name="Possibly Location Marker" type="uint" hexview="1" />
+      <Element name="World Space" type="formid" reftype="WRLD" />
+	  <Element name="Cell Or Grid" type="uint" hexview="1" />
+	  <Element name="Vertex Count" type="int" calculated="1" />
 	  <Element name="Vertex Xpos (continues..)" type="float" />
 	  <Element name="Vertex Ypos (until before..)" type="float" />
 	  <Element name="Vertex Zpos (FFs start)" type="float" />
 	  <Element name="5-00s near end starts Tri's" type="blob" />
     </Subrecord>
-    <Subrecord name="ONAM" desc="? (STAT)" optional="1">
+    <Subrecord name="ONAM" desc="Unknown ONAM" optional="1">
       <Element name="FormID" type="formid" reftype="STAT" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="PNAM" optional="1" notininfo="1">
+    <Subrecord name="PNAM" desc="Unknown PNAM" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="NNAM" desc="NNAM" optional="1" notininfo="1">
+    <Subrecord name="NNAM" desc="Unknown NNAM" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
   </Record>
