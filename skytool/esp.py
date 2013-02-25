@@ -25,6 +25,35 @@ def record_type(rec_tag):
 
 
 class BaseRecord(object):
+    '''Core superclass for TES ESP/ESM records and subrecords.
+
+    There's a great deal of magic going on in here.
+
+    Descriptors of type OrderedDescriptor get registered by their declaration order
+    in the class, so that the __order__ class tuple can be used for reading and writing
+    to the plugin file.
+
+    Subclass descriptors get ordered AFTER their superclass descriptors.
+    '''
+    def __new__(cls, supers, cls_dict):
+        sub_cls = super(BaseRecord, cls).__new__(cls, supers, cls_dict)
+
+        # configure __order__ class attribute to match declaration order of descriptors.
+        attr_order = []
+        for attr_name, attr_descriptor in cls_dict.iteritems():
+            if isinstance(attr_descriptor, OrderedDescriptor):
+                attr_order.append((attr_descriptor.declaration_order, attr_descriptor))
+                attr_descriptor.attribute_name = attr_name
+            elif 
+
+        attr_order.sort()
+
+        old_order = getattr(sub_cls, '__order__', [])
+        sub_cls.__order__ = tuple(list(old_order) + [desc for (n, desc) in attr_order])
+
+        return sub_cls
+
+
     # Read constructor for all record subclasses
     @staticmethod
     def read_from(fd):
@@ -194,7 +223,7 @@ class Sequence(Subrecord):
     pass
 
 ## Data types
-class DataValue: pass
+class DataValue(object): pass
 class Blob(DataValue): pass
 
 class NoValue(DataValue): pass # Null/zero size data
@@ -229,7 +258,7 @@ class Text(String): pass
 
 
 class AttributeBase(object):
-    def __init__(self, record_tag, desc, data_type, size,
+    def __init__(self, field_tag, desc, data_type, size,
                     nullable = False): pass
 
 class Attribute(AttributeBase): pass
@@ -247,6 +276,64 @@ class ReferenceAttributeBase(AttributeBase): pass
 class Reference(ReferenceAttributeBase): pass
 class ReferenceSequence(ReferenceAttributeBase): pass
 
+
+####################
+# Descriptors - TODO
+
+# this should be incremented by 1 and assigned to each new descriptor so that we
+# can define field order when the enclosing class is finally created (in __new__)
+
+DEFINITION_COUNTER = 0
+
+class OrderedDescriptor(object):
+    def __init__(self):
+        global DEFINITION_COUNTER
+        self.declaration_order = DEFINITION_COUNTER     # will be used by __new__ to get order
+        DEFINITION_COUNTER += 1
+        self.attribute_name = None          # will be set by __new__
+
+    def __set__(self, obj, value):
+        raise NotImplementedError
+
+    def __get__(self, obj):
+        raise NotImplementedError
+
+    @classmethod
+    def lookup_type(cls, type_name):
+        '''Helps to resolve text type name to class once everything is defined.
+        '''
+        raise NotImplementedError
+
+
+class subrecord(OrderedDescriptor):
+    def __init__(self, class_name, field, nullable = False, size = None,
+            default_value = None, fixed_value = None):
+        super(subrecord, self).__init__()
+
+subrecord_set = subrecord
+
+class field(OrderedDescriptor):
+    def __init__(self, data_type, nullable = True, default_value = True, fixed_value = True):
+            my_index = next_descriptor_index()
+        super(field, self).__init__()
+
+
+field_set = field
+
+
+class reference(OrderedDescriptor):
+    def __init__(self, referenced_type, nullable = True):
+            my_index = next_descriptor_index()
+        super(reference, self).__init__()
+ 
+
+reference_set = reference
+
+def subrecord_group(class_name, nullable = False):
+    my_index = next_descriptor_index()
+
+
+subrecord_group_set = subrecord_group
 
 
 def test_read(plugin):
