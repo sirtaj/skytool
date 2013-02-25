@@ -1,0 +1,27 @@
+
+sniptopy/esp generator
+----------------------
+
+Better subtypes for structures:
+    Inline single-value subrecords to make them more compact to declare.
+
+Create common subgroups only once:
+    Initially we should be doing this if the subgroup requested with an empty tag.
+
+    Eventually we want to be able to derive common subgroups automatically by comparing
+    all subrecords and groups with each other to detect duplicates.
+        sort by signature:
+            a subrecord matches if:
+                each of its attributes matches
+                each of its elements matches
+                element and attribute order is the same
+
+
+Resolve named types once all records and subrecords are declared, but before instantiation
+of anything.
+    How do we know when to do this?
+    How do we lookup types that may not be in the same module?
+
+SkyScraper GUI
+--------------
+

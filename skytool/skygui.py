@@ -30,7 +30,7 @@ class App(qc.QObject):
         super(App, self).__init__(parent)
 
         self.game = None
-        self.nexus = None
+        self.mod_collection = None
         
         self.ui = None
         self.resource_base = find_resource_base()
@@ -40,6 +40,15 @@ class App(qc.QObject):
     def resource_file(self, relative_path):
         path = [self.resource_base] + relative_path.split('/')
         return os.path.join(*path)
+
+    @classmethod
+    def main(Cls):
+        qg.qApp = qg.QApplication(sys.argv)
+        app = Cls(qg.qApp)
+        app.run()
+        app.deleteLater()
+        app = None
+        print "exit"
 
     def run(self):
         from game import Skyrim
@@ -58,10 +67,11 @@ class App(qc.QObject):
         qg.qApp.exec_()
 
     def shutdown(self):
-        #self.ui = None
-        #self.nexus = None
-        #self.game = None
-        pass
+        self.ui = None
+        self.mod_collection = None
+        self.game = None
+
+    ##############
 
     @contextmanager
     def status(self, message):
@@ -98,6 +108,7 @@ class App(qc.QObject):
     def populate_mod_tree(self):
         tree = self.ui.modTreeBrowser()
         # TODO
+
 
 
 class DumbFileModel:
@@ -186,11 +197,6 @@ class ModFilterModel(qg.QSortFilterProxyModel):
         self.filterAcceptsRow = self.fast_filter if enable else self.null_filter
         self.invalidateFilter()
 
+
 if __name__ == '__main__':
-    if not isinstance(qg.qApp, qg.QApplication):
-        qg.qApp = qg.QApplication(sys.argv)
-    app = App(qg.qApp)
-    app.run()
-    app.deleteLater()
-    app = None
-    print "exit"
+    App.main()
