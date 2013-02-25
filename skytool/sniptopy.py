@@ -35,7 +35,7 @@ IDENTS = {}
 IDENT_BY_OBJ = {}
 
 def strip_non_ident(word):
-    return ''.join(c for c in str(word) if c.isalnum() or c.isspace())
+    return ''.join(c for c in str(word) if c.isalnum() or c.isspace() or c == '_')
 
 def to_ident(word):
     return ''.join(w.capitalize() for w in strip_non_ident(word).split())
@@ -82,7 +82,7 @@ def generate_python(snip_file, py_file):
 
     #
     with pytext.PythonFile.do(py_file) as pf:
-        pf.write('from esp import Record, AttributeGroup, Field, record_type')
+        pf.write('from esp import *')
         pf.blank()
 
         pf.assign('RECORD_ORDER', [str(n) for (n, r) in group_order])
@@ -96,11 +96,11 @@ def create_ident(obj, pfx = '', parent_idx = 0):
     if isinstance(obj, Record):
         name = to_class_ident(obj.desc, obj.name)
     elif isinstance(obj, Group):
-        name = "%sSubGroup%d" % (pfx, parent_idx) if not obj.id else obj.id
+        name = "%s%d" % (pfx, parent_idx) if not obj.id else obj.id
     elif isinstance(obj, Subrecord):
         name = to_ident(obj.desc or obj.name)
         if not name:
-            name = "%sSubRecord%d" % (pfx, parent_idx)
+            name = "%s%d" % (pfx, parent_idx)
         if name in IDENTS:
             name = pfx + name
         else:
@@ -118,6 +118,8 @@ def create_ident(obj, pfx = '', parent_idx = 0):
 
 
 def write_class(py, record):
+    '''Generate a python class for a snip element.
+    '''
     if isinstance(record, Record):
         py.blank()
         py.write("########################")
@@ -125,7 +127,7 @@ def write_class(py, record):
         with py.python_class(IDENT_BY_OBJ[record], ['Record']) as subcls:
             write_attributes(py, record)
     elif isinstance(record, Group):
-        with py.python_class(IDENT_BY_OBJ[record], ['AttributeGroup']) as subcls:
+        with py.python_class(IDENT_BY_OBJ[record], ['SubrecordGroup']) as subcls:
             write_attributes(py, record)
     elif isinstance(record, Subrecord):
         with py.python_class(IDENT_BY_OBJ[record], ['Subrecord']) as subcls:
@@ -136,39 +138,43 @@ def write_class(py, record):
 
 
 def write_attributes(py, rec):
+    '''Generate properties for each attribute of a snip element's generated python class.
+
+    Types and flags are mapped to esp.py types and helpers.
+    '''
     order = []
 
     for child in rec:
         if isinstance(child, Element):
             ident = to_attr_ident(child.name)
-            base = 'Attribute' if not child.reftype else 'Reference'
-            cls = '%sSequence' if child.repeat else '%s'
-
             if child.reftype:
-                type_str = ('referenced_type', repr(str(child.reftype)))
+                type_str = repr(str(child.reftype))
+                base = 'reference'
             else:
                 type_str = ('data_type', map_type(child.type))
+                base = 'field'
 
-            py.assign(ident, '%s(%s)' 
-                        % (cls % base,
+            py.assign(ident, '%s( %s )' 
+                        % ((base + "_set") if child.repeat else base,
                             arg_list(
                                 type_str,
                                 ('nullable', 'True') if child.optional else None)))
 
         elif isinstance(child, Subrecord):
-            cls = 'SubrecordSequence' if child.repeat else 'Subrecord'
             ident = to_attr_ident(child.desc or child.name)
-            py.assign(ident, '%s(%s)' % (cls,
+            cls = 'subrecord_set' if child.repeat else 'subrecord'
+
+            py.assign(ident, '%s( %s )' % (cls,
                             arg_list(
                                 repr(str(IDENT_BY_OBJ[child])),
-                                ('field', repr(str(child.name))),
+                                ('tag', repr(str(child.name))),
                                 ('size', child.size) if child.size else None,
                                 ('nullable', 'True') if child.optional else None)))
 
         else:
             ident = to_attr_ident(child.id or IDENT_BY_OBJ[child])
-            cls = 'ChildGroupSequence' if child.repeat else 'ChildGroup'
-            py.assign(ident, '%s(%s)' % ( cls,
+            cls = 'subrecord_group_set' if child.repeat else 'subrecord_group'
+            py.assign(ident, '%s( %s )' % ( cls,
                             arg_list(
                                 repr(str(IDENT_BY_OBJ[child])),
                                 ('nullable', 'True') if child.optional else None)))
@@ -177,7 +183,8 @@ def write_attributes(py, rec):
     else:
         py.blank()
 
-    py.assign( '__order__', repr(order))
+    # TODO We can probably get away with a counter hack here
+    #py.assign( '__order__', repr(order))
 
 
 if __name__ == '__main__':
