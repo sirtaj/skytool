@@ -55,6 +55,7 @@ class Group(object):
     children = typed_collection('children', ['Subrecord', 'Group'])
 
     def __iter__(self): return iter(self.children)
+    def __repr__(self): return "<Group %s>" % (repr(self.id))
 
 
 class Subrecord(object):
@@ -119,3 +120,4 @@ class Element(object):
 
 
     def __iter__(self): return iter([])
+    def __repr__(self): return "<Element %s (%s)>" % (repr(self.name), self.type)
