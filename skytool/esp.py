@@ -36,6 +36,11 @@ class BaseRecord(object):
     Subclass descriptors get ordered AFTER their superclass descriptors.
     '''
     def __new__(cls, supers, cls_dict):
+        '''When new subclasses of BaseRecord are created, any declared OrderedDescriptor
+        subclasses are ordered into a "__order__" class attribute, based on the
+        "declaration_order" attribute, which is expected to be an integer set by the
+        descriptor's constructor.
+        '''
         sub_cls = super(BaseRecord, cls).__new__(cls, supers, cls_dict)
 
         # configure __order__ class attribute to match declaration order of descriptors.
@@ -44,7 +49,6 @@ class BaseRecord(object):
             if isinstance(attr_descriptor, OrderedDescriptor):
                 attr_order.append((attr_descriptor.declaration_order, attr_descriptor))
                 attr_descriptor.attribute_name = attr_name
-            elif 
 
         attr_order.sort()
 
@@ -96,6 +100,29 @@ class BaseRecord(object):
     def skip(self, fd):
         fd.seek(self.data_end_offset())
 
+DEFINITION_COUNTER = 0
+
+class OrderedDescriptor(object):
+    def __init__(self):
+        global DEFINITION_COUNTER
+        self.declaration_order = DEFINITION_COUNTER     # will be used by __new__ to get order
+        DEFINITION_COUNTER += 1
+        self.attribute_name = None          # will be set by __new__
+
+    def __set__(self, obj, value):
+        raise NotImplementedError
+
+    def __get__(self, obj):
+        raise NotImplementedError
+
+    @classmethod
+    def lookup_type(cls, type_name):
+        '''Helps to resolve text type name to class once everything is defined.
+        '''
+        raise NotImplementedError
+
+
+##########################################
 
 class Record(BaseRecord):
     HEADER_STRUCT = struct.Struct("<4I2H")
@@ -183,14 +210,6 @@ class Group(BaseRecord):
         return "<Group %s>" % (''.join(chr(c) for c in getattr(self, "label", [])))
 
 
-class AttributeGroup:
-    '''These are abstract groups of Subrecords.
-
-    They are not themselves rendered as subrecords themselves, but their children
-    are rendered, in the declared order.
-    '''
-    pass
-
 class Subrecord(BaseRecord):
     HEADER_STRUCT = struct.Struct("<H")
     HEADER_SIZE = HEADER_STRUCT.size + 4
@@ -209,6 +228,18 @@ class Subrecord(BaseRecord):
 
     def __repr__(self):
         return "<Subrecord %s>" % (getattr(self, "type", "None"))
+
+
+class SubrecordGroup:
+    '''These are abstract groups of Subrecords.
+
+    They are not themselves rendered as subrecords themselves, but their children
+    are rendered, in the declared order.
+    '''
+    pass
+
+
+###########################################################
 
 class Scalar(Subrecord):
     # single data value
@@ -247,7 +278,7 @@ class Reference(FormId): pass
 class OwnedReference(FormId): pass
 
 
-class FilePath: pass
+class FilePath(String): pass
 class Color: pass
 class Point3D: pass
 class Line3D: pass
@@ -283,27 +314,6 @@ class ReferenceSequence(ReferenceAttributeBase): pass
 # this should be incremented by 1 and assigned to each new descriptor so that we
 # can define field order when the enclosing class is finally created (in __new__)
 
-DEFINITION_COUNTER = 0
-
-class OrderedDescriptor(object):
-    def __init__(self):
-        global DEFINITION_COUNTER
-        self.declaration_order = DEFINITION_COUNTER     # will be used by __new__ to get order
-        DEFINITION_COUNTER += 1
-        self.attribute_name = None          # will be set by __new__
-
-    def __set__(self, obj, value):
-        raise NotImplementedError
-
-    def __get__(self, obj):
-        raise NotImplementedError
-
-    @classmethod
-    def lookup_type(cls, type_name):
-        '''Helps to resolve text type name to class once everything is defined.
-        '''
-        raise NotImplementedError
-
 
 class subrecord(OrderedDescriptor):
     def __init__(self, class_name, field, nullable = False, size = None,
@@ -314,7 +324,7 @@ subrecord_set = subrecord
 
 class field(OrderedDescriptor):
     def __init__(self, data_type, nullable = True, default_value = True, fixed_value = True):
-            my_index = next_descriptor_index()
+        my_index = next_descriptor_index()
         super(field, self).__init__()
 
 
@@ -323,7 +333,7 @@ field_set = field
 
 class reference(OrderedDescriptor):
     def __init__(self, referenced_type, nullable = True):
-            my_index = next_descriptor_index()
+        my_index = next_descriptor_index()
         super(reference, self).__init__()
  
 
