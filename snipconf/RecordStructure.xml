@@ -5,6 +5,11 @@
       <Element name="Name" type="string" />
     </Subrecord>
   </Group>
+  <Group id="FULLNAME">
+    <Subrecord name="FULL" desc="In-Game Name">
+      <Element name="Name" type="lstring" />
+    </Subrecord>
+  </Group>
   <Group id="CONDITIONAL" optional="1" repeat="1">
     <Subrecord name = "CTDA" desc = "Conditional" optional = "1" repeat = "1">
       <Element name = "Comparison Type" type = "byte"
@@ -93,6 +98,118 @@
       <Element name="z2" type="short" />
     </Subrecord>
   </Group>
+  <Group id="SCRIPTS" optional="1">
+    <Subrecord name="VMAD" desc="Script Data" notininfo="1">
+      <Element name="version" type="short"/>
+      <Element name="objFormat" type="short"/>
+      <Element name="scriptCount" type="ushort" calculated="1"/>
+      <Element name="scripts" type="blob"/>
+    </Subrecord>
+  </Group>
+  <Group id="BASE_MODEL" optional="1">
+    <Subrecord name="MODL" desc="Mesh Path">
+      <Element name="Path" type="string" />
+    </Subrecord>
+    <Subrecord name="MODT" desc="Texture Data" optional="1" notininfo="1">
+      <Element name="Unknown" type="blob" />
+    </Subrecord>
+    <Subrecord name="MODS" desc="Texture Info" optional="1" notininfo="1">
+      <Element name="Unknown" type="blob" />
+    </Subrecord>
+  </Group>
+  <Group id="MODEL_NAME">
+    <Group optional="1">
+      <Subrecord name="MNAM" desc="MNAM" />
+      <Subrecord name="INDX" desc="INDX" optional="1" size="4">
+        <Element name="Unknown 4bytes" type="int" />
+      </Subrecord>
+      <Subrecord name="ANAM" desc="ANAM" optional="1">
+        <Element name="Name" type="string" />
+      </Subrecord>
+      <Subrecord name="MODL" desc="Model" optional="1">
+        <Element name="Path" type="string" />
+      </Subrecord>
+      <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
+        <Element name="Unknown" type="int" />
+        <Element name="Unknown 1" type="int" />
+        <Element name="Unknown 2" type="int" />
+      </Subrecord>
+    </Group>
+    <Group optional="1">
+      <Subrecord name="FNAM" desc="FNAM" />
+      <Subrecord name="INDX" desc="INDX" optional="1" size="4">
+        <Element name="Unknown 4bytes" type="int" />
+      </Subrecord>
+      <Subrecord name="ANAM" desc="ANAM" optional="1">
+        <Element name="Name" type="string" />
+      </Subrecord>
+      <Subrecord name="MODL" desc="Model" optional="1">
+        <Element name="Name" type="string" />
+      </Subrecord>
+      <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
+        <Element name="Unknown" type="int" />
+        <Element name="Unknown 1" type="int" />
+        <Element name="Unknown 2" type="int" />
+      </Subrecord>
+    </Group>
+  </Group>
+
+  <Group id="DESTRUCTIBLE">
+    <Subrecord name="DEST" desc="Destruction data" size="8">
+      <Element name="Health" type="uint" />
+      <Element name="Stage Count" type="byte" calculated="1"/>
+      <Element name="Vats Flag" type="ushort" />
+      <Element name="unknown1" type="byte" />
+      <Element name="unknown2" type="byte" />
+    </Subrecord>
+    <Group id="Stages" optional="1" repeat="1">
+      <Subrecord name="DSTD" desc="Destruction Section" size="20">
+        <Element name="Health Percent" type="ushort" />
+        <Element name="Damage Stage" type="byte" />
+        <Element name="Flags" type="byte" />
+        <Element name="Self Damage Rate" type="uint" />
+        <Element name="Explosion" type="formid" reftype="EXPL" />
+        <Element name="Debris" type="formid" reftype="DEBR" />
+        <Element name="Debris Count" type="uint" />
+      </Subrecord>
+      <Subrecord name="DMDL" desc="Replacement Model" optional="1" repeat="1">
+        <Element name="Path" type="string" />
+      </Subrecord>
+      <Subrecord name="DMDT" desc="DMDT" optional="1" repeat="1" notininfo="1">
+        <Element name="Unknown" type="blob" />
+      </Subrecord>
+      <Subrecord name="DMDS" desc="DMDS" optional="1" size="35" notininfo="1">
+        <Element name="Unknown" type="blob" />
+      </Subrecord>
+      <Subrecord name="DSTF" desc="DSTF" size="0" />
+    </Group>
+  </Group>
+
+  <!-- =========================================================== -->
+  <Group id="OBJECT">
+    <Group id="EDITORID"/>
+    <Group id="OBJECT_BOUNDS" optional="1"/>
+    <Group id="FULLNAME" optional="1"/>
+  </Group>
+  <Group id="SCRIPTED_OBJECT">
+    <Group id="EDITORID"/>
+    <Group id="SCRIPTS" optional="1"/>
+    <Group id="OBJECT_BOUNDS" optional="1"/>
+    <Group id="FULLNAME" optional="1"/>
+  </Group>
+  <Group id="CONCEPT">
+    <Group id="EDITORID"/>
+    <Group id="FULLNAME" optional="1"/>
+  </Group>
+  <Group id="SCRIPTED_CONCEPT">
+    <Group id="EDITORID"/>
+    <Group id="SCRIPTS" optional="1"/>
+    <Group id="FULLNAME" optional="1"/>
+  </Group>
+  <Group id="SCRIPTED_MODEL">
+      <Group id="SCRIPTED_OBJECT"/>
+      <Group id="BASE_MODEL" optional="1"/>
+  </Group>
   <!-- =========================================================== -->
   <Record name="TES4" desc="Main plugin header">
     <Subrecord name="HEDR" desc="The main plugin header" optional="1">
@@ -154,6 +271,9 @@
   </Record>
   <Record name="AACT" desc="Action">
     <Group id="EDITORID" />
+    <Subrecord name="CNAM" desc= "Color">
+      <Element name="Color" type="uint"/>
+    </Subrecord>
   </Record>
   <Record name="TXST" desc="Texture Set">
     <Group id="EDITORID" />
@@ -204,10 +324,7 @@
     </Subrecord>
   </Record>
   <Record name="CLAS" desc="Character Class">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Class In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="DESC" desc="unused description?" optional="1">
       <Element name="Text" type="lstring" />
     </Subrecord>
@@ -225,10 +342,7 @@
     </Subrecord>
   </Record>
   <Record name="FACT" desc="Faction">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="XNAM" desc="(FACT)" optional="1" repeat="1" size="12">
       <Element name="FormID" type="formid" reftype="FACT" />
       <Element name="Unknown int 1" type="int" />
@@ -292,16 +406,8 @@
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
   </Record>
   <Record name="HDPT" desc="Head-Part Mesh">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="CONCEPT" />
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="flag?" optional="1" size="1">
       <Element name="Unknown byte" type="byte" />
     </Subrecord>
@@ -327,10 +433,7 @@
     </Subrecord>
   </Record>
   <Record name="EYES" desc="Eyes">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="ICON" desc="Icon" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -338,47 +441,8 @@
       <Element name="Gender flag" type="byte" options="None;0;Both Genders;1;Female;3;Male;5;"/>
     </Subrecord>
   </Record>
-  <Group id="MODEL_NAME">
-    <Group optional="1">
-      <Subrecord name="MNAM" desc="MNAM" />
-      <Subrecord name="INDX" desc="INDX" optional="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
-      </Subrecord>
-      <Subrecord name="ANAM" desc="ANAM" optional="1">
-        <Element name="Name" type="string" />
-      </Subrecord>
-      <Subrecord name="MODL" desc="Model" optional="1">
-        <Element name="Path" type="string" />
-      </Subrecord>
-      <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-      </Subrecord>
-    </Group>
-    <Group optional="1">
-      <Subrecord name="FNAM" desc="FNAM" />
-      <Subrecord name="INDX" desc="INDX" optional="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
-      </Subrecord>
-      <Subrecord name="ANAM" desc="ANAM" optional="1">
-        <Element name="Name" type="string" />
-      </Subrecord>
-      <Subrecord name="MODL" desc="Model" optional="1">
-        <Element name="Name" type="string" />
-      </Subrecord>
-      <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-      </Subrecord>
-    </Group>
-  </Group>
   <Record name="RACE" desc="Race or Creature Type">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -663,42 +727,8 @@
       <Element name="FormID" type="formid" reftype="REVB" />
     </Subrecord>
   </Record>
-  <Record name="MGEF" desc="Magic Effect">
-    <Group id="EDITORID" />
-    <!--<Subrecord name="VMAD" desc="VM Data(One Script/Property With Ref Version)" optional="1" notininfo="0">
-      <Element name="Version" type="byte" desc="4Byte int" condid="1"/>
-      <Element name="NullByte" type="byte" desc="always 0"/>
-      <Element name="unknown1" type="byte" desc="4Byte int"/>
-      <Element name="NullByte" type="byte" desc="always 0"/>
-      <Element name="scriptCount" type="byte" desc="4Byte int"/>
-      <ElementGroup name="Script" optional="1" repeat="1">
-        <Element name="NullByte" type="byte" desc="always 0"/>
-        <Element name="scriptSize" type="byte" desc="Size of ScriptName1"/>
-        <Element name="NullByte" type="byte" desc="always 0" />
-        <Element name="ScriptName1" type="string"/>
-        <Element name="propertyCount" type="byte" desc="4Byte int"/>
-        <ElementGroup name="Properties" optional="1" repeat="1">
-          <Element name="NullByte" type="byte" desc="always 0"/>
-          <Element name="PropertySize" type="byte" desc="Size of Property"/>
-          <Element name="NullByte" type="byte" desc="always 0"/>
-          <Element name="PropertyName+PropertyType+Unknown3" type="string"/>
-          -->
-    <!--<Element name="PropertyType" type="byte" desc="Size of Property"/>-->
-    <!--
-          <Element name="unknown3" type="byte" condition="greaterthanequal" condid="1" condvalue="4" desc="Defaults to 1 for earlier versions."/>
-          <Element name="Byte" type="byte" />
-          <Element name="Byte" type="byte" />
-          <Element name="Byte" type="byte" />
-          <Element name="ObjectReference" type="formid"/>
-        </ElementGroup>
-      </ElementGroup>
-    </Subrecord>-->
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+  <Record name="MGEF" desc="Magic Effect FIXME TODO">
+    <Group id="SCRIPTED_OBJECT" />
     <Subrecord name="MDOB" desc="Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
@@ -770,11 +800,7 @@
     </Subrecord>
   </Record>
   <Record name="ENCH" desc="Enchantment">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="OBJECT" />
     <Subrecord name="ENIT" desc="Enchantment data" optional="1">
       <Element name="Base Cost" type="int" />
       <Element name="Flags" type="int" flags="Manual Cost Calc;PC Start Spell;ExtendDurationOnRecast?;Area Effect Ignores Line of Sight;Ignore Resistance;No Absorb/Reflect;6;No Dual Cast Modification;8;9;10;11;12;13;14;15;16;"/>
@@ -789,11 +815,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="SPEL" desc="Spell">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="OBJECT" />
     <Subrecord name="MDOB" desc="Inventory Icon" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
@@ -817,11 +839,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="SCRL" desc="Scroll">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="OBJECT" />
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="MDOB" desc="Inv Icon" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
@@ -832,20 +850,7 @@
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
-    <Subrecord name="MODL" desc="Ground Model Path" optional="1">
-      <Element name="Path\Name" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Struct" optional="1" size="36">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-      <Element name="Unknown 4" type="int" />
-      <Element name="Unknown 5" type="int" />
-      <Element name="Unknown 6" type="int" />
-      <Element name="Unknown 7" type="int" />
-      <Element name="Unknown 8" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="DATA" optional="1" size="8">
       <Element name="Unknown 4bytes" type="int" />
       <Element name="Item Weight" type="float" />
@@ -864,48 +869,8 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="ACTI" desc="Activator">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model Name" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="DEST" desc="Destruction data" optional="1" size="8">
-      <Element name="Health" type="uint" />
-      <Element name="Stages" type="ushort" isCalculated="1"/>
-      <Element name="Vats Flag" type="ushort" />
-    </Subrecord>
-    <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="Destruction Section" size="20">
-        <Element name="Health Percent" type="int" />
-        <Element name="Damage Stage" type="ushort" />
-        <Element name="EXPL FormID" type="formid" reftype="EXPL" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="Unknown 4" type="int" />
-      </Subrecord>
-      <Subrecord name="DMDL" desc="DMDL" optional="1" repeat="1">
-        <Element name="Name" type="string" />
-      </Subrecord>
-      <Subrecord name="DMDT" desc="DMDT" optional="1" repeat="1" notininfo="1">
-        <Element name="Unknown" type="blob" />
-      </Subrecord>
-      <Subrecord name="DMDS" desc="DMDS" optional="1" size="35" notininfo="1">
-        <Element name="Unknown" type="blob" />
-      </Subrecord>
-      <Subrecord name="DSTF" desc="DSTF" size="0" />
-    </Group>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
+    <Group id="DESTRUCTIBLE"/>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
@@ -930,17 +895,8 @@
     </Subrecord>
   </Record>
   <Record name="TACT" desc="Talking Activator">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -952,14 +908,7 @@
     </Subrecord>
   </Record>
   <Record name="ARMO" desc="Armor">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="SCRIPTED_OBJECT"/>
     <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ENCH" />
     </Subrecord>
@@ -1019,20 +968,7 @@
     </Subrecord>
   </Record>
   <Record name="BOOK" desc="Book">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Book Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="DESC" desc="Book Description - Sometimes a copy of the book name." optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -1064,27 +1000,11 @@
     </Subrecord>
   </Record>
   <Record name="CONT" desc="Container">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
+    <Subrecord name="COCT" desc="Contained Count" optional="1" size="4">
+      <Element name="count" type="int" calculated="1"/>
     </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="COCT" desc="COCT" optional="1" size="4">
-      <Element name="# of Items in Container" type="int" />
-    </Subrecord>
-    <Subrecord name="CNTO" desc="Item in Container" optional="1" repeat="1" size="8">
+    <Subrecord name="CNTO" desc="Contents" optional="1" repeat="1" size="8">
       <Element name="FormID" type="formid" />
       <Element name="Count" type="int" />
     </Subrecord>
@@ -1108,69 +1028,7 @@
     </Subrecord>
   </Record>
   <Record name="DOOR" desc="Door">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1" />
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-      <Element name="Unknown 4" type="int" />
-      <Element name="Unknown 5" type="int" />
-      <Element name="Unknown 6" type="int" />
-      <Element name="Unknown 7" type="int" />
-      <Element name="Unknown 8" type="int" />
-      <Element name="Unknown 9" type="int" />
-      <Element name="Unknown 10" type="int" />
-      <Element name="TXST FormID" type="formid" reftype="TXST" />
-      <Element name="Unknown 12" type="int" />
-      <Element name="Unknown 13" type="int" />
-      <Element name="Unknown 14" type="int" />
-      <Element name="Unknown 15" type="int" />
-      <Element name="Unknown 16" type="int" />
-      <Element name="Unknown 17" type="int" />
-      <Element name="SNDR FormID" type="formid" reftype="SNDR" />
-      <Element name="Unknown 19" type="int" />
-      <Element name="Unknown 20" type="int" />
-      <Element name="Unknown 21" type="int" />
-      <Element name="Unknown 22" type="int" />
-      <Element name="Unknown 23" type="int" />
-      <Element name="Unknown 24" type="int" />
-      <Element name="Unknown 25" type="int" />
-      <Element name="Unknown 26" type="int" />
-      <Element name="Unknown 27" type="int" />
-      <Element name="Unknown 28" type="int" />
-      <Element name="Unknown 29" type="int" />
-      <Element name="Unknown 30" type="int" />
-      <Element name="Unknown 31" type="int" />
-      <Element name="Unknown 32" type="int" />
-      <Element name="Unknown 33" type="float" />
-      <Element name="Unknown 34" type="int" />
-      <Element name="Unknown 35" type="int" />
-      <Element name="Unknown 36" type="int" />
-      <Element name="Unknown 37" type="int" />
-      <Element name="Unknown 38" type="int" />
-      <Element name="Unknown 39" type="int" />
-      <Element name="Unknown 40" type="int" />
-      <Element name="Unknown 41" type="int" />
-      <Element name="Unknown 42" type="int" />
-      <Element name="Unknown 43" type="int" />
-      <Element name="Unknown 44" type="int" />
-      <Element name="Unknown 45" type="short" />
-      <Element name="Unknown 46" type="short" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="SNAM" desc="Open Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -1182,21 +1040,9 @@
     </Subrecord>
   </Record>
   <Record name="INGR" desc="Ingredient">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="OBJECT"/>
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -1215,16 +1061,11 @@
   </Record>
   <Record name="LIGH" desc="Light Template">
     <Group id="EDITORID" />
+    <Group id="SCRIPTS" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1" notininfo="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
+    <!-- TODO Destruction -->
+    <Group id="FULLNAME" />
     <Subrecord name="DATA" desc="Light data" optional="1" size="48">
       <Element name="Time (-1 = Infinite)" type="int" />
       <Element name="Radius" type="int" />
@@ -1250,20 +1091,7 @@
     </Subrecord>
   </Record>
   <Record name="MISC" desc="Misc Item">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="ICON" desc="Item Icon" optional="1" size="19">
       <Element name="File Path" type="string" />
     </Subrecord>
@@ -1283,11 +1111,7 @@
     </Subrecord>
   </Record>
   <Record name="APPA" desc="Apparatus">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="QUAL" desc="Quality" optional="1" size="4">
       <Element name="Quality" type="int" options="Novice;0;Aprrentice;1;Journeyman;2;Expert;3;Master;4"/>
     </Subrecord>
@@ -1302,15 +1126,7 @@
   <Record name="STAT" desc="Static">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DNAM" desc="DNAM" optional="1" size="8">
       <Element name="Scale?" type="float" />
       <Element name="MATO FormID" type="formid" reftype="MATO" />
@@ -1322,38 +1138,8 @@
   <Record name="MSTT" desc="Movable Static">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="DEST" desc="Destruction Data" optional="1" size="8">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="short" />
-      <Element name="Unknown 2" type="short" />
-    </Subrecord>
-    <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="Destruction Section" size="20">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="EXPL FormID" type="formid" reftype="EXPL" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="Unknown 4" type="int" />
-      </Subrecord>
-      <Subrecord name="DMDL" desc="Destroyed Model" optional="1" repeat="1" notininfo="1">
-        <Element name="Path" type="blob" />
-      </Subrecord>
-      <Subrecord name="DMDT" desc="Destroyed Model Data" optional="1" repeat="1" size="24">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="Unknown 4" type="int" />
-        <Element name="Unknown 5" type="int" />
-      </Subrecord>
-      <Subrecord name="DSTF" desc="DSTF" optional="1" repeat="1" size="0" />
-    </Group>
+    <Group id="BASE_MODEL" />
+    <Group id="DESTRUCTIBLE"/>
     <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -1367,17 +1153,7 @@
   <Record name="GRAS" desc="Grass">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="24">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="float" />
-      <Element name="Unknown 4" type="int" />
-      <Element name="Unknown 5" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="DATA" optional="1" size="32">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="int" />
@@ -1392,12 +1168,7 @@
   <Record name="TREE" desc="Tree">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="PFIG" desc="Result Item" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="INGR" />
     </Subrecord>
@@ -1407,9 +1178,7 @@
     <Subrecord name="PFPC" desc="Percent Chance?" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME" />
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="48">
       <Element name="Unknown" type="float" />
       <Element name="Unknown 1" type="float" />
@@ -1426,23 +1195,7 @@
     </Subrecord>
   </Record>
   <Record name="FLOR" desc="Flora">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -1463,35 +1216,8 @@
     </Subrecord>
   </Record>
   <Record name="FURN" desc="Furniture">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="DEST" desc="Destruction Data" optional="1" size="8">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="short" />
-      <Element name="Unknown 2" type="short" />
-    </Subrecord>
-    <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="Destruction Section" size="20">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="Unknown 4" type="int" />
-      </Subrecord>
-      <Subrecord name="DSTF" desc="DSTF" optional="1" repeat="1" size="0" />
-    </Group>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
+    <Group id="DESTRUCTIBLE"/>
     <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -1533,30 +1259,7 @@
     </Subrecord>
   </Record>
   <Record name="WEAP" desc="Weapon">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1" size="29">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-      <Element name="Unknown 4" type="int" />
-      <Element name="Unknown 5" type="int" />
-      <Element name="Unknown 6" type="lstring" />
-      <Element name="Unknown 7" type="short" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="Form ID" type="formid" reftype="ENCH" />
     </Subrecord>
@@ -1653,17 +1356,8 @@
     </Subrecord>
   </Record>
   <Record name="AMMO" desc="Ammunition Type">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
     <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -1683,9 +1377,7 @@
   </Record>
   <Record name="NPC_" desc="Actor">
     <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1">
-      <Element name="Unknown" type="blob" notininfo="1" />
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="ACBS" desc="Traits and Stats tabs (ULAGEPRUN - UserLevel, AutoCalc, Gender, Essential, PresetCharGen, Respawn, Unique, NoAffectOnStealthMeter)" optional="1" size="24">
 		<Element name="UL-A-G-E-P-R-U-N" type="byte" hexview="1" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
@@ -1735,23 +1427,7 @@
     <Subrecord name="RNAM" desc="Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
-    <Subrecord name="DEST" desc="Destruction Data" optional="1" size="8">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="short" />
-      <Element name="Unknown 2" type="short" />
-    </Subrecord>
-    <Subrecord name="DSTD" desc="Destruction Section" optional="1" size="20">
-      <Element name="Unknown" type="short" />
-      <Element name="Unknown" type="short" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-      <Element name="Unknown 4" type="int" />
-    </Subrecord>
-    <Subrecord name="DSTF" desc="DSTF" optional="1" size="0"/>
-    <Subrecord name="SPOR" desc="? Form List" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="FLST" />
-    </Subrecord>
+    <Group id="DESTRUCTIBLE"/>
     <Subrecord name="SPCT" desc="Total Spell Count" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
@@ -1820,9 +1496,7 @@
     <Subrecord name="CNAM" desc="Class Name" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CLAS" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME" />
     <Subrecord name="SHRT" desc="Short In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2000,30 +1674,10 @@
         <Element name="Unknown 4bytes 2" type="float" />
       </Subrecord>
     </Group>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12" notininfo="1">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
   </Record>
   <Record name="KEYM" desc="Key">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTED_MODEL" optional="1"/>
     <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -2037,28 +1691,9 @@
     </Subrecord>
   </Record>
   <Record name="ALCH" desc="Potion">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="OBJECT" />
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="MODS" desc="MODS" optional="1" size="32">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-      <Element name="Unknown 4" type="int" />
-      <Element name="Unknown 5" type="int" />
-      <Element name="TXST FormID" type="formid" reftype="TXST" />
-      <Element name="Unknown 7" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -2114,32 +1749,9 @@
     </Subrecord>
   </Record>
   <Record name="PROJ" desc="Projectile">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
-    <Subrecord name="DEST" desc="Destruction" optional="1" size="8">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="short" />
-      <Element name="Unknown 2" type="short" />
-    </Subrecord>
-    <Group optional="1" repeat="1">
-      <Subrecord name="DSTD" desc="Destruction Section" size="20">
-        <Element name="unknown" type="int" />
-        <Element name="unknown" type="int" />
-        <Element name="unknown" type="int" notininfo="1" />
-        <Element name="EXPL FormID" type="formid" reftype="EXPL" />
-        <Element name="unknown" type="int" notininfo="1" />
-      </Subrecord>
-      <Subrecord name="DSTF" desc="Destruction Footer" size="0" />
-    </Group>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
+    <Group id="DESTRUCTIBLE"/>
     <Subrecord name="DATA" desc="Projectile Data" optional="1">
       <Element name="Flags?" type="int" hexview="1"/>
       <Element name="Acceleration?" type="float"/>
@@ -2176,17 +1788,8 @@
     </Subrecord>
   </Record>
   <Record name="HAZD" desc="Hazard">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
     <Subrecord name="MNAM" desc="? ImageSpace" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IMAD" />
     </Subrecord>
@@ -2204,17 +1807,8 @@
     </Subrecord>
   </Record>
   <Record name="SLGM" desc="Soul Gem">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="DATA" desc="DATA" optional="1" size="8">
       <Element name="Value" type="int" />
@@ -2233,14 +1827,11 @@
   <Record name="LVLI" desc="Leveled Item">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="LVLD" desc="Chance None Value" optional="1">
-      <Element name="Chance None in Percent" type="byte" />
+    <Subrecord name="LVLD" desc="pctChanceNoSpawn" optional="1">
+      <Element name="pctChanceNoSpawn" type="byte" />
     </Subrecord>
     <Subrecord name="LVLF" desc="List Flags" optional="1" size="1">
       <Element name="Flags" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLG" desc="Global Variable" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="GLOB" />
     </Subrecord>
     <Subrecord name="LLCT" desc="Leveled Item Count" optional="1" size="1">
       <Element name="Count" type="byte" />
@@ -2249,6 +1840,9 @@
       <Element name="Level" type="int" />
       <Element name="FormID" type="formid" />
       <Element name="Count" type="int" />
+    </Subrecord>
+    <Subrecord name="LVLG" desc="Global Variable" optional="1" size="4">
+      <Element name="FormID" type="formid" reftype="GLOB" />
     </Subrecord>
   </Record>
   <Record name="WTHR" desc="Weather">
@@ -2665,14 +2259,7 @@
       <Element name="Unknown 2" type="int" />
       <Element name="Unknown 3" type="int" />
     </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
   </Record>
   <Record name="CLMT" desc="Climate">
     <Group id="EDITORID" />
@@ -2687,14 +2274,7 @@
     <Subrecord name="GNAM" desc="GNAM" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="TNAM" desc="TNAM" optional="1" size="6">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="short" />
@@ -2757,10 +2337,7 @@
     </Group>
   </Record>
   <Record name="DIAL" desc="Dialogue Topic">
-    <Group id="EDITORID" optional="1" />
-    <Subrecord name="FULL" desc="In-Game Topic Text" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="PNAM" desc="Topic Priority" optional="1" size="4">
       <Element name="Priority Value" type="float" />
     </Subrecord>
@@ -2782,9 +2359,7 @@
   </Record>
   <Record name="INFO" desc="Dialogue Info">
     <Group id="EDITORID" optional="1" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
       <Element name="Unknown float" type="float" />
     </Subrecord>
@@ -2961,42 +2536,30 @@
   </Group>
   <!-- =========================================================== -->
   <Record name="QUST" desc="Quest">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
+    <Group id="SCRIPTED_CONCEPT" />
+    <Subrecord name="DNAM" desc="Quest Data" optional="1" size="12">
+      <Element name="flags1" type="byte" />
+      <Element name="flags2" type="byte" />
+      <Element name="Priority" type="byte" />
+      <Element name="Unknown 1" type="byte" />
+      <Element name="Unknown Zero" type="int" fixedValue="0"/>
+      <Element name="Quest Type" type="uint" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
+    <Subrecord name="ENAM" desc="Event" optional="1" size="4">
+      <Element name="name" type="uint" />
     </Subrecord>
-    <Subrecord name="DNAM" desc="DNAM" optional="1" size="12">
-      <Element name="Unknown Short 1" type="ushort" />
-      <Element name="Unknown Short 2" type="ushort" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
-    <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
-      <Element name="Unknown float" type="float" />
-    </Subrecord>
-    <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     <Group optional="1" repeat="1">
       <Subrecord name="QTGL" desc="Global Variable" optional="1" repeat="1" size="4">
-        <Element name="FormID" type="formid" reftype="GLOB" />
+        <Element name="Text Display" type="formid" reftype="GLOB" />
       </Subrecord>
-      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     </Group>
     <Group optional="1" repeat="1">
-      <Subrecord name="FLTR" desc="FLTR" optional="1">
+      <Subrecord name="FLTR" desc="Filter" optional="1">
         <Element name="Name" type="string" />
       </Subrecord>
-      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
     </Group>
-    <Group optional="1" repeat="1">
-      <Group id="CONDITIONAL" optional="1" repeat="1"/>
-      <Subrecord name="CNAM" desc="CNAM" optional="1" repeat="1">
-        <Element name="Unknown" type="lstring" />
-      </Subrecord>
-      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
-    </Group>
+    <Group id="CONDITIONAL" optional="1" repeat="1"/>
+    <Subrecord name="NEXT" desc="Separator" size="0" />
     <Group optional="1" repeat="1">
       <Subrecord name="INDX" desc="Quest Stage" size="4">
         <Element name="Stage Number" type="ushort"/>
@@ -3097,9 +2660,7 @@
   </Record>
   <Record name="PACK" desc="AI Package">
     <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Subrecord name="PKDT" desc="PKDT" optional="1" size="12">
       <Element name="Unknown" type="short" />
       <Element name="Unknown" type="short" />
@@ -3271,30 +2832,32 @@
   </Record>
   <Record name="LSCR" desc="Load Screen">
     <Group id="EDITORID" />
-    <Subrecord name="DESC" desc="Description" optional="1">
-      <Element name="Description" type="lstring" />
+    <Subrecord name="DESC" desc="Displayed text">
+      <Element name="Displayed Text" type="lstring" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Subrecord name="NNAM" desc="Static Model" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="STAT" />
+    <Subrecord name="NNAM" desc="Display Model" size="4">
+      <Element name="Display Model" type="formid" reftype="STAT" />
     </Subrecord>
-    <Subrecord name="SNAM" desc="SNAM" optional="1" size="4">
-      <Element name="Unknown float" type="float" />
+    <Subrecord name="SNAM" desc="Initial Scale" size="4">
+      <Element name="Initial Scale" type="float" />
     </Subrecord>
-    <Subrecord name="RNAM" desc="RNAM" optional="1" size="6">
-      <Element name="Name" type="lstring" />
-      <Element name="Unknown" type="short" />
+    <Subrecord name="RNAM" desc="Initial Rotation" size="6">
+      <Element name="rotate X" type="short" />
+      <Element name="rotate Y" type="short" />
+      <Element name="rotate Z" type="short" />
     </Subrecord>
-    <Subrecord name="ONAM" desc="ONAM" optional="1">
-      <Element name="Name" type="string" />
+    <Subrecord name="ONAM" desc="Rotation Offset Constraints">
+      <Element name="rotation Min" type="short" />
+      <Element name="rotation Max" type="short" />
     </Subrecord>
-    <Subrecord name="XNAM" desc="XNAM" optional="1" size="12">
-      <Element name="Unknown float 1" type="float" />
-      <Element name="Unknown float 2" type="float" />
-      <Element name="Unknown float 3" type="float" />
+    <Subrecord name="XNAM" desc="Initial Translation Offset" size="12">
+      <Element name="translate X" type="float" />
+      <Element name="translate Y" type="float" />
+      <Element name="translate Z" type="float" />
     </Subrecord>
-    <Subrecord name="MOD2" desc="Camera NIF" optional="1">
-      <Element name="Name" type="string" />
+    <Subrecord name="MOD2" desc="Camera Path" optional="1">
+      <Element name="Mesh Path" type="string" />
     </Subrecord>
   </Record>
   <Record name="LVSP" desc="Leveled Spell">
@@ -3317,23 +2880,13 @@
   </Record>
   <Record name="ANIO" desc="Animated Object">
     <Group id="EDITORID" />
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="BNAM" desc="BNAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
   </Record>
   <Record name="WATR" desc="Water">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="NNAM" desc="NNAM" optional="1" repeat="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -3452,17 +3005,8 @@
     </Subrecord>
   </Record>
   <Record name="EXPL" desc="Explosion">
-    <Group id="EDITORID" />
-    <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="FULL" desc="Full Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="OBJECT" />
+    <Group id="BASE_MODEL" />
     <Subrecord name="EITM" desc="Enchantment" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ENCH" />
     </Subrecord>
@@ -3846,13 +3390,7 @@
     </Subrecord>
   </Record>
   <Record name="PERK" desc="Perk">
-    <Group id="EDITORID" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" notininfo="1"/>
-    </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="SCRIPTED_CONCEPT"/>
     <Subrecord name="DESC" desc="Perk Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -3929,14 +3467,7 @@
   </Record>
   <Record name="BPTD" desc="Body Part">
     <Group id="EDITORID" />
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Group optional="1" repeat="1">
       <Subrecord name="BPTN" desc="Body Part Name" optional="1" repeat="1" size="4">
         <Element name="Name" type="lstring" />
@@ -3985,12 +3516,7 @@
   <Record name="ADDN" desc="Add-On Node">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Effect Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="Unique ID?" optional="1" size="4">
       <Element name="ID Number?" type="int" />
     </Subrecord>
@@ -3999,10 +3525,7 @@
     </Subrecord>
   </Record>
   <Record name="AVIF" desc="Actor Value Info">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -4051,14 +3574,7 @@
   </Record>
   <Record name="CAMS" desc="Camera Shot">
     <Group id="EDITORID" />
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" size="12">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="DATA" optional="1" size="40">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="int" />
@@ -4120,12 +3636,7 @@
   </Record>
   <Record name="IPCT" desc="Impact Data">
     <Group id="EDITORID" />
-    <Subrecord name="MODL" desc="Impact Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DATA" desc="Impact Data" optional="1" size="24">
       <Element name="Unknown" type="float" />
       <Element name="Unknown 1" type="int" />
@@ -4266,9 +3777,7 @@
     <Subrecord name="LCEP" desc="Actor Enable Points" optional="1">
       <Element name="FormID" type="formid" reftype="ACHR" repeat="1" optional="1" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME" />
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="PNAM" desc="Parent Location" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="LCTN" />
@@ -4297,9 +3806,7 @@
     <Subrecord name="DESC" desc="In-Game Message Description" optional="1">
       <Element name="Text" type="lstring" />
     </Subrecord>
-    <Subrecord name="FULL" desc="In-Game Message Title" optional="1">
-      <Element name="Text" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME" />
     <Subrecord name="INAM" desc="INAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4513,19 +4020,13 @@
     </Subrecord>
   </Record>
   <Record name="WOOP" desc="Word Of Power">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="TNAM" desc="TNAM" optional="1" size="4">
       <Element name="Name" type="lstring" />
     </Subrecord>
   </Record>
   <Record name="SHOU" desc="Shout">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="MDOB" desc="Inventory Model" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="STAT" />
     </Subrecord>
@@ -4580,9 +4081,7 @@
   </Group>
   <Record name="SCEN" desc="Scene">
     <Group id="EDITORID" optional="1" />
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Group optional="1" repeat="1">
       <Subrecord name="WNAM" desc="WNAM" optional="1" repeat="1" size="4">
         <Element name="Unknown 4bytes" type="lstring" />
@@ -4691,12 +4190,7 @@
   <Record name="ARTO" desc="Art Object">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="MODL" desc="Model" optional="1">
-      <Element name="Path" type="string" />
-    </Subrecord>
-    <Subrecord name="MODT" desc="Model Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="BASE_MODEL" />
     <Subrecord name="DNAM" desc="DNAM" optional="1">
       <Element name="Unknown" type="int" />
     </Subrecord>
@@ -4779,10 +4273,7 @@
     </Subrecord>
   </Record>
   <Record name="SNCT" desc="Sound Category">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4859,10 +4350,7 @@
     </Subrecord>
   </Record>
   <Record name="CLFM" desc="Color">
-    <Group id="EDITORID" />
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="CNAM" desc="Color" optional="1" size="4">
       <Element name="R" type="byte" hexview="1"/>
       <Element name="G" type="byte" hexview="1"/>
@@ -4908,10 +4396,7 @@
     </Subrecord>
   </Record>
   <Record name="CELL" desc="Cell">
-    <Group id="EDITORID" optional="1"/>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1" size="4">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="CONCEPT" />
     <Subrecord name="DATA" desc="DATA" optional="1" notininfo="1">
       <Element name="unknown" type="blob" />
     </Subrecord>
@@ -4990,9 +4475,7 @@
   </Record>
   <Record name="REFR" desc="Object Reference">
     <Group id="EDITORID" optional="1"/>
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Subrecord name="NAME" desc="Base Object" optional="1" size="4">
       <Element name="FormID" type="formid" />
     </Subrecord>
@@ -5031,9 +4514,7 @@
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="1">
       <Element name="Unknown byte" type="byte" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1" size="4">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME" />
     <Subrecord name="TNAM" desc="TNAM" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
@@ -5260,9 +4741,7 @@
     <Subrecord name="MHDT" desc="MHDT" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
-    <Subrecord name="FULL" desc="Full In-Game Name" optional="1" size="4">
-      <Element name="Name" type="lstring" />
-    </Subrecord>
+    <Group id="FULLNAME"/>
     <Subrecord name="WCTR" desc="WCTR" optional="1" size="4">
       <Element name="Unknown" type="int" />
     </Subrecord>
@@ -5397,9 +4876,7 @@
   </Record>
   <Record name="PHZD" desc="Placed Hazard">
     <Group id="EDITORID" optional="1"/>
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Subrecord name="NAME" desc="Base Form of Hazard" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="HAZD" />
     </Subrecord>
@@ -5449,9 +4926,7 @@
   </Record>
   <Record name="ACHR" desc="Actor Reference">
     <Group id="EDITORID" optional="1"/>
-    <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+    <Group id="SCRIPTS" />
     <Subrecord name="NAME" desc="Base Form of Actor (NPC_)" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="NPC_" />
     </Subrecord>
