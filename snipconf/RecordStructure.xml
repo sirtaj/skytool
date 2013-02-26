@@ -71,6 +71,23 @@
       </Subrecord>
     </Group>
   </Group>
+  <Group id="BODY_TEMPLATE" optional = "1">
+    <Subrecord name="BODT" desc="Body Template" size="12">
+      <Element name="Unknown 1" type="int" />
+      <Element name="Unknown 2" type="int" />
+      <Element name="Unknown 3" type="int" />
+    </Subrecord>
+  </Group>
+  <Group id="OBJECT_BOUNDS" optional = "1">
+    <Subrecord name="OBND" desc="Object Bounds" notininfo="1">
+      <Element name="x1" type="short" />
+      <Element name="y1" type="short" />
+      <Element name="z1" type="short" />
+      <Element name="x2" type="short" />
+      <Element name="y2" type="short" />
+      <Element name="z2" type="short" />
+    </Subrecord>
+  </Group>
   <!-- =========================================================== -->
   <Record name="TES4" desc="Main plugin header">
     <Subrecord name="HEDR" desc="The main plugin header" optional="1">
@@ -145,14 +162,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="TX00" desc="Diffuse Map" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -398,11 +408,7 @@
     <Subrecord name="WNAM" desc="Naked Armor" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="ARMO" />
     </Subrecord>
-    <Subrecord name="BODT" desc="Body Template" optional="1">
-      <Element name="Unknown 1" type="int" />
-      <Element name="Unknown 2" type="int" />
-      <Element name="Unknown 3" type="int" />
-    </Subrecord>
+    <Group id="BODY_TEMPLATE" optional="1"/>
     <Group id="KEYWORDS" optional="1"/>
     <Group>
       <Subrecord name="DATA" desc="Actor Values" size="128">
@@ -642,14 +648,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FNAM" desc="Filename" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -674,14 +673,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="SNAM" desc="Ambient Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
     </Subrecord>
@@ -806,14 +798,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -834,14 +819,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -871,14 +849,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -930,14 +901,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1002,14 +966,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1036,14 +993,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1068,11 +1018,7 @@
     <Subrecord name="MO4S" desc="Model Data 4S" optional="1" notininfo="1">
       <Element name="Model Data 4S" type="blob" />
     </Subrecord>
-    <Subrecord name="BODT" desc="Body Template" optional="1" >
-      <Element name="BodyParts" type="uint" flags="Head;Hair;Chest;Hands;Forearms;Amulet;Ring;Feet;Calves;Shield;Tail;Long Hair;Forehead;Ears;Dragon Head;Dragon Left Wing;Dragon Right Wing;Dragon Body;;;Decapitated Head"/>
-      <Element name="Flags" type="uint" hexview="1" flags=";;;;NonPlayable;;;;"/>
-      <Element name="Armor type?" type="uint" optional="1" options="Light Armor;0;Heavy Armor;1;Clothing;2"/>
-    </Subrecord>
+    <Group id="BODY_TEMPLATE" optional="1"/>
     <Subrecord name="ETYP" desc="Equipment Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
     </Subrecord>
@@ -1116,14 +1062,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1170,14 +1109,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1223,14 +1155,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1306,14 +1231,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1344,14 +1262,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1" notininfo="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -1392,14 +1303,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1431,14 +1335,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1457,14 +1354,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -1486,14 +1376,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -1540,14 +1423,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -1574,14 +1450,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -1622,14 +1491,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1668,14 +1530,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1747,14 +1602,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1873,14 +1721,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -1914,14 +1755,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1">
       <Element name="Unknown" type="blob" notininfo="1" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="ACBS" desc="Traits and Stats tabs (ULAGEPRUN - UserLevel, AutoCalc, Gender, Essential, PresetCharGen, Respawn, Unique, NoAffectOnStealthMeter)" optional="1" size="24">
 		<Element name="UL-A-G-E-P-R-U-N" type="byte" hexview="1" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
 		Male-AutoCalc;16;Female-AutoCalc;17;Male-AutoCalc-Essential;18;Female-AutoCalc-Essential;19;Male-AutoCalc-Preset;20;Female-AutoCalc-Preset;21;Male-AutoCalc-Essen-Preset;22;Female-AutoCalc-Essen-Preset;23;Male-AutoCalc-Respawn;24;Female-AutoCalc-Respawn;25;Male-AutoCalc-Essen-Respawn;26;Female-AutoCalc-Essen-Respawn;27;Male-AutoCalc-Preset-Respawn;28;Female-AutoCalc-Preset-Respawn;29;Male-AutoC-Essen-Preset-Respawn;30;Female-AutoC-Essen-Preset-Respawn;31;
@@ -2215,14 +2049,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance None Value" optional="1">
       <Element name="Chance None in Percent" type="byte" />
     </Subrecord>
@@ -2260,14 +2087,7 @@
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2293,14 +2113,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2343,14 +2156,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="IDLF" desc="IDLF" optional="1" size="1">
       <Element name="Value" type="byte" hexview="1"/>
     </Subrecord>
@@ -2390,14 +2196,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2461,14 +2260,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2498,14 +2290,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2534,14 +2319,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance None Value" optional="1">
       <Element name="Chance None in Percent" type="byte" />
     </Subrecord>
@@ -3634,14 +3412,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance" optional="1" size="1">
       <Element name="Value" type="byte" />
     </Subrecord>
@@ -3803,14 +3574,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -4355,14 +4119,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Effect Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -4564,11 +4321,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="BODT" desc="Body Template" optional="1" size="12">
-      <Element name="Unknown 4bytes 1" type="int" />
-      <Element name="Unknown 4bytes 2" type="int" />
-      <Element name="Unknown 4bytes 3" type="int" />
-    </Subrecord>
+    <Group id="BODY_TEMPLATE" optional="1"/>
     <Subrecord name="RNAM" desc="RNAM" optional="1" size="4">
       <Element name="unknown 4bytes" type="int" />
     </Subrecord>
@@ -5130,14 +4883,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -5223,14 +4969,7 @@
     <Subrecord name="EDID" desc="Editor ID Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="OBND" desc="Object Bounds" optional="1" notininfo="1">
-      <Element name="x1" type="short" />
-      <Element name="y1" type="short" />
-      <Element name="z1" type="short" />
-      <Element name="x2" type="short" />
-      <Element name="y2" type="short" />
-      <Element name="z2" type="short" />
-    </Subrecord>
+    <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="DATA" desc="DATA" optional="1" size="24">
       <Element name="PROJ FormID" type="formid" reftype="PROJ" />
       <Element name="EXPL FormID" type="formid" reftype="EXPL" />
