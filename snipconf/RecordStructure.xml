@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Records xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Group id="EDITORID">
+    <Subrecord name="EDID" desc="Editor ID">
+      <Element name="Name" type="string" />
+    </Subrecord>
+  </Group>
   <Group id="CONDITIONAL" optional="1" repeat="1">
     <Subrecord name = "CTDA" desc = "Conditional" optional = "1" repeat = "1">
       <Element name = "Comparison Type" type = "byte"
@@ -116,36 +121,30 @@
       <Element name="buffer/flag" type="uint" hexview="1" fixedValue="1" />
     </Subrecord>
   </Record>
-  <Record name="GMST" desc="Game setting">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" condid="1"/>
-    </Subrecord>
-    <Subrecord name="DATA" desc="Setting value" condid="1" condition="startswith" condvalue="s">
+  <Record name="GMST" desc="Game Setting">
+    <Group id="EDITORID" />
+    <Subrecord name="DATA" desc="String Value" condid="1" condition="startswith" condvalue="s">
       <Element name="String Value" type="lstring" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Setting value" condid="1" condition="startswith" condvalue="f">
+    <Subrecord name="DATA" desc="Float Value" condid="1" condition="startswith" condvalue="f">
       <Element name="Float Value" type="float" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Setting value" condid="1" condition="startswith" condvalue="i">
+    <Subrecord name="DATA" desc="Integer Value" condid="1" condition="startswith" condvalue="i">
       <Element name="Integer Value" type="int" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Setting value" condid="1" condition="startswith" condvalue="b">
+    <Subrecord name="DATA" desc="Byte Value" condid="1" condition="startswith" condvalue="b">
       <Element name="Byte Value" type="int" />
     </Subrecord>
   </Record>
   <Record name="KYWD" desc="Keyword">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
       <Element name="Unknown short 1" type="ushort" />
       <Element name="Unknown short 2" type="ushort" />
     </Subrecord>
   </Record>
   <Record name="LCRT" desc="Location Ref Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="CNAM" desc="Marker Color" optional="1" size="4">
       <Element name="R" type="byte" hexview="1"/>
       <Element name="G" type="byte" hexview="1"/>
@@ -154,14 +153,10 @@
     </Subrecord>
   </Record>
   <Record name="AACT" desc="Action">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
   </Record>
   <Record name="TXST" desc="Texture Set">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="TX00" desc="Diffuse Map" optional="1">
       <Element name="Path" type="string" />
@@ -200,9 +195,7 @@
     </Subrecord>
   </Record>
   <Record name="GLOB" desc="Global Variable">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FNAM" desc="Value Type" optional="1" size="1">
       <Element name="Value Type" type="byte" options="short;115;long;108;float;102" />
     </Subrecord>
@@ -211,9 +204,7 @@
     </Subrecord>
   </Record>
   <Record name="CLAS" desc="Character Class">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Class In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -234,9 +225,7 @@
     </Subrecord>
   </Record>
   <Record name="FACT" desc="Faction">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -303,9 +292,7 @@
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
   </Record>
   <Record name="HDPT" desc="Head-Part Mesh">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -340,9 +327,7 @@
     </Subrecord>
   </Record>
   <Record name="EYES" desc="Eyes">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -390,9 +375,7 @@
     </Group>
   </Group>
   <Record name="RACE" desc="Race or Creature Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -645,9 +628,7 @@
     </Subrecord>
   </Record>
   <Record name="SOUN" desc="Sound Descriptor">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FNAM" desc="Filename" optional="1">
       <Element name="Name" type="string" />
@@ -670,9 +651,7 @@
     </Subrecord>
   </Record>
   <Record name="ASPC" desc="Acoustic Space">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="SNAM" desc="Ambient Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
@@ -685,9 +664,7 @@
     </Subrecord>
   </Record>
   <Record name="MGEF" desc="Magic Effect">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <!--<Subrecord name="VMAD" desc="VM Data(One Script/Property With Ref Version)" optional="1" notininfo="0">
       <Element name="Version" type="byte" desc="4Byte int" condid="1"/>
       <Element name="NullByte" type="byte" desc="always 0"/>
@@ -775,9 +752,7 @@
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
   </Record>
   <Record name="LTEX" desc="Land Texture">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="TNAM" desc="Texture Set" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="TXST" />
     </Subrecord>
@@ -795,9 +770,7 @@
     </Subrecord>
   </Record>
   <Record name="ENCH" desc="Enchantment">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -816,9 +789,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="SPEL" desc="Spell">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -846,9 +817,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="SCRL" desc="Scroll">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -895,9 +864,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="ACTI" desc="Activator">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -963,9 +930,7 @@
     </Subrecord>
   </Record>
   <Record name="TACT" desc="Talking Activator">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -987,9 +952,7 @@
     </Subrecord>
   </Record>
   <Record name="ARMO" desc="Armor">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1056,9 +1019,7 @@
     </Subrecord>
   </Record>
   <Record name="BOOK" desc="Book">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1103,9 +1064,7 @@
     </Subrecord>
   </Record>
   <Record name="CONT" desc="Container">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1149,9 +1108,7 @@
     </Subrecord>
   </Record>
   <Record name="DOOR" desc="Door">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1" />
     </Subrecord>
@@ -1225,9 +1182,7 @@
     </Subrecord>
   </Record>
   <Record name="INGR" desc="Ingredient">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1259,9 +1214,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="LIGH" desc="Light Template">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1" notininfo="1">
       <Element name="Path" type="string" />
@@ -1297,9 +1250,7 @@
     </Subrecord>
   </Record>
   <Record name="MISC" desc="Misc Item">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1332,9 +1283,7 @@
     </Subrecord>
   </Record>
   <Record name="APPA" desc="Apparatus">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -1351,9 +1300,7 @@
     </Subrecord>
   </Record>
   <Record name="STAT" desc="Static">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
@@ -1373,9 +1320,7 @@
     </Subrecord>
   </Record>
   <Record name="MSTT" desc="Movable Static">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
@@ -1420,9 +1365,7 @@
     </Subrecord>
   </Record>
   <Record name="GRAS" desc="Grass">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
@@ -1447,9 +1390,7 @@
     </Subrecord>
   </Record>
   <Record name="TREE" desc="Tree">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
@@ -1485,9 +1426,7 @@
     </Subrecord>
   </Record>
   <Record name="FLOR" desc="Flora">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1524,9 +1463,7 @@
     </Subrecord>
   </Record>
   <Record name="FURN" desc="Furniture">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1596,9 +1533,7 @@
     </Subrecord>
   </Record>
   <Record name="WEAP" desc="Weapon">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -1718,9 +1653,7 @@
     </Subrecord>
   </Record>
   <Record name="AMMO" desc="Ammunition Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -1749,9 +1682,7 @@
     </Subrecord>
   </Record>
   <Record name="NPC_" desc="Actor">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1">
       <Element name="Unknown" type="blob" notininfo="1" />
     </Subrecord>
@@ -2046,9 +1977,7 @@
     </Group>
   </Record>
   <Record name="LVLN" desc="Leveled Actor">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance None Value" optional="1">
       <Element name="Chance None in Percent" type="byte" />
@@ -2081,9 +2010,7 @@
     </Subrecord>
   </Record>
   <Record name="KEYM" desc="Key">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -2110,9 +2037,7 @@
     </Subrecord>
   </Record>
   <Record name="ALCH" desc="Potion">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -2153,9 +2078,7 @@
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
   <Record name="IDLM" desc="Idle Form">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="IDLF" desc="IDLF" optional="1" size="1">
       <Element name="Value" type="byte" hexview="1"/>
@@ -2170,10 +2093,8 @@
       <Element name="FormID" type="formid" reftype="IDLE" repeat="1" optional="1" />
     </Subrecord>
   </Record>
-  <Record name="COBJ" desc="Constructible Objects">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+  <Record name="COBJ" desc="Constructible Object">
+    <Group id="EDITORID" />
     <Subrecord name="COCT" desc="Component Total Item Count" optional="1" size="4">
       <Element name="Count" type="int" />
     </Subrecord>
@@ -2193,9 +2114,7 @@
     </Subrecord>
   </Record>
   <Record name="PROJ" desc="Projectile">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -2257,9 +2176,7 @@
     </Subrecord>
   </Record>
   <Record name="HAZD" desc="Hazard">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -2287,9 +2204,7 @@
     </Subrecord>
   </Record>
   <Record name="SLGM" desc="Soul Gem">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -2316,9 +2231,7 @@
     </Subrecord>
   </Record>
   <Record name="LVLI" desc="Leveled Item">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance None Value" optional="1">
       <Element name="Chance None in Percent" type="byte" />
@@ -2339,9 +2252,7 @@
     </Subrecord>
   </Record>
   <Record name="WTHR" desc="Weather">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DNAM" desc="DNAM" optional="1" size="35">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="int" />
@@ -2764,9 +2675,7 @@
     </Subrecord>
   </Record>
   <Record name="CLMT" desc="Climate">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="WLST" desc="Weather" optional="1" size="12">
       <Element name="WTHR FormID" type="formid" reftype="WTHR" />
       <Element name="Unknown 1" type="int" />
@@ -2792,9 +2701,7 @@
     </Subrecord>
   </Record>
   <Record name="SPGD" desc="Shader Particle Geometry">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="DATA" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -2803,9 +2710,7 @@
     </Subrecord>
   </Record>
   <Record name="RFCT" desc="Refraction">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="Art and Effect Shader" optional="1" size="12">
       <Element name="ARTO FormID" type="formid" reftype="ARTO" />
       <Element name="EFSH FormID" type="formid" reftype="EFSH" />
@@ -2813,9 +2718,7 @@
     </Subrecord>
   </Record>
   <Record name="REGN" desc="Region">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="RCLR" desc="RCLR" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -2854,9 +2757,7 @@
     </Group>
   </Record>
   <Record name="DIAL" desc="Dialogue Topic">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1" />
     <Subrecord name="FULL" desc="In-Game Topic Text" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -2880,9 +2781,7 @@
     </Subrecord>
   </Record>
   <Record name="INFO" desc="Dialogue Info">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -3062,9 +2961,7 @@
   </Group>
   <!-- =========================================================== -->
   <Record name="QUST" desc="Quest">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -3181,9 +3078,7 @@
     </Group>
   </Record>
   <Record name="IDLE" desc="Idle Animation">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="DNAM" desc="Havok File" optional="1">
       <Element name="Name" type="string" />
@@ -3201,9 +3096,7 @@
     </Subrecord>
   </Record>
   <Record name="PACK" desc="AI Package">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -3352,9 +3245,7 @@
     </Group>
   </Record>
   <Record name="CSTY" desc="Combat Style">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="CSGD" desc="CSGD" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -3379,9 +3270,7 @@
     </Subrecord>
   </Record>
   <Record name="LSCR" desc="Load Screen">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -3409,9 +3298,7 @@
     </Subrecord>
   </Record>
   <Record name="LVSP" desc="Leveled Spell">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="LVLD" desc="Chance" optional="1" size="1">
       <Element name="Value" type="byte" />
@@ -3429,9 +3316,7 @@
     </Subrecord>
   </Record>
   <Record name="ANIO" desc="Animated Object">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -3445,9 +3330,7 @@
     </Subrecord>
   </Record>
   <Record name="WATR" desc="Water">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -3548,9 +3431,7 @@
     </Subrecord>
   </Record>
   <Record name="EFSH" desc="Effect Shader">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="ICON" desc="ICON" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -3571,9 +3452,7 @@
     </Subrecord>
   </Record>
   <Record name="EXPL" desc="Explosion">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="FULL" desc="Full Name" optional="1">
       <Element name="Name" type="lstring" />
@@ -3595,9 +3474,7 @@
     </Subrecord>
   </Record>
   <Record name="DEBR" desc="Debris">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group optional="1" repeat="1">
       <Subrecord name="DATA" desc="DATA" optional="1" repeat="1" notininfo="1">
         <Element name="Unknown" type="blob" />
@@ -3625,9 +3502,7 @@
     </Group>
   </Record>
   <Record name="IMGS" desc="Image Space">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="ENAM" desc="ENAM" optional="1" size="56">
       <Element name="Unknown" type="float" />
       <Element name="Unknown 1" type="float" />
@@ -3671,9 +3546,7 @@
     </Subrecord>
   </Record>
   <Record name="IMAD" desc="Image Space Modifier">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DNAM" desc="DNAM" optional="1" size="244" notininfo="1">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="float" />
@@ -3966,18 +3839,14 @@
       <Element name="Unknown 3" type="int" />
     </Subrecord>
   </Record>
-  <Record name="FLST" desc="Form ID List">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+  <Record name="FLST" desc="Form List">
+    <Group id="EDITORID" />
     <Subrecord name="LNAM" desc="List Item" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" />
     </Subrecord>
   </Record>
   <Record name="PERK" desc="Perk">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" notininfo="1"/>
     </Subrecord>
@@ -4059,9 +3928,7 @@
     </Group>
   </Record>
   <Record name="BPTD" desc="Body Part">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -4116,9 +3983,7 @@
     </Group>
   </Record>
   <Record name="ADDN" desc="Add-On Node">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Effect Model" optional="1">
       <Element name="Path" type="string" />
@@ -4134,9 +3999,7 @@
     </Subrecord>
   </Record>
   <Record name="AVIF" desc="Actor Value Info">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -4187,9 +4050,7 @@
     </Group>
   </Record>
   <Record name="CAMS" desc="Camera Shot">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -4215,9 +4076,7 @@
     </Subrecord>
   </Record>
   <Record name="CPTH" desc="Camera Path">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="ANAM" desc="Camera Path" optional="1" size="8">
       <Element name="FormID 1" type="formid" reftype="CPTH" />
@@ -4231,17 +4090,13 @@
     </Subrecord>
   </Record>
   <Record name="VTYP" desc="Voice Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DNAM" desc="Voice Type Data" optional="1" size="1">
       <Element name="Voice Type" type="byte" options="Creature;0;Male;1;Daedra;2;Female;3" />
     </Subrecord>
   </Record>
   <Record name="MATT" desc="Material Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="PNAM" desc="Material Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
@@ -4264,9 +4119,7 @@
     </Subrecord>
   </Record>
   <Record name="IPCT" desc="Impact Data">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MODL" desc="Impact Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -4309,18 +4162,14 @@
     </Subrecord>
   </Record>
   <Record name="IPDS" desc="Impact Data Set">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="PNAM" desc="Impact Material and Data" optional="1" repeat="1" size="8">
       <Element name="MATT FormID" type="formid" reftype="MATT" />
       <Element name="IPCT FormID" type="formid" reftype="IPCT" />
     </Subrecord>
   </Record>
   <Record name="ARMA" desc="Armature">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="BODY_TEMPLATE" optional="1"/>
     <Subrecord name="RNAM" desc="RNAM" optional="1" size="4">
       <Element name="unknown 4bytes" type="int" />
@@ -4387,9 +4236,7 @@
     </Subrecord>
   </Record>
   <Record name="ECZN" desc="Encounter Zone">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="ECZN Data" optional="1">
       <Element name="FACT FormID" type="formid" reftype="FACT" />
       <Element name="LCTN FormID" type="formid" reftype="LCTN" />
@@ -4400,9 +4247,7 @@
     </Subrecord>
   </Record>
   <Record name="LCTN" desc="Location Data">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="LCPR" desc="Unique Refs" optional="1">
       <Element name="FormID" type="formid" reftype="ACHR" repeat="1" optional="1" />
     </Subrecord>
@@ -4448,9 +4293,7 @@
     </Subrecord>
   </Record>
   <Record name="MESG" desc="Message">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DESC" desc="In-Game Message Description" optional="1">
       <Element name="Text" type="lstring" />
     </Subrecord>
@@ -4482,9 +4325,7 @@
     </Subrecord>
   </Record>
   <Record name="LGTM" desc="Light Template">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="DATA" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -4493,9 +4334,7 @@
     </Subrecord>
   </Record>
   <Record name="MUSC" desc="Music File">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FNAM" desc="Music File Path" optional="1" size="4">
       <Element name="Path" type="lstring" />
     </Subrecord>
@@ -4510,9 +4349,7 @@
     </Subrecord>
   </Record>
   <Record name="FSTP" desc="Footstep">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="Impact Data" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="IPDS" />
     </Subrecord>
@@ -4521,9 +4358,7 @@
     </Subrecord>
   </Record>
   <Record name="FSTS" desc="Footstep Set">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="XCNT" desc="Set count" optional="1" size="20">
       <Element name="Walk Forward Count" type="int" />
       <Element name="Run Forward Count " type="int" />
@@ -4536,9 +4371,7 @@
     </Subrecord>
   </Record>
   <Record name="SMBN" desc="Story Manager Branch Node">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4557,9 +4390,7 @@
     </Subrecord>
   </Record>
   <Record name="SMQN" desc="Story Manager Quest Node">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4595,9 +4426,7 @@
     </Group>
   </Record>
   <Record name="SMEN" desc="Story Manager Event Node">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1" />
     <Subrecord name="PNAM" desc="PNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4618,9 +4447,7 @@
     </Subrecord>
   </Record>
   <Record name="DLBR" desc="Dialog Branch">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
@@ -4635,9 +4462,7 @@
     </Subrecord>
   </Record>
   <Record name="MUST" desc="Music Track">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4670,9 +4495,7 @@
     </Subrecord>
   </Record>
   <Record name="DLVW" desc="Dialog View">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="QUST" />
     </Subrecord>
@@ -4690,9 +4513,7 @@
     </Subrecord>
   </Record>
   <Record name="WOOP" desc="Word Of Power">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -4701,9 +4522,7 @@
     </Subrecord>
   </Record>
   <Record name="SHOU" desc="Shout">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -4720,9 +4539,7 @@
     </Subrecord>
   </Record>
   <Record name="EQUP" desc="Equipment Slot">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="PNAM" desc="Hand Reference" optional="1">
       <Element name="FormID" type="formid" reftype="EQUP" repeat="1" optional="1" />
     </Subrecord>
@@ -4731,9 +4548,7 @@
     </Subrecord>
   </Record>
   <Record name="RELA" desc="Relationship">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="Actor Data" optional="1" size="16">
       <Element name="NPC_ FormID 1" type="formid" reftype="NPC_" />
       <Element name="NPC_ FormID 2 or Player(7)" type="formid" reftype="NPC_" />
@@ -4764,9 +4579,7 @@
     </Subrecord>
   </Group>
   <Record name="SCEN" desc="Scene">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1" />
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -4852,9 +4665,7 @@
     <Group id="CONDITIONAL" optional="1" repeat="1" />
   </Record>
   <Record name="ASTP" desc="Relationship/Association">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MPRT" desc="Male Parent Title" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -4872,17 +4683,13 @@
     </Subrecord>
   </Record>
   <Record name="OTFT" desc="Outfit">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="INAM" desc="Armature" optional="1">
       <Element name="FormID" type="formid" reftype="ARMO" repeat="1" optional="1" />
     </Subrecord>
   </Record>
   <Record name="ARTO" desc="Art Object">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
@@ -4895,9 +4702,7 @@
     </Subrecord>
   </Record>
   <Record name="MATO" desc="Material Object">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MODL" desc="Model" optional="1">
       <Element name="Path" type="string" />
     </Subrecord>
@@ -4909,9 +4714,7 @@
     </Subrecord>
   </Record>
   <Record name="MOVT" desc="Movement Type">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="MNAM" desc="MNAM" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
@@ -4935,9 +4738,7 @@
     </Subrecord>
   </Record>
   <Record name="SNDR" desc="Sound Descriptor">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -4966,9 +4767,7 @@
     </Subrecord>
   </Record>
   <Record name="DUAL" desc="Dual Cast">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="DATA" desc="DATA" optional="1" size="24">
       <Element name="PROJ FormID" type="formid" reftype="PROJ" />
@@ -4980,9 +4779,7 @@
     </Subrecord>
   </Record>
   <Record name="SNCT" desc="Sound Category">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -5000,9 +4797,7 @@
     </Subrecord>
   </Record>
   <Record name="SOPM" desc="Sound Output Marker">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
@@ -5040,9 +4835,7 @@
     </Subrecord>
   </Record>
   <Record name="COLL" desc="Collision Layer">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DESC" desc="In-CK Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -5066,9 +4859,7 @@
     </Subrecord>
   </Record>
   <Record name="CLFM" desc="Color">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -5083,9 +4874,7 @@
     </Subrecord>
   </Record>
   <Record name="REVB" desc="Reverb Parameter">
-    <Subrecord name="EDID" desc="Editor ID Name">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" />
     <Subrecord name="DATA" desc="DATA" optional="1" size="14">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="int" />
@@ -5119,9 +4908,7 @@
     </Subrecord>
   </Record>
   <Record name="CELL" desc="Cell">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="FULL" desc="Full In-Game Name" optional="1" size="4">
       <Element name="Name" type="lstring" />
     </Subrecord>
@@ -5202,9 +4989,7 @@
     </Group>
   </Record>
   <Record name="REFR" desc="Object Reference">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -5468,9 +5253,7 @@
     </Subrecord>
   </Record>
   <Record name="WRLD" desc="World Space">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="RNAM" desc="RNAM" optional="1" repeat="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -5613,9 +5396,7 @@
     </Group>
   </Record>
   <Record name="PHZD" desc="Placed Hazard">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -5641,9 +5422,7 @@
     </Subrecord>
   </Record>
   <Record name="PGRE" desc="Placed Grenade">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="NAME" desc="Base Form of Grenade" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="PROJ" />
     </Subrecord>
@@ -5669,9 +5448,7 @@
     </Subrecord>
   </Record>
   <Record name="ACHR" desc="Actor Reference">
-    <Subrecord name="EDID" desc="Editor ID Name" optional="1">
-      <Element name="Name" type="string" />
-    </Subrecord>
+    <Group id="EDITORID" optional="1"/>
     <Subrecord name="VMAD" desc="Script Data" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
