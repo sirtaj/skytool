@@ -31,8 +31,41 @@ def map_type(snip_type):
     return "esp." + DATA_TYPES[snip_type.lower()].__name__
 
 
-IDENTS = {}
-IDENT_BY_OBJ = {}
+class Linker:
+    def __init__(self):
+        self.obj_by_ident = {}
+        self.ident_by_obj = {}
+
+    def add(self, obj, *ident_choices):
+        '''Adds obj to registered objects. Registers first acceptable object
+        identity from the list of choices. If object is already registered, raise an error.
+        '''
+        if obj in self.ident_by_obj:
+            raise KeyError, ("Linker: object %s already has identity %s"
+                                    % (obj, self.ident_by_obj[obj]))
+
+        for ident in ident_choices:
+            if ident and is_ident(ident) and ident not in self.obj_by_ident:
+                self.obj_by_ident[str(ident)] = obj
+                self.ident_by_obj[obj] = str(ident)
+                return ident
+
+        raise AssertionError, ("No acceptable identity for object %s, tried %s"
+                                    % (obj, ident_choices))
+
+    def has_object(self, obj):
+        return obj in self.ident_by_obj
+
+    def ref(self, obj):
+        return self.ident_by_obj[obj]
+
+    def has_ident(self, ident):
+        return ident in self.obj_by_ident
+
+
+ident_re = re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$").match
+
+def is_ident(word): return (word is not None) and (ident_re(word) is not None)
 
 def strip_non_ident(word):
     return ''.join(c for c in str(word) if c.isalnum() or c.isspace() or c == '_')
@@ -44,18 +77,6 @@ def to_attr_ident(word):
     ident = to_ident(word)
     if ident:
         ident = ident[0].lower() + ident[1:]
-    return ident
-
-ident_re = re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$").match
-
-def is_ident(word): return ident_re(word) is not None
-
-def to_class_ident(desc, fallback):
-    if not desc: return fallback
-    ident = to_ident(desc)
-    if not ident or not is_ident(ident) or ident in IDENTS:
-        ident = fallback
-    IDENTS[ident] = 1
     return ident
 
 def arg_list(*seq):
@@ -71,10 +92,12 @@ def generate_python(snip_file, py_file):
     records = xrev.parse_xreved(snip_file, tessnip)
     group_order = [(r.name, r) for r in records if isinstance(r, Record)]
 
+    linker = Linker()
+
     child_ctr = 0
     for c in records:
         try:
-            create_ident(c, '', child_ctr)
+            create_ident(c, linker, '', child_ctr)
             child_ctr += 1
         except Exception, e:
             print "FAIL:", c
@@ -89,55 +112,63 @@ def generate_python(snip_file, py_file):
         pf.blank()
 
         for child in records:
-            write_class(pf, child)
+            write_class(pf, child, linker)
 
 
-def create_ident(obj, pfx = '', parent_idx = 0):
+def create_ident(obj, linker, pfx = '', parent_idx = 0):
+    '''Generate a python identifier for a snip element recursively.
+    '''
+    parent_pfx = "%s%d" % (pfx, parent_idx)
+
     if isinstance(obj, Record):
-        name = to_class_ident(obj.desc, obj.name)
+        name = linker.add(obj, to_ident(obj.desc), obj.name)
     elif isinstance(obj, Group):
-        name = "%s%d" % (pfx, parent_idx) if not obj.id else obj.id
+        if obj.id and (len(obj.children) == 0):
+            # this is probably a reference to an existing group, skip it
+            return
+        name = linker.add(obj, "%s%d" % (pfx, parent_idx) if not obj.id else obj.id)
     elif isinstance(obj, Subrecord):
         name = to_ident(obj.desc or obj.name)
-        if not name:
-            name = "%s%d" % (pfx, parent_idx)
-        if name in IDENTS:
-            name = pfx + name
-        else:
-            IDENTS[name] = 1
+        typed_name = to_ident( obj.desc + " " + obj.name )
+        prefixed_name = parent_pfx + '_' + to_ident(obj.desc + " " + obj.name)
+        name = linker.add(obj, name, typed_name, prefixed_name)
     elif isinstance(obj, Element):
-        name = "%s%s%s" % (pfx, obj.name, parent_idx)
-
-    IDENT_BY_OBJ[ obj ] = name
+        name = linker.add(obj, "%s%s%s" % (pfx, to_ident(obj.name), parent_idx) )
 
     child_ctr = 0
     child_pfx = "%s_" % (name)
     for child in obj:
-        create_ident(child, child_pfx, child_ctr)
+        create_ident(child, linker, child_pfx, child_ctr)
         child_ctr += 1
 
 
-def write_class(py, record):
+def write_class(py, record, linker):
     '''Generate a python class for a snip element.
     '''
+    print "write_class", record
     if isinstance(record, Record):
+        superclass = 'Record'
+
         py.blank()
         py.write("########################")
         py.write('@record_type(%s)' % repr(str(record.name)))
-        with py.python_class(IDENT_BY_OBJ[record], ['Record']) as subcls:
-            write_attributes(py, record)
+
     elif isinstance(record, Group):
-        with py.python_class(IDENT_BY_OBJ[record], ['SubrecordGroup']) as subcls:
-            write_attributes(py, record)
-    elif isinstance(record, Subrecord):
-        with py.python_class(IDENT_BY_OBJ[record], ['Subrecord']) as subcls:
-            write_attributes(py, record)
+        if record.id and (len(record.children) == 0):
+            # this is a reference to an existing group, skip it
+            return
+        superclass = 'SubrecordGroup'
+    elif isinstance(record, Subrecord): superclass = 'Subrecord'
+    else: return
+
+    with py.python_class(linker.ref(record), [superclass]) as subcls:
+        write_attributes(py, record, linker)
 
     for child in record:
-        write_class(py, child)
+        write_class(py, child, linker)
 
 
-def write_attributes(py, rec):
+def write_attributes(py, rec, linker):
     '''Generate properties for each attribute of a snip element's generated python class.
 
     Types and flags are mapped to esp.py types and helpers.
@@ -166,25 +197,26 @@ def write_attributes(py, rec):
 
             py.assign(ident, '%s( %s )' % (cls,
                             arg_list(
-                                repr(str(IDENT_BY_OBJ[child])),
+                                repr(linker.ref(child)),
                                 ('tag', repr(str(child.name))),
                                 ('size', child.size) if child.size else None,
                                 ('nullable', 'True') if child.optional else None)))
 
-        else:
-            ident = to_attr_ident(child.id or IDENT_BY_OBJ[child])
+        elif isinstance(child, Group):
+            ident = to_attr_ident(child.id or linker.ref(child))
+            if linker.has_object(child):
+                ref = repr(linker.ref(child))
+            else:
+                ref = repr(child.id)
             cls = 'subrecord_group_set' if child.repeat else 'subrecord_group'
             py.assign(ident, '%s( %s )' % ( cls,
-                            arg_list(
-                                repr(str(IDENT_BY_OBJ[child])),
+                            arg_list( ref,
                                 ('nullable', 'True') if child.optional else None)))
 
         order.append(str(ident))
-    else:
-        py.blank()
 
-    # TODO We can probably get away with a counter hack here
-    #py.assign( '__order__', repr(order))
+    if not len(order):
+        py.write('pass')
 
 
 if __name__ == '__main__':
