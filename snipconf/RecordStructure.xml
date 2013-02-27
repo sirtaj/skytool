@@ -184,7 +184,14 @@
       <Subrecord name="DSTF" desc="DSTF" size="0" />
     </Group>
   </Group>
-
+  <Group id="CARRYABLE">
+    <Subrecord name="YNAM" desc="Pickup Sound" optional="1" size="4">
+      <Element name="Pickup Sound" type="formid" reftype="SNDR" />
+    </Subrecord>
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
+      <Element name="Droup Sound" type="formid" reftype="SNDR" />
+    </Subrecord>
+  </Group>
   <!-- =========================================================== -->
   <Group id="OBJECT">
     <Group id="EDITORID"/>
@@ -940,12 +947,7 @@
     <Subrecord name="BAMT" desc="Bash Material" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="MATT" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Subrecord name="RNAM" desc="Race Type" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="RACE" />
     </Subrecord>
@@ -972,12 +974,7 @@
     <Subrecord name="DESC" desc="Book Description - Sometimes a copy of the book name." optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="DATA" desc="Book Settings" optional="1">
       <Element name="Flags 1" type="byte" options="None;0;Skill Book;1;Spell Tome;4" condid="1"/>
@@ -1043,12 +1040,7 @@
     <Group id="OBJECT"/>
     <Group id="KEYWORDS" optional="1"/>
     <Group id="BASE_MODEL" />
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Subrecord name="DATA" desc="DATA" optional="1" size="8">
       <Element name="Value" type="int" />
       <Element name="Weight" type="float" />
@@ -1095,12 +1087,7 @@
     <Subrecord name="ICON" desc="Item Icon" optional="1" size="19">
       <Element name="File Path" type="string" />
     </Subrecord>
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Subrecord name="MODS" desc="MODS" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
     </Subrecord>
@@ -1358,12 +1345,7 @@
   <Record name="AMMO" desc="Ammunition Type">
     <Group id="OBJECT" />
     <Group id="BASE_MODEL" />
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
     </Subrecord>
@@ -1678,12 +1660,7 @@
   </Record>
   <Record name="KEYM" desc="Key">
     <Group id="SCRIPTED_MODEL" optional="1"/>
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="DATA" desc="DATA" optional="1" size="8">
       <Element name="Unknown 4bytes 1" type="int" />
@@ -1694,12 +1671,7 @@
     <Group id="OBJECT" />
     <Group id="KEYWORDS" optional="1"/>
     <Group id="BASE_MODEL" />
-    <Subrecord name="YNAM" desc="Pick Up Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SNDR" />
-    </Subrecord>
+    <Group id="CARRYABLE"/>
     <Subrecord name="DATA" desc="Item Data" optional="1" size="4">
       <Element name="Item Weight" type="float" />
     </Subrecord>
