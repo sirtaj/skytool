@@ -28,6 +28,8 @@ DATA_TYPES = {
     'ulong':    esp.UnsignedLong,
 
     'formid':	esp.Reference, # TODO OwnedReference, use reftype
+
+    'color':    esp.Color,
 }
 
 def map_type(snip_type):

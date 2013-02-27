@@ -282,7 +282,8 @@ class OwnedReference(FormId): pass
 
 
 class FilePath(String): pass
-class Color: pass
+
+class Color: pass # RGBA
 class Point3D: pass
 class Line3D: pass
 class Box3D: pass

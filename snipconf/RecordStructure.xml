@@ -262,10 +262,10 @@
   </Group>
   <!-- =========================================================== -->
   <Record name="TES4" desc="Main plugin header">
-    <Subrecord name="HEDR" desc="The main plugin header" optional="1">
+    <Subrecord name="HEDR" desc="The main plugin header">
       <Element name="File Version" type="float" />
       <Element name="Record Count" type="int" calculated="1" />
-      <Element name="Next FormID" type="formid" />
+      <Element name="Next FormID" type="formid" calculated="1" />
     </Subrecord>
     <Subrecord name="CNAM" desc="Author" optional="1">
       <Element name="Author" type="string" />
@@ -274,14 +274,11 @@
       <Element name="Description" type="string" multiline="1" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="MAST" desc="Plugin Master Dependency">
+      <Subrecord name="MAST" desc="Master">
         <Element name="Master-ESM File" type="string" />
       </Subrecord>
-      <Subrecord name="SCRN" desc="Screenshot" optional="1" notininfo="1">
-        <Element name="Screenshot" type="blob" />
-      </Subrecord>
-      <Subrecord name="DATA" desc="(always zeroes)" optional="1" notininfo="1" fixedValue="0">
-        <Element name="buffer" type="blob" fixedValue="0" />
+      <Subrecord name="DATA" desc="fileSize" fixedValue="0">
+        <Element name="fileSize" type="ulong" fixedValue="0" />
       </Subrecord>
     </Group>
     <Subrecord name="INTV" desc="(always 00000001)" optional="1" size="4">
@@ -305,24 +302,20 @@
   </Record>
   <Record name="KYWD" desc="Keyword">
     <Group id="EDITORID" />
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
-      <Element name="Unknown short 1" type="ushort" />
-      <Element name="Unknown short 2" type="ushort" />
+    <Subrecord name="CNAM" desc="Color" optional="1">
+      <Element name="Color" type="color" />
     </Subrecord>
   </Record>
   <Record name="LCRT" desc="Location Ref Type">
     <Group id="EDITORID" />
-    <Subrecord name="CNAM" desc="Marker Color" optional="1" size="4">
-      <Element name="R" type="byte" hexview="1"/>
-      <Element name="G" type="byte" hexview="1"/>
-      <Element name="B" type="byte" hexview="1"/>
-      <Element name="A" type="byte" hexview="1"/>
+    <Subrecord name="CNAM" desc="Marker Color" optional="1">
+      <Element name="Marker Color" type="color"/>
     </Subrecord>
   </Record>
   <Record name="AACT" desc="Action">
     <Group id="EDITORID" />
     <Subrecord name="CNAM" desc= "Color">
-      <Element name="Color" type="uint"/>
+      <Element name="Color" type="color"/>
     </Subrecord>
   </Record>
   <Record name="TXST" desc="Texture Set">
@@ -491,7 +484,7 @@
       <Element name="Gender flag" type="byte" options="None;0;Both Genders;1;Female;3;Male;5;"/>
     </Subrecord>
   </Record>
-  <Record name="RACE" desc="Race or Creature Type">
+  <Record name="RACE" desc="Race">
     <Group id="CONCEPT" />
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Description" type="lstring" />
@@ -559,16 +552,16 @@
         <Element name="Name" type="str4" />
       </Subrecord>
       <Subrecord name="VTCK" desc="Voice Type" optional="1" size="8">
-        <Element name="Male Voice FormID" type="formid" reftype="VTYP" />
-        <Element name="Female Voice FormID" type="formid" reftype="VTYP" />
+        <Element name="Male Voice" type="formid" reftype="VTYP" />
+        <Element name="Female Voice" type="formid" reftype="VTYP" />
       </Subrecord>
       <Subrecord name="DNAM" desc="Decapitated Head" optional="1" size="8">
-        <Element name="Male FormID" type="formid" reftype="ARMO" />
-        <Element name="Female FormID" type="formid" reftype="ARMO" />
+        <Element name="Male" type="formid" reftype="ARMO" />
+        <Element name="Female" type="formid" reftype="ARMO" />
       </Subrecord>
       <Subrecord name="HCLF" desc="Hair Color" optional="1" size="8">
-        <Element name="Male FormID" type="formid" reftype="CLFM" />
-        <Element name="Female FormID" type="formid" reftype="CLFM" />
+        <Element name="Male" type="formid" reftype="CLFM" />
+        <Element name="Female" type="formid" reftype="CLFM" />
       </Subrecord>
       <Subrecord name="TINL" desc="TINL" optional="1" size="2">
         <Element name="Unknown short" type="short" />
@@ -583,12 +576,12 @@
         <Subrecord name="ATKD" desc="ATKD" size="44">
           <Element name="Unknown" type="float" />
           <Element name="Unknown 1" type="float" />
-          <Element name="SPEL FormID" type="formid" reftype="SPEL" />
+          <Element name="Spell" type="formid" reftype="SPEL" />
           <Element name="Unknown 3" type="int" />
           <Element name="Unknown 4" type="float" />
           <Element name="Unknown 5" type="float" />
           <Element name="Unknown 6" type="float" />
-          <Element name="KYWD FormID" type="formid" reftype="KYWD" />
+          <Element name="Keyword" type="formid" reftype="KYWD" />
           <Element name="Unknown 8" type="float" />
           <Element name="Unknown 9" type="float" />
           <Element name="Unknown 10" type="float" />
@@ -757,8 +750,8 @@
       <Element name="Unknown 4" type="short" />
       <Element name="Unknown 5" type="int" />
       <Element name="Unknown 6" type="int" />
-      <Element name="CELL FormID" type="formid" reftype="CELL" />
-      <Element name="REFR FormID" type="formid" reftype="REFR" />
+      <Element name="Cell" type="formid" reftype="CELL" />
+      <Element name="Reference" type="formid" reftype="REFR" />
     </Subrecord>
     <Subrecord name="SDSC" desc="Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
@@ -790,10 +783,10 @@
       <Element name="Primary Skill" type="int" options="OneHanded;6;TwoHanded;7;Marksman;8;Block;9;Smithing;10;HeavyArmor;11;LightArmor;12;Pickpocket;13;Lockpicking;14;Sneak;15;Alchemy;16;Speechcraft;17;Alteration;18;Conjuration;19;Destruction;20;Illusion;21;Restoration;22;Enchanting;23;Fame;60;Infamy;61"/>
       <Element name="Resistance" type="int" options="DamageResist;39;PoisonResist;40;FireResist;41;ElectricResist;42;FrostResist;43;MagicResist;44;DiseaseResist;45;NormalWeaponsResist;164;None;-1;Zero;0;"/>
       <Element name="Unknown1" type="uint" hexview="1" desc="Mask of 0xffff0000 (lower 2 bytes always 0)"/>
-      <Element name="LIGH FormID" type="formid" reftype="LIGH" />
+      <Element name="Light" type="formid" reftype="LIGH" />
       <Element name="Taper Weight" type="float" desc="Somehow controls the tapering of the spell over time, 0-1 typically"/>
-      <Element name="Hit EFSH FormID" type="formid" reftype="EFSH" />
-      <Element name="Enchant EFSH FormID" type="formid" reftype="EFSH" />
+      <Element name="Hit EFSH" type="formid" reftype="EFSH" />
+      <Element name="Enchant EFSH" type="formid" reftype="EFSH" />
       <Element name="Skill Level" type="int" />
       <Element name="Area" type="int" desc="0 for none"/>
       <Element name="Casting Delay" type="float" desc="probably default if not provided, normal range 0.5-3"/>
@@ -802,23 +795,23 @@
       <Element name="SecondAV Weight" type="float" desc="Only valid if SecondAV is set, typical values of 0-2"/>
       <Element name="Effect Type" type="int" desc="The basic type of effect to apply (0-44)." options="Value Mod;0;Script;1;Dispel;2;Cure Disease;3;Absorb(PrimaryAV);4;Dual Value Mod;5;Calm;6;Demoralize(Confidence);7;Frenzy;8;Disarm;9;Command Summoned;10;Invisibility;11;Light;12;13;13;14;14;Lock;15;Open;16;Bound Weapon;17;SummonCreature;18;DetectLife;19;Telekinesis;20;Paralysis;21;Reanimate;22;Soul Trap;23;Turn Undead(Confidence);24;Guide(Hazard:Used only by Clairvoyance);25;Werewolf Feed;26;Cure Paralysis;27;Cure Addiction;28;Cure Poison;29;Concussion;30;Value and Parts(PrimaryAV is used, not used in game);31;Accumulate Magnitude;32;Stagger;33;Peak Value Mod(PrimaryAV and SecondAV select which actor value to modify, note that SecondAVWeight is not used);34;Cloak(RelatedID is a spell (only some spells supported, either/both hand?));35;Werewolf(DisablesCharacterMenus)(RelatedID is a race);36;Slow Time;37;Rally;38;Enhance Weapon(RelatedID is an enchantment);39;SpawnHazard;40;Etherealize;41;Banish(Confidence);42;Spawn Scripted Ref;43;Disguise;44;"/>
       <Element name="Primary AVIF affected" type="int" options="Health;24;Magicka;25;Stamina;26;HealRate;27;MagickaRate;28;StaminaRate;29;SpeedMult;30;InventoryWeight;31;CarryWeight;32;MeleeDamage;34;UnarmedDamage;35;Mass;36;VoiceRate;38;OneHanded;6;TwoHanded;7;Marksman;8;Block;9;Smithing;10;HeavyArmor;11;LightArmor;12;Pickpocket;13;Lockpicking;14;Sneak;15;Alchemy;16;Speechcraft;17;Alteration;18;Conjuration;19;Destruction;20;Illusion;21;Restoration;22;Enchanting;23;Fame;60;Infamy;61;Aggression;0;Confidence;1;Energy;2;Morality;3;Mood;4;Assistance;5;DragonRend;33;VoicePoints;37;DamageResist;39;PoisonResist;40;FireResist;41;ElectricResist;42;FrostResist;43;MagicResist;44;DiseaseResist;45;NormalWeaponsResist;164;None;-1;WeaponSpeedMult;85;ShoutRecoveryMult;86;BowStaggerBonus;87;AbsorbChance;83;	Slow Time Variable - (0.5 = slow time 25%) (0.25 = slow time 50%);78;Blindness;84;MovementNoiseMult;92;OneHandedMod;96;TwoHandedMod;97;MarksmanMod;98;BlockMod;99;SmithingMod;100;HeavyArmorMod;101;LightArmorMod;102;PickPocketMod;103;LockpickingMod;104;SneakMod;105;AlchemyMod;106;SpeechcraftMod;107;AlterationMod;108;ConjurationMod;109;DestructionMod;110;IllusionMod;111;RestorationMod;112;EnchantingMod;113;LeftWeaponSpeedMult;132;ReflectDamage;163;AttackDamageMult;154;WaterWalking;58;WaterBreathing;57;DetectLifeRange;56;NightEye;55;Invisibility;54;Paralysis;53;"/>
-      <Element name="Projectile PROJ FormID" type="formid" reftype="PROJ"/>
-      <Element name="Explosion EXPL FormID" type="formid" reftype="EXPL" />
+      <Element name="Projectile" type="formid" reftype="PROJ"/>
+      <Element name="Explosion" type="formid" reftype="EXPL" />
       <Element name="Cast Type" type="int" options="Constant Effect;0;ProjectileFire;1;Channeled;2"/>
       <Element name="Aim Type" type="int" options="Self;0;Touch;1;Aimed;2;Targeted Actor;3;Targeted Location;4"/>
       <Element name="Secondary AVIF affected" type="int" options="Health;24;Magicka;25;Stamina;26;HealRate;27;MagickaRate;28;StaminaRate;29;SpeedMult;30;InventoryWeight;31;CarryWeight;32;MeleeDamage;34;UnarmedDamage;35;Mass;36;VoiceRate;38;OneHanded;6;TwoHanded;7;Marksman;8;Block;9;Smithing;10;HeavyArmor;11;LightArmor;12;Pickpocket;13;Lockpicking;14;Sneak;15;Alchemy;16;Speechcraft;17;Alteration;18;Conjuration;19;Destruction;20;Illusion;21;Restoration;22;Enchanting;23;Fame;60;Infamy;61;Aggression;0;Confidence;1;Energy;2;Morality;3;Mood;4;Assistance;5;DragonRend;33;VoicePoints;37;DamageResist;39;PoisonResist;40;FireResist;41;ElectricResist;42;FrostResist;43;MagicResist;44;DiseaseResist;45;NormalWeaponsResist;164;None;-1;WeaponSpeedMult;85;ShoutRecoveryMult;86;BowStaggerBonus;87;AbsorbChance;83;	Slow Time Variable - (0.5 = slow time 25%) (0.25 = slow time 50%);78;Blindness;84;MovementNoiseMult;92;OneHandedMod;96;TwoHandedMod;97;MarksmanMod;98;BlockMod;99;SmithingMod;100;HeavyArmorMod;101;LightArmorMod;102;PickPocketMod;103;LockpickingMod;104;SneakMod;105;AlchemyMod;106;SpeechcraftMod;107;AlterationMod;108;ConjurationMod;109;DestructionMod;110;IllusionMod;111;RestorationMod;112;EnchantingMod;113;LeftWeaponSpeedMult;132;ReflectDamage;163;AttackDamageMult;154;WaterWalking;58;WaterBreathing;57;DetectLifeRange;56;NightEye;55;Invisibility;54;Paralysis;53;"/>
-      <Element name="Wielded ARTO FormID" type="formid" reftype="ARTO" />
-      <Element name="Impacted ARTO FormID" type="formid" reftype="ARTO" />
-      <Element name="Impact IPDS FormID" type="formid" reftype="IPDS" />
+      <Element name="Wielded" type="formid" reftype="ARTO" />
+      <Element name="Impacted" type="formid" reftype="ARTO" />
+      <Element name="Impact Data Set" type="formid" reftype="IPDS" />
       <Element name="SkillUsageMult" type="float" desc="Typically 0-10"/>
-      <Element name="DualCast DUAL FormID" type="formid" reftype="DUAL" />
+      <Element name="DualCast" type="formid" reftype="DUAL" />
       <Element name="DualCast Scale" type="float" desc="0-3"/>
-      <Element name="Enchant ARTO FormID" type="formid" reftype="ARTO" />
+      <Element name="Enchant" type="formid" reftype="ARTO" />
       <Element name="NullData1" type="int" desc="Always 0" fixedValue="0" />
       <Element name="NullData2" type="int" desc="Always 0" fixedValue="0" />
-      <Element name="Equip SPEL FormID" type="formid" reftype="SPEL" />
-      <Element name="ImageSpace IPDS FormID" type="formid" reftype="IPDS"/>
-      <Element name="PERK FormID" type="formid" reftype="PERK" />
+      <Element name="Equip Spell" type="formid" reftype="SPEL" />
+      <Element name="ImageSpace IPDS" type="formid" reftype="IPDS"/>
+      <Element name="Perk" type="formid" reftype="PERK" />
       <Element name="Sound Volume" type="int" options="Loud;0;Normal;1;Silent;2;Very Loud;3"/>
       <Element name="Script AIData Score" type="float" />
       <Element name="Script AIData Delay" type="float" />
@@ -859,8 +852,8 @@
       <Element name="Target Type" type="int" />
       <Element name="Enchant Type" type="int" />
       <Element name="Charge Time" type="int" />
-      <Element name="Base Enchant ENCH FormID" type="formid" reftype="ENCH" />
-      <Element name="WornRestrict. FLST FormID" type="formid" reftype="FLST" optional="1"/>
+      <Element name="Base Enchant" type="formid" reftype="ENCH" />
+      <Element name="Worn Restrict" type="formid" reftype="FLST" optional="1"/>
     </Subrecord>
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
@@ -884,7 +877,7 @@
       <Element name="Aim Type" type="int" options="Self;0;Touch;1;Aimed;2;Target Actor;3;Target Location;4"/>
       <Element name="Duration?" type="float" desc="Almost always 0 Frost Breath 2.3, FXIceWraith 1"/>
       <Element name="Range" type="float" />
-      <Element name="PERK FormID" type="formid" reftype="PERK" />
+      <Element name="Perk" type="formid" reftype="PERK" />
     </Subrecord>
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
@@ -914,7 +907,7 @@
       <Element name="Aim Type" type="int" options="Self;0;Touch;1;Aimed;2;Target Actor;3;Target Location;4"/>
       <Element name="Duration?" type="float" />
       <Element name="Range" type="float" />
-      <Element name="PERK FormID" type="formid" reftype="PERK" />
+      <Element name="Perk" type="formid" reftype="PERK" />
     </Subrecord>
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
@@ -1046,19 +1039,16 @@
     </Subrecord>
     <Subrecord name="CNTO" desc="Contents" optional="1" repeat="1" size="8">
       <Element name="FormID" type="formid" />
-      <Element name="Count" type="int" />
-    </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1" repeat="1">
-      <Element name="Unknown" type="lstring" />
+      <Element name="Count" type="uint" />
     </Subrecord>
     <Subrecord name="COED" desc="CND extra data" optional="1" size="12">
-      <Element name="FACT FormID" type="formid" reftype="FACT" />
+      <Element name="Faction" type="formid" reftype="FACT" />
       <Element name="??" type="int" notininfo="1" />
       <Element name="item condition" type="float" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Container Data" optional="1" size="5">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown" type="byte" />
+    <Subrecord name="DATA" desc="Container Data">
+      <Element name="flags" type="byte" />
+      <Element name="weight" type="float" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Open Sound" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNDR" />
@@ -1104,10 +1094,7 @@
     <Subrecord name="DATA" desc="Light data" optional="1" size="48">
       <Element name="Time (-1 = Infinite)" type="int" />
       <Element name="Radius" type="int" />
-      <Element name="Color.R" type="byte" hexview="1"/>
-      <Element name="Color.G" type="byte" hexview="1"/>
-      <Element name="Color.B" type="byte" hexview="1"/>
-      <Element name="Color.A" type="byte" hexview="1"/>
+      <Element name="Color" type="color"/>
       <Element name="Flags" type="int" flags="Dynamic;Carried;Flicker;FlickerSlow;Pulse;SpotShadow"/>
       <Element name="Falloff" type="float" />
       <Element name="Unknown 5" type="float" />
@@ -1159,7 +1146,7 @@
     <Group id="BASE_MODEL" />
     <Subrecord name="DNAM" desc="DNAM" optional="1" size="8">
       <Element name="Scale?" type="float" />
-      <Element name="MATO FormID" type="formid" reftype="MATO" />
+      <Element name="Material Object" type="formid" reftype="MATO" />
     </Subrecord>
     <Subrecord name="MNAM" desc="MNAM" optional="1" notininfo="1">
       <Element name="Unknown" type="blob" />
@@ -1199,7 +1186,7 @@
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Group id="BASE_MODEL" />
-    <Subrecord name="PFIG" desc="Result Item" optional="1" size="4">
+    <Subrecord name="PFIG" desc="Harvest Ingredient" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="INGR" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Use Sound" optional="1" size="4">
@@ -1209,8 +1196,10 @@
       <Element name="Unknown 4bytes" type="int" />
     </Subrecord>
     <Group id="FULLNAME" />
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="48">
-      <Element name="Unknown" type="float" />
+    <Subrecord name="CNAM" desc="Data" optional="1" size="48">
+      <Element name="Trunk Flexibility" type="float" />
+      <Element name="Branch Flexibility" type="float" />
+      <Element name="Unknown 0" type="float" />
       <Element name="Unknown 1" type="float" />
       <Element name="Unknown 2" type="float" />
       <Element name="Unknown 3" type="float" />
@@ -1218,10 +1207,8 @@
       <Element name="Unknown 5" type="float" />
       <Element name="Unknown 6" type="float" />
       <Element name="Unknown 7" type="float" />
-      <Element name="Unknown 8" type="float" />
-      <Element name="Unknown 9" type="float" />
-      <Element name="Unknown 10" type="float" />
-      <Element name="Unknown 11" type="float" />
+      <Element name="Leaf Amplitude" type="float" />
+      <Element name="Leaf Frequency" type="float" />
     </Subrecord>
   </Record>
   <Record name="FLOR" desc="Flora">
@@ -1376,7 +1363,7 @@
       <Element name="Critical Damage Bonus ??" type="int" />
       <Element name="Critical Chance ??" type="float" />
       <Element name="unknown int" type="int" />
-      <Element name="Critical Effect SPEL FormID" type="formid" reftype="SPEL" />
+      <Element name="Critical Effect Spell" type="formid" reftype="SPEL" />
     </Subrecord>
     <Subrecord name="VNAM" desc="Silenced yes/no" optional="1" size="4">
       <Element name="Silenced or Not" type="int" options="n/a;0;no;1;yes;2" />
@@ -1394,7 +1381,7 @@
     </Subrecord>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="DATA" desc="Ammo Settings" optional="1" size="16">
-      <Element name="PROJ FormID" type="formid" reftype="PROJ" />
+      <Element name="Projectile" type="formid" reftype="PROJ" />
       <Element name="Flags" type="int" flags="Ignores Resistance;Vanishes In Flight;" />
       <Element name="Damage" type="float" />
       <Element name="Value" type="int" />
@@ -1435,7 +1422,7 @@
       <Element name="Unknown 3" type="uint" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Faction tab" optional="1" repeat="1" size="8">
-      <Element name="FACT FormID" type="formid" reftype="FACT" />
+      <Element name="Faction" type="formid" reftype="FACT" />
       <Element name="Rank" type="byte" />
       <Element name="Unknown" type="byte" />
       <Element name="Flag" type="ushort" />
@@ -1471,7 +1458,7 @@
     <Subrecord name="ATKD" desc="ATKD" optional="1" size="44">
       <Element name="Unknown" type="float" />
       <Element name="Unknown 1" type="float" />
-      <Element name="SPEL FormID" type="formid" reftype="SPEL" />
+      <Element name="Spell" type="formid" reftype="SPEL" />
       <Element name="Unknown 3" type="int" />
       <Element name="Unknown 4" type="int" />
       <Element name="Unknown 5" type="float" />
@@ -1661,11 +1648,8 @@
       <Subrecord name="TINI" desc="Tint Mask Index?" size="2">
         <Element name="Unknown short" type="short" />
       </Subrecord>
-      <Subrecord name="TINC" desc="Tint Mask Color?" optional="1" size="4">
-        <Element name="R" type="byte" hexview="1"/>
-        <Element name="G" type="byte" hexview="1"/>
-        <Element name="B" type="byte" />
-        <Element name="A" type="byte" hexview="1"/>
+      <Subrecord name="TINC" desc="Tint Mask Color?" optional="1">
+        <Element name="Tint Mask Color?" type="color"/>
       </Subrecord>
       <Subrecord name="TINV" desc="Tint Mask Value?" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
@@ -1703,7 +1687,7 @@
       <Element name="Item Type" type="int" />
       <Element name="Padding1" type="int" />
       <Element name="Padding2" type="int" />
-      <Element name="Use Sound SNDR FormID" type="formid" reftype="SNDR" />
+      <Element name="Use Sound" type="formid" reftype="SNDR" />
     </Subrecord>
     <Group id="EFFECT" optional="1" repeat="1"/>
   </Record>
@@ -1720,7 +1704,7 @@
       <Element name="Unknown float" type="float" />
     </Subrecord>
     <Subrecord name="IDLA" desc="Idle Anim" optional="1">
-      <Element name="FormID" type="formid" reftype="IDLE" repeat="1" optional="1" />
+      <Element name="Idle Anim" type="formid" reftype="IDLE" repeat="1" optional="1" />
     </Subrecord>
   </Record>
   <Record name="COBJ" desc="Constructible Object">
@@ -1729,15 +1713,15 @@
       <Element name="Count" type="int" />
     </Subrecord>
     <Subrecord name="CNTO" desc="Component Object" optional="1" repeat="1" size="8">
-      <Element name="MISC FormID" type="formid" reftype="MISC" />
+      <Element name="Object" type="formid" reftype="MISC" />
       <Element name="Count" type="int" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="CNAM" desc="Output Object" optional="1" repeat="1">
-      <Element name="FormID" type="formid" />
+      <Element name="Output Object" type="formid" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="Required Crafting Station" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="KYWD" />
+    <Subrecord name="BNAM" desc=" Crafting Station" optional="1" size="4">
+      <Element name="Crafting Station" type="formid" reftype="KYWD" />
     </Subrecord>
     <Subrecord name="NAM1" desc="Resulting Quantity" optional="1" size="2">
       <Element name="Count" type="short" />
@@ -1752,13 +1736,13 @@
       <Element name="Acceleration?" type="float"/>
       <Element name="Initial Speed?/MinimumRange?" type="float"/>
       <Element name="Max Speed?/Maximum Range?" type="float"/>
-      <Element name="Light LIGH FormID" type="formid" reftype="LIGH"/>
-      <Element name="Light#2 LIGH FormID" type="formid" reftype="LIGH"/>
+      <Element name="Light" type="formid" reftype="LIGH"/>
+      <Element name="Light2" type="formid" reftype="LIGH"/>
       <Element name="Value6" type="int" hexview="1"/>
       <Element name="End of Row2" type="int" hexview="1"/>
       <Element name="Value8" type="int" hexview="1"/>
-      <Element name="Explosion#1 EXPL FormID" type="formid" reftype="EXPL"/>
-      <Element name="Sound#1 SNDR FormID" type="formid" reftype="SNDR"/>
+      <Element name="Explosion1" type="formid" reftype="EXPL"/>
+      <Element name="Sound1" type="formid" reftype="SNDR"/>
       <Element name="End of Row3" type="int" hexview="1"/>
       <Element name="Value10" type="float"/>
       <Element name="Value11" type="float"/>
@@ -1785,8 +1769,8 @@
   <Record name="HAZD" desc="Hazard">
     <Group id="OBJECT" />
     <Group id="BASE_MODEL" />
-    <Subrecord name="MNAM" desc="? ImageSpace" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="IMAD" />
+    <Subrecord name="MNAM" desc="Image Space Modifier" optional="1" size="4">
+      <Element name="Image Space Modifier" type="formid" reftype="IMAD" />
     </Subrecord>
     <Subrecord name="DATA" desc="DATA" optional="1" size="40">
       <Element name="Unknown" type="float" />
@@ -1795,7 +1779,7 @@
       <Element name="Unknown 3" type="float" />
       <Element name="Unknown 4" type="float" />
       <Element name="Unknown 5" type="int" />
-      <Element name="SPEL FormID" type="formid" reftype="SPEL" />
+      <Element name="Spell" type="formid" reftype="SPEL" />
       <Element name="LIGH FormID" type="formid" reftype="LIGH" />
       <Element name="Unknown 8" type="int" />
       <Element name="SNDR FormID" type="formid" reftype="SNDR" />
@@ -2341,79 +2325,49 @@
   </Record>
   <Record name="INFO" desc="Dialogue Info">
     <Group id="EDITORID" optional="1" />
-    <Group id="SCRIPTS" />
-    <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
-      <Element name="Unknown float" type="float" />
+    <Subrecord name="NAM1" desc="Dialogue Text" size="4">
+      <Element name="text" type="lstring" />
     </Subrecord>
-    <Subrecord name="DATA" desc="Unknown Data" optional="1" size="8">
-      <Element name="Unknown" type="int" />
-      <Element name="Unknown" type="float" />
+    <Group id="CONDITIONAL" optional="1" repeat="1"/>
+    <Subrecord name="NAM2" desc="Actor Notes" optional="1">
+      <Element name="unknown" type="string" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="PNAM" optional="1">
-      <Element name="Unknown" type="int" />
+    <Subrecord name="NAM3" desc="Unknown" optional="1">
+      <Element name="unknown" type="byte" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1">
-      <Element name="Name" type="string" />
+    <Subrecord name="CNAM" desc="Favor Level" optional="1">
+      <Element name="Favor Level" type="byte" />
     </Subrecord>
-    <Subrecord name="TCLT" desc="Linked To Dialog Topic" optional="1" repeat="1" size="4">
-      <Element name="FormID" type="formid" reftype="DIAL" />
+    <Subrecord name="ENAM" desc="flags">
+      <Element name="flags" type="ushort" />
+      <Element name="Scaled hours until reset" type="ushort" />
     </Subrecord>
-    <Subrecord name="DNAM" desc="Show Response Data From Info" optional="1">
+    <Subrecord name="TCLT" desc="Possible Player Responses" optional="1" repeat="1">
       <Element name="FormID" type="formid" reftype="INFO" />
     </Subrecord>
-    <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Group optional="1" repeat="1">
-      <Subrecord name="SCHR" desc="SCHR" size="20">
-        <Element name="Unknown" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="Unknown 4" type="int" />
-      </Subrecord>
-      <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="QUST" />
-      </Subrecord>
-      <Subrecord name="NEXT" desc="Separator" optional="1" size="0" />
-    </Group>
-    <Group optional="1" repeat="1">
-      <Subrecord name="TRDT" desc="Topic Response Data" size="24">
-        <Element name="??" type="int" />
-        <Element name="Unknown 1" type="int" />
-        <Element name="Unknown 2" type="int" />
-        <Element name="Unknown 3" type="int" />
-        <Element name="SNDR FormID" type="formid" reftype="SNDR" />
-        <Element name="Unknown 5" type="int" />
-      </Subrecord>
-      <Subrecord name="NAM1" desc="Dialogue Text" size="4">
-        <Element name="text" type="lstring" />
-      </Subrecord>
-      <Subrecord name="NAM2" desc="NAM2" >
-        <Element name="unknown" type="string" />
-      </Subrecord>
-      <Subrecord name="NAM3" desc="NAM3" >
-        <Element name="unknown" type="string" />
-      </Subrecord>
-      <Subrecord name="SNAM" desc="Idle Anim" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="IDLE" />
-      </Subrecord>
-    </Group>
-    <Subrecord name="LNAM" desc="Idle Anim" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="IDLE" />
+    <Subrecord name="TRDT" desc="Emotion">
+      <Element name="Emotion Type" type="uint" />
+      <Element name="Emotion Value" type="uint" />
+      <Element name="Unknown 1" type="int" />
+      <Element name="Unknown 2" type="int" />
+      <Element name="Unknown 3" type="int" />
+      <Element name="Unknown 4" type="int" />
     </Subrecord>
-    <Group id="CONDITIONAL" optional="1" repeat="1"/>
-    <Group optional="1" repeat="1">
-      <Subrecord name="ANAM" desc="Next Speaker (NPC_)" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="NPC_" />
-      </Subrecord>
-      <Subrecord name="RNAM" desc="RNAM" optional="1" size="4">
-        <Element name="Name" type="lstring" />
-      </Subrecord>
-    </Group>
-    <Subrecord name="TWAT" desc="Dialog Topic" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="DIAL" />
+    <Group id="SCRIPTS" />
+    <Subrecord name="RNAM" desc="Player Response" optional="1">
+      <Element name="Player Response" type="formid" reftype="INFO"/>
     </Subrecord>
-    <Subrecord name="ONAM" desc="Sound Output Marker" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="SOPM" />
+    <Subrecord name="DNAM" desc="Show Response Data From Info" optional="1">
+      <Element name="Show Response Data From Info" type="formid" reftype="INFO" />
+    </Subrecord>
+    <Subrecord name="ONAM" desc="Audio Output Override" optional="1">
+      <Element name="Audio Output Override" type="formid" reftype="SOPM" />
+    </Subrecord>
+    <Subrecord name="SNAM" desc="Speaker Idle" optional="1">
+      <Element name="Speaker Idle" type="formid" reftype="IDLE" />
+    </Subrecord>
+    <Subrecord name="SNAM" desc="Listener Idle" optional="1">
+      <Element name="Listener Idle" type="formid" reftype="IDLE" />
     </Subrecord>
   </Record>
   <!-- =========================================================== -->
@@ -2734,7 +2688,7 @@
       <Subrecord name="PFO2" desc="Spell" optional="1" repeat="1" size="16">
         <Element name="Name" type="lstring" />
         <Element name="Unknown 1" type="int" />
-        <Element name="SPEL FormID" type="formid" reftype="SPEL" />
+        <Element name="Spell" type="formid" reftype="SPEL" />
         <Element name="Unknown 2" type="int" />
       </Subrecord>
     </Group>
@@ -3043,15 +2997,15 @@
       <Element name="Unknown 7" type="float" />
       <Element name="Unknown 8" type="float" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="12">
-      <Element name="Unknown" type="float" />
-      <Element name="Unknown 1" type="float" />
-      <Element name="Unknown 2" type="float" />
+    <Subrecord name="CNAM" desc="Cinematic" optional="1" size="12">
+      <Element name="Saturation" type="float" />
+      <Element name="Brightness" type="float" />
+      <Element name="Contrast" type="float" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="TNAM" optional="1" size="16">
-      <Element name="Unknown" type="float" />
-      <Element name="Unknown 1" type="float" />
-      <Element name="Unknown 2" type="float" />
+    <Subrecord name="TNAM" desc="Tint" optional="1" size="16">
+      <Element name="rwxRed" type="float" />
+      <Element name="rwxGreen" type="float" />
+      <Element name="rwxBlue" type="float" />
       <Element name="Unknown 3" type="float" />
     </Subrecord>
     <Subrecord name="DNAM" desc="DNAM" optional="1" notininfo="1">
@@ -3581,25 +3535,25 @@
   </Record>
   <Record name="MATT" desc="Material Type">
     <Group id="EDITORID" />
-    <Subrecord name="PNAM" desc="Material Type" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="MATT" />
-    </Subrecord>
-    <Subrecord name="MNAM" desc="MNAM" optional="1">
+    <Subrecord name="MNAM" desc="Material Name">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="12">
-      <Element name="Unknown float 1" type="float" />
-      <Element name="Unknown float 2" type="float" />
-      <Element name="Unknown float 3" type="float" />
+    <Subrecord name="HNAM" desc="Havok Impact Data Set" optional="1">
+      <Element name="Havok Impact Data Set" type="formid" reftype="IPDS" />
     </Subrecord>
-    <Subrecord name="BNAM" desc="BNAM" optional="1" size="4">
-      <Element name="Unknown float" type="float" />
+    <Subrecord name="PNAM" desc="Parent Material" optional="1">
+      <Element name="Parent Material" type="formid" reftype="MATT" />
     </Subrecord>
-    <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
-      <Element name="Unknown 4bytes" type="int" />
+    <Subrecord name="CNAM" desc="Havok Display Color">
+      <Element name="rwxRed" type="float" />
+      <Element name="rwxGreen" type="float" />
+      <Element name="rwxBlue" type="float" />
     </Subrecord>
-    <Subrecord name="HNAM" desc="Impact Data" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="IPDS" />
+    <Subrecord name="BNAM" desc="Bouyancy">
+      <Element name="Bouyancy" type="float" />
+    </Subrecord>
+    <Subrecord name="FNAM" desc="flags" optional="1">
+      <Element name="flags" type="uint" />
     </Subrecord>
   </Record>
   <Record name="IPCT" desc="Impact Data">
@@ -3765,8 +3719,8 @@
     <Subrecord name="NAM0" desc="? Ref" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
-      <Element name="Unknown 4bytes" type="int" />
+    <Subrecord name="CNAM" desc="Color" optional="1">
+      <Element name="Color" type="color" />
     </Subrecord>
   </Record>
   <Record name="MESG" desc="Message">
@@ -3938,8 +3892,8 @@
   </Record>
   <Record name="MUST" desc="Music Track">
     <Group id="EDITORID" />
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
-      <Element name="Unknown 4bytes" type="int" />
+    <Subrecord name="CNAM" desc="Track Type">
+      <Element name="Track Type" type="uint" />
     </Subrecord>
     <Subrecord name="FLTV" desc="FLTV" optional="1" size="4">
       <Element name="Unknown float" type="float" />
@@ -3966,19 +3920,19 @@
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="SNAM" desc="Music Track" optional="1">
-      <Element name="FormID" type="formid" reftype="MUST" repeat="1" optional="1" />
+      <Element name="Music Track" type="formid" reftype="MUST" repeat="1" optional="1" />
     </Subrecord>
   </Record>
   <Record name="DLVW" desc="Dialog View">
     <Group id="EDITORID" />
     <Subrecord name="QNAM" desc="Quest" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="QUST" />
+      <Element name="Quest" type="formid" reftype="QUST" />
     </Subrecord>
-    <Subrecord name="TNAM" desc="Dialog" optional="1" repeat="1" size="4">
-      <Element name="FormID" type="formid" reftype="DIAL" />
+    <Subrecord name="TNAM" desc="Topic" optional="1" repeat="1" size="4">
+      <Element name="topic" type="formid" reftype="DIAL" />
     </Subrecord>
     <Subrecord name="BNAM" desc="Dialog Branch" optional="1" repeat="1" size="4">
-      <Element name="FormID" type="formid" reftype="DLBR" />
+      <Element name="Dialog Branch" type="formid" reftype="DLBR" />
     </Subrecord>
     <Subrecord name="ENAM" desc="ENAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
@@ -3996,21 +3950,21 @@
   <Record name="SHOU" desc="Shout">
     <Group id="CONCEPT" />
     <Subrecord name="MDOB" desc="Inventory Model" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="STAT" />
+      <Element name="Inventory Model" type="formid" reftype="STAT" />
     </Subrecord>
     <Subrecord name="DESC" desc="Description" optional="1">
       <Element name="Text" type="lstring" />
     </Subrecord>
     <Subrecord name="SNAM" desc="Shout Data" optional="1" repeat="1" size="12">
-      <Element name="WOOP FormID" type="formid" reftype="WOOP" />
-      <Element name="SPEL FormID" type="formid" reftype="SPEL" />
+      <Element name="Word of Power" type="formid" reftype="WOOP" />
+      <Element name="Spell" type="formid" reftype="SPEL" />
       <Element name="Recharge" type="float" />
     </Subrecord>
   </Record>
   <Record name="EQUP" desc="Equipment Slot">
     <Group id="EDITORID" />
     <Subrecord name="PNAM" desc="Hand Reference" optional="1">
-      <Element name="FormID" type="formid" reftype="EQUP" repeat="1" optional="1" />
+      <Element name="Equip Slot" type="formid" reftype="EQUP" repeat="1" optional="1" />
     </Subrecord>
     <Subrecord name="DATA" desc="Occupies Slot" optional="1" size="4">
       <Element name="Flag" type="int" />
@@ -4199,10 +4153,10 @@
       <Element name="Unknown 2" type="int" hexview="1"/>
     </Subrecord>
   </Record>
-  <Record name="SNDR" desc="Sound Descriptor">
+  <Record name="SNDR" desc="Sound Reference">
     <Group id="EDITORID" />
-    <Subrecord name="CNAM" desc="CNAM" optional="1" size="4">
-      <Element name="Unknown 4bytes" type="int" />
+    <Subrecord name="CNAM" desc="Unknown">
+      <Element name="Unknown" type="int" />
     </Subrecord>
     <Subrecord name="GNAM" desc="Sound Category" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="SNCT" />
@@ -4319,11 +4273,8 @@
   </Record>
   <Record name="CLFM" desc="Color">
     <Group id="CONCEPT" />
-    <Subrecord name="CNAM" desc="Color" optional="1" size="4">
-      <Element name="R" type="byte" hexview="1"/>
-      <Element name="G" type="byte" hexview="1"/>
-      <Element name="B" type="byte" hexview="1"/>
-      <Element name="A" type="byte" hexview="1"/>
+    <Subrecord name="CNAM" desc="Color" optional="1">
+      <Element name="Color" type="color"/>
     </Subrecord>
     <Subrecord name="FNAM" desc="FNAM" optional="1" size="4">
       <Element name="Unknown 4bytes" type="int" />
