@@ -2670,7 +2670,7 @@
     <Subrecord name="PSDT" desc="PSDT" optional="1" size="12">
       <Element name="Unknown" type="int" />
       <Element name="Unknown 1" type="lstring" />
-      <Element name="AVIF FormID" type="formid" reftype="AVIF" />
+      <Element name="Actor Value" type="formid" reftype="AVIF" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="CNAM" desc="CNAM" optional="1" repeat="1">
@@ -3526,49 +3526,48 @@
   </Record>
   <Record name="AVIF" desc="Actor Value Info">
     <Group id="CONCEPT" />
-    <Subrecord name="DESC" desc="Description" optional="1">
+    <Subrecord name="DESC" desc="Description">
       <Element name="Description" type="lstring" />
     </Subrecord>
-    <Subrecord name="ANAM" desc="Alternate Name" optional="1" size="3">
-      <Element name="Alternate Name Text" type="short" />
-      <Element name="Unknown 1" type="short" />
+    <Subrecord name="ANAM" desc="Abbreviation" optional="1">
+      <Element name="Abbreviation" type="string" />
     </Subrecord>
-    <Subrecord name="CNAM" desc="CNAM" optional="1" repeat="1" size="4">
-      <Element name="Unknown 4bytes" type="int" />
+    <Subrecord name="CNAM" desc="data" optional="1">
+      <Element name="data" type="uint" />
     </Subrecord>
-    <Subrecord name="AVSK" desc="AVSK" optional="1" size="16">
-      <Element name="Unknown float 1" type="float" />
-      <Element name="Unknown float 2" type="float" />
-      <Element name="Unknown float 3" type="float" />
-      <Element name="Unknown float 4" type="float" />
+    <Subrecord name="AVSK" desc="Use modifiers" optional="1">
+      <Element name="Use multiplier" type="float" />
+      <Element name="Use offset" type="float" />
+      <Element name="Improve multiplier" type="float" />
+      <Element name="Improve offset" type="float" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="PNAM" desc="Perk Name" optional="1" repeat="1" size="4">
-        <Element name="FormID" type="formid" reftype="PERK" />
+      <Subrecord name="PNAM" desc="Perk" size="4">
+        <Element name="Perk" type="formid" reftype="PERK" />
       </Subrecord>
-      <Subrecord name="FNAM" desc="FNAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+      <Subrecord name="FNAM" desc="flag" size="4">
+        <Element name="flag" type="int" />
       </Subrecord>
-      <Subrecord name="XNAM" desc="XNAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+      <Subrecord name="XNAM" desc="Perk Grid X" size="4">
+        <Element name="Perk Grid X" type="int" />
       </Subrecord>
-      <Subrecord name="YNAM" desc="YNAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+      <Subrecord name="YNAM" desc="Perk Grid Y" size="4">
+        <Element name="Perk Grid Y" type="int" />
       </Subrecord>
-      <Subrecord name="HNAM" desc="HNAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown float" type="float" />
+      <Subrecord name="HNAM" desc="Horizontal Position" size="4">
+        <Element name="Horizontal Position" type="float" />
       </Subrecord>
-      <Subrecord name="VNAM" desc="VNAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown float" type="float" />
+      <Subrecord name="VNAM" desc="Vertical Position" size="4">
+        <Element name="Vertical Position" type="float" />
       </Subrecord>
-      <Subrecord name="SNAM" desc="Skill" optional="1" repeat="1" size="4">
-        <Element name="FormID" type="formid" reftype="AVIF" />
+      <Subrecord name="SNAM" desc="Skill" size="4">
+        <Element name="Skill" type="formid" reftype="AVIF" />
       </Subrecord>
       <Subrecord name="CNAM" desc="Unlocks" optional="1" repeat="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+        <Element name="Unlocks" type="uint" />
       </Subrecord>
-      <Subrecord name="INAM" desc="INAM" optional="1" repeat="1" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+      <Subrecord name="INAM" desc="Index Number" optional="1" repeat="1" size="4">
+        <Element name="Index Number" type="uint" />
       </Subrecord>
     </Group>
   </Record>
