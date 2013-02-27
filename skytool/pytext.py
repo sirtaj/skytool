@@ -102,7 +102,7 @@ class PythonFile(object):
         self.blank()
 
     def assign(self, attr_name, attr_value):
-        self.write('%s = %s' % (attr_name, attr_value))
+        self.write('%-8s = %s' % (attr_name, attr_value))
 
     def slots(self, slot_attrs):
         self.assign('__slots__', "(%s)" % ', '.join(repr(v) for v in slot_attrs))
