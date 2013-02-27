@@ -39,7 +39,7 @@
   </Group>
   <Group id="EFFECT" optional="1" repeat="1">
     <Subrecord name="EFID" desc="Magic Effect" size="4">
-      <Element name="FormID" type="formid" reftype="MGEF" />
+      <Element name="Magic Effect" type="formid" reftype="MGEF" />
     </Subrecord>
     <Subrecord name="EFIT" desc="EFIT" optional="1">
       <Element name="Magnitude" type="float" />
@@ -53,7 +53,7 @@
       <Element name="Count" type="int" />
     </Subrecord>
     <Subrecord name="KWDA" desc="Keyword List" optional="1">
-      <Element name="FormID" type="formid" reftype="KYWD" repeat="1" optional="1" />
+      <Element name="Keyword List" type="formid" reftype="KYWD" repeat="1" optional="1" />
     </Subrecord>
   </Group>
   <Group id="TINTING" optional="1" repeat="1">
@@ -67,11 +67,11 @@
       <Element name="Unknown short" type="short" />
     </Subrecord>
     <Subrecord name="TIND" desc="Color-Tint" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="CLFM" />
+      <Element name="Color-Tint" type="formid" reftype="CLFM" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="TINC" desc="Color-Tint" size="4">
-        <Element name="FormID" type="formid" reftype="CLFM" />
+        <Element name="Color-Tint" type="formid" reftype="CLFM" />
       </Subrecord>
       <Subrecord name="TINV" desc="TINV" optional="1" size="4">
         <Element name="Unknown float" type="float" />
@@ -1379,8 +1379,8 @@
     <Group id="EDITORID" />
     <Group id="SCRIPTS" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="ACBS" desc="Traits and Stats tabs (ULAGEPRUN - UserLevel, AutoCalc, Gender, Essential, PresetCharGen, Respawn, Unique, NoAffectOnStealthMeter)" optional="1" size="24">
-		<Element name="UL-A-G-E-P-R-U-N" type="byte" hexview="1" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
+    <Subrecord name="ACBS" desc="Traits" size="24">
+		<Element name="UAGEPRUN" type="byte" hexview="1" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
 		Male-AutoCalc;16;Female-AutoCalc;17;Male-AutoCalc-Essential;18;Female-AutoCalc-Essential;19;Male-AutoCalc-Preset;20;Female-AutoCalc-Preset;21;Male-AutoCalc-Essen-Preset;22;Female-AutoCalc-Essen-Preset;23;Male-AutoCalc-Respawn;24;Female-AutoCalc-Respawn;25;Male-AutoCalc-Essen-Respawn;26;Female-AutoCalc-Essen-Respawn;27;Male-AutoCalc-Preset-Respawn;28;Female-AutoCalc-Preset-Respawn;29;Male-AutoC-Essen-Preset-Respawn;30;Female-AutoC-Essen-Preset-Respawn;31;
 		Male-Unique;32;Female-Unique;33;Male-Essential-Unique;34;Female-Essential-Unique;35;Male-Preset-Unique;36;Female-Preset-Unique;37;Male-Essen-Preset-Unique;38;Female-Essen-Preset-Unique;39;Male-Respawn-Unique;40;Female-Respawn-Unique;41;Male-Essen-Respawn-Unique;42;Female-Essen-Respawn-Unique;43;Male-Preset-Respawn-Unique;44;Female-Preset-Respawn-Unique;45;Male-Essen-Preset-Respawn-Unique;46;Female-Essen-Preset-Respawn-Unique;47;
 		Male-AutoCalc-Unique;48;Female-AutoCalc-Unique;49;Male-AutoCalc-Essen-Unique;50;Female-AutoCalc-Essen-Unique;51;Male-AutoCalc-Preset-Unique;52;Female-AutoCalc-Preset-Unique;53;Male-AutoC-Essen-Preset-Unique;54;Female-AutoC-Essen-Preset-Unique;55;Male-AutoCalc-Respawn-Unique;56;Female-AutoCalc-Respawn-Unique;57;Male-AutoC-Essen-Respawn-Unique;58;Female-AutoC-Essen-Respawn-Unique;59;Male-AutoC-Pre-Respawn-Unique;60;Female-AutoC-Pre-Respawn-Unique;61;Male-AutoC-Essen-Pre-Respawn-Unique;62;Female-AutoC-Essen-Pre-Respawn-Unique;63;
@@ -1547,29 +1547,29 @@
       <Element name="Unknown 2" type="ushort" />
       <Element name="Unknown 3" type="ushort" />
     </Subrecord>
-    <Subrecord name="PNAM" desc="Head-Part Mesh" optional="1" repeat="1" size="4">
-      <Element name="FormID" type="formid" reftype="HDPT" />
+    <Subrecord name="PNAM" desc="Head Part" optional="1" repeat="1" size="4">
+      <Element name="Head Part" type="formid" reftype="HDPT" />
     </Subrecord>
     <Subrecord name="HCLF" desc="Hair Color" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="CLFM" />
     </Subrecord>
     <Subrecord name="ZNAM" desc="Combat Style" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="CSTY" />
+      <Element name="Combat Style" type="formid" reftype="CSTY" />
     </Subrecord>
-    <Subrecord name="GNAM" desc="? Form List" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="FLST" />
+    <Subrecord name="GNAM" desc="Gift" optional="1" size="4">
+      <Element name="Gift" type="formid" reftype="FLST" />
     </Subrecord>
-    <Subrecord name="NAM5" desc="NAM5" optional="1">
-      <Element name="flag?" type="ushort" />
+    <Subrecord name="NAM5" desc="Unknown Flag" optional="1">
+      <Element name="Unknown Flag" type="ushort" />
     </Subrecord>
-    <Subrecord name="NAM6" desc="Body Height/Scale" optional="1" size="4">
+    <Subrecord name="NAM6" desc="Height" size="4">
       <Element name="Height" type="float" />
     </Subrecord>
-    <Subrecord name="NAM7" desc="Weight (Body Morph Slider)" optional="1" size="4">
-      <Element name="Weight" type="float" desc="values=0-100"/>
+    <Subrecord name="NAM7" desc="Weight" size="4">
+      <Element name="Weight" type="float"/>
     </Subrecord>
-    <Subrecord name="NAM8" desc="Sounds Tab" optional="1" size="4">
-      <Element name="Sound Volume" type="byte" options="Normal;1;Silent;2;Very Loud;3" />
+    <Subrecord name="NAM8" desc="Sound Level" size="4">
+      <Element name="Sound Volume" type="uint" options="Loud;0;Normal;1;Silent;2;Very Loud;3" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="CSDT" desc="Sound Type" size="4">
