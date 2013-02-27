@@ -1662,9 +1662,9 @@
     <Group id="SCRIPTED_MODEL" optional="1"/>
     <Group id="CARRYABLE"/>
     <Group id="KEYWORDS" optional="1"/>
-    <Subrecord name="DATA" desc="DATA" optional="1" size="8">
-      <Element name="Unknown 4bytes 1" type="int" />
-      <Element name="Unknown 4bytes 2" type="float" />
+    <Subrecord name="DATA" desc="Specs">
+      <Element name="Value" type="uint" />
+      <Element name="Weight" type="float" />
     </Subrecord>
   </Record>
   <Record name="ALCH" desc="Potion">
