@@ -1650,11 +1650,22 @@
         <Element name="NPC_ FormID" type="formid" reftype="NPC_" />
         <Element name="Enemy Spawn Count" type="int" />
       </Subrecord>
-      <Subrecord name="COED" desc="COED" optional="1" size="12">
-        <Element name="FACT FormID" type="formid" reftype="FACT" />
-        <Element name="Unknown 4bytes 1" type="int" />
-        <Element name="Unknown 4bytes 2" type="float" />
-      </Subrecord>
+      <Group>
+        <Group optional="1">
+          <Subrecord name="COED" desc="Faction Owner Condition" optional="1" size="12">
+            <Element name="Owner" type="formid" reftype="FACT" />
+            <Element name="Required Rank" type="int" />
+            <Element name="Condition" type="float" />
+          </Subrecord>
+        </Group>
+        <Group optional="1">
+          <Subrecord name="COED" desc="Actor Owner Condition" optional="1" size="12">
+            <Element name="Owner" type="formid" reftype="NPC_" />
+            <Element name="Value" type="formid" reftype="GLOB" />
+            <Element name="Condition" type="float" />
+          </Subrecord>
+        </Group>
+      </Group>
     </Group>
     <Group id="BASE_MODEL" />
   </Record>
