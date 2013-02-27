@@ -273,6 +273,9 @@ class UnsignedShort(Number): pass
 class Short(Number): pass
 class Float(Number): pass
 
+class Long(Number): pass
+class UnsignedLong(Number): pass
+
 class FormId(DataValue): pass
 class Reference(FormId): pass
 class OwnedReference(FormId): pass

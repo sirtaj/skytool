@@ -24,6 +24,9 @@ DATA_TYPES = {
     'string':	esp.String,
     'lstring':	esp.LString,
 
+    'long':     esp.Long,
+    'ulong':    esp.UnsignedLong,
+
     'formid':	esp.Reference, # TODO OwnedReference, use reftype
 }
 
