@@ -5,11 +5,13 @@
       <Element name="Name" type="string" />
     </Subrecord>
   </Group>
+
   <Group id="FULLNAME">
     <Subrecord name="FULL" desc="In-Game Name">
       <Element name="Name" type="lstring" />
     </Subrecord>
   </Group>
+
   <Group id="CONDITIONAL" optional="1" repeat="1">
     <Subrecord name = "CTDA" desc = "Conditional" optional = "1" repeat = "1">
       <Element name = "Comparison Type" type = "byte"
@@ -37,6 +39,7 @@
       <Element name="Unknown" type="string" />
     </Subrecord>
   </Group>
+
   <Group id="EFFECT" optional="1" repeat="1">
     <Subrecord name="EFID" desc="Magic Effect" size="4">
       <Element name="Magic Effect" type="formid" reftype="MGEF" />
@@ -48,6 +51,7 @@
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
   </Group>
+
   <Group id="KEYWORDS" optional="1">
     <Subrecord name="KSIZ" desc="Number of Keywords" optional="1" size="4">
       <Element name="Count" type="int" />
@@ -56,6 +60,7 @@
       <Element name="Keyword List" type="formid" reftype="KYWD" repeat="1" optional="1" />
     </Subrecord>
   </Group>
+
   <Group id="TINTING" optional="1" repeat="1">
     <Subrecord name="TINI" desc="TINI" size="2">
       <Element name="Unknown short" type="short" />
@@ -81,6 +86,7 @@
       </Subrecord>
     </Group>
   </Group>
+
   <Group id="BODY_TEMPLATE" optional = "1">
     <Subrecord name="BODT" desc="Body Template" size="12">
       <Element name="Unknown 1" type="int" />
@@ -88,6 +94,7 @@
       <Element name="Unknown 3" type="int" />
     </Subrecord>
   </Group>
+
   <Group id="OBJECT_BOUNDS" optional = "1">
     <Subrecord name="OBND" desc="Object Bounds" notininfo="1">
       <Element name="x1" type="short" />
@@ -98,6 +105,7 @@
       <Element name="z2" type="short" />
     </Subrecord>
   </Group>
+
   <Group id="SCRIPTS" optional="1">
     <Subrecord name="VMAD" desc="Script Data" notininfo="1">
       <Element name="version" type="short"/>
@@ -106,6 +114,7 @@
       <Element name="scripts" type="blob"/>
     </Subrecord>
   </Group>
+
   <Group id="BASE_MODEL" optional="1">
     <Subrecord name="MODL" desc="Mesh Path">
       <Element name="Path" type="string" />
@@ -117,6 +126,7 @@
       <Element name="Unknown" type="blob" />
     </Subrecord>
   </Group>
+
   <Group id="MODEL_NAME">
     <Group optional="1">
       <Subrecord name="MNAM" desc="MNAM" />
@@ -184,6 +194,7 @@
       <Subrecord name="DSTF" desc="DSTF" size="0" />
     </Group>
   </Group>
+
   <Group id="CARRYABLE">
     <Subrecord name="YNAM" desc="Pickup Sound" optional="1" size="4">
       <Element name="Pickup Sound" type="formid" reftype="SNDR" />
@@ -192,6 +203,38 @@
       <Element name="Droup Sound" type="formid" reftype="SNDR" />
     </Subrecord>
   </Group>
+
+  <Group id="LEVELED">
+    <Subrecord name="LVLD" desc="Percent Chance None">
+      <Element name="Percent Chance None" type="byte" />
+    </Subrecord>
+    <Subrecord name="LVLF" desc="Flags">
+      <Element name="Flags" type="byte" /> <!-- 1: All Levels/2: Each/4: Use all /8: Special loot -->
+    </Subrecord>
+    <Subrecord name="LLCT" desc="Entry Count" calculated="1">
+      <Element name="Item Count" type="byte" />
+    </Subrecord>
+    <Group id="Leveled_Entry" optional="1" repeat="1">
+      <Subrecord name="LVLO" desc="Level" size="12">
+        <Element name="Level" type="ulong" />
+        <Element name="Form" type="formid" />
+        <Element name="Spawn Number" type="ulong" />
+      </Subrecord>
+      <Group id="Leveled_Entry_Owner">
+        <Subrecord name="COED" desc="Faction Owner Condition" optional="1" size="12">
+          <Element name="Owner" type="formid" reftype="FACT" />
+          <Element name="Required Rank" type="int" />
+          <Element name="Condition" type="float" />
+        </Subrecord>
+        <Subrecord name="COED" desc="Actor Owner Condition" optional="1" size="12">
+          <Element name="Owner" type="formid" reftype="NPC_" />
+          <Element name="Value" type="formid" reftype="GLOB" />
+          <Element name="Condition" type="float" />
+        </Subrecord>
+      </Group>
+    </Group>
+  </Group>
+
   <!-- =========================================================== -->
   <Group id="OBJECT">
     <Group id="EDITORID"/>
@@ -1635,38 +1678,7 @@
   <Record name="LVLN" desc="Leveled Actor">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="LVLD" desc="Chance None Value" optional="1">
-      <Element name="Chance None in Percent" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLF" desc="List Flags" optional="1" size="1">
-      <Element name="Flags" type="byte" />
-    </Subrecord>
-    <Subrecord name="LLCT" desc="Count of Level Items" optional="1" size="1">
-      <Element name="Count" type="byte" />
-    </Subrecord>
-    <Group optional="1" repeat="1">
-      <Subrecord name="LVLO" desc="Level" optional="1" repeat="1" size="12">
-        <Element name="Level" type="int" />
-        <Element name="NPC_ FormID" type="formid" reftype="NPC_" />
-        <Element name="Enemy Spawn Count" type="int" />
-      </Subrecord>
-      <Group>
-        <Group optional="1">
-          <Subrecord name="COED" desc="Faction Owner Condition" optional="1" size="12">
-            <Element name="Owner" type="formid" reftype="FACT" />
-            <Element name="Required Rank" type="int" />
-            <Element name="Condition" type="float" />
-          </Subrecord>
-        </Group>
-        <Group optional="1">
-          <Subrecord name="COED" desc="Actor Owner Condition" optional="1" size="12">
-            <Element name="Owner" type="formid" reftype="NPC_" />
-            <Element name="Value" type="formid" reftype="GLOB" />
-            <Element name="Condition" type="float" />
-          </Subrecord>
-        </Group>
-      </Group>
-    </Group>
+    <Group id="LEVELED"/>
     <Group id="BASE_MODEL" />
   </Record>
   <Record name="KEYM" desc="Key">
@@ -1810,20 +1822,7 @@
   <Record name="LVLI" desc="Leveled Item">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="LVLD" desc="pctChanceNoSpawn" optional="1">
-      <Element name="pctChanceNoSpawn" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLF" desc="List Flags" optional="1" size="1">
-      <Element name="Flags" type="byte" />
-    </Subrecord>
-    <Subrecord name="LLCT" desc="Leveled Item Count" optional="1" size="1">
-      <Element name="Count" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLO" desc="List Item" optional="1" repeat="1" size="12">
-      <Element name="Level" type="int" />
-      <Element name="FormID" type="formid" />
-      <Element name="Count" type="int" />
-    </Subrecord>
+    <Group id="LEVELED"/>
     <Subrecord name="LVLG" desc="Global Variable" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="GLOB" />
     </Subrecord>
@@ -2846,20 +2845,7 @@
   <Record name="LVSP" desc="Leveled Spell">
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
-    <Subrecord name="LVLD" desc="Chance" optional="1" size="1">
-      <Element name="Value" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLF" desc="Leveled List Flags" optional="1" size="1">
-      <Element name="Flags" type="byte" />
-    </Subrecord>
-    <Subrecord name="LLCT" desc="List Item Count" optional="1" size="1">
-      <Element name="Count" type="byte" />
-    </Subrecord>
-    <Subrecord name="LVLO" desc="Spell" optional="1" repeat="1" size="12">
-      <Element name="Level" type="int" />
-      <Element name="SPEL FormID" type="formid" reftype="SPEL" />
-      <Element name="Count" type="int" />
-    </Subrecord>
+    <Group id="LEVELED"/>
   </Record>
   <Record name="ANIO" desc="Animated Object">
     <Group id="EDITORID" />
