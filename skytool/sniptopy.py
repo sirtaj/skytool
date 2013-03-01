@@ -111,6 +111,7 @@ def generate_python(snip_file, py_file):
     #
     with pytext.PythonFile.do(py_file) as pf:
         pf.write('from esp import *')
+        pf.write('import esp')
         pf.blank()
 
         pf.assign('RECORD_ORDER', [str(n) for (n, r) in group_order])
@@ -163,7 +164,11 @@ def write_class(py, record, linker):
             # this is a reference to an existing group, skip it
             return
         superclass = 'SubrecordGroup'
-    elif isinstance(record, Subrecord): superclass = 'Subrecord'
+
+    elif isinstance(record, Subrecord):
+        if record.is_scalar(): return
+        superclass = 'Subrecord'
+
     else: return
 
     with py.python_class(linker.ref(record), [superclass]) as subcls:
@@ -171,6 +176,12 @@ def write_class(py, record, linker):
 
     for child in record:
         write_class(py, child, linker)
+
+def element_type(e):
+    if e.reftype:
+        return ('refers_to', repr(str(e.reftype)))
+    else:
+        return ('field', map_type(child.type))
 
 
 def write_attributes(py, rec, linker):
@@ -185,7 +196,7 @@ def write_attributes(py, rec, linker):
             ident = to_attr_ident(child.name)
             if child.reftype:
                 type_str = repr(str(child.reftype))
-                base = 'reference'
+                base = 'reference_field'
             else:
                 type_str = ('data_type', map_type(child.type))
                 base = 'field'
@@ -194,18 +205,43 @@ def write_attributes(py, rec, linker):
                         % ((base + "_set") if child.repeat else base,
                             arg_list(
                                 type_str,
-                                ('nullable', 'True') if child.optional else None)))
+                                ('null', 'True') if child.optional else None)))
 
         elif isinstance(child, Subrecord):
             ident = to_attr_ident(child.desc or child.name)
-            cls = 'subrecord_set' if child.repeat else 'subrecord'
+            size = child.size
+            if child.is_scalar():
+                elem = child.elements[0]
+
+                # These are now the same as Element!
+                if elem.reftype:
+                    cls = 'reference'
+                    type_def = ('refers_to', repr(str(elem.reftype)))
+                    size = None
+                else:
+                    cls = 'scalar'
+                    type_def = ('data_type', map_type(elem.type))
+
+                repeat = child.repeat or elem.repeat
+                null = child.optional or elem.optional
+                ref = None
+            else:
+                cls = 'structure'
+                type_def = None
+                repeat = child.repeat
+                null = child.optional
+                ref = repr(linker.ref(child))
+
+            if repeat:
+                cls = cls + '_set'
 
             py.assign(ident, '%s( %s )' % (cls,
                             arg_list(
-                                repr(linker.ref(child)),
+                                ref,
                                 ('tag', repr(str(child.name))),
-                                ('size', child.size) if child.size else None,
-                                ('nullable', 'True') if child.optional else None)))
+                                type_def,
+                                ('size', size) if size else None,
+                                ('null', 'True') if null else None)))
 
         elif isinstance(child, Group):
             ident = to_attr_ident(child.id or linker.ref(child))
@@ -216,7 +252,7 @@ def write_attributes(py, rec, linker):
             cls = 'subrecord_group_set' if child.repeat else 'subrecord_group'
             py.assign(ident, '%s( %s )' % ( cls,
                             arg_list( ref,
-                                ('nullable', 'True') if child.optional else None)))
+                                ('null', 'True') if child.optional else None)))
 
         order.append(str(ident))
 

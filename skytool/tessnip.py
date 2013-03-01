@@ -35,6 +35,8 @@ class Record(object):
     children = typed_collection('children', ['Subrecord', 'Group'])
 
     def __iter__(self): return iter(self.children)
+    def __repr__(self): return "<Record %s: %s>" % (repr(self.desc), repr(self.name))
+    def names(self): return [self.desc, self.name]
 
 
 
@@ -56,6 +58,7 @@ class Group(object):
 
     def __iter__(self): return iter(self.children)
     def __repr__(self): return "<Group %s>" % (repr(self.id))
+    def names(self): return [self.id]
 
 
 class Subrecord(object):
@@ -86,6 +89,11 @@ class Subrecord(object):
     elements = typed_collection('elements', ['Element'])
 
     def __iter__(self): return iter(self.elements)
+    def __repr__(self): return "<Subrecord %s: %s>" % (repr(self.desc), repr(self.name))
+    def names(self): return [self.desc or self.name, self.desc, self.name,
+                                self.desc + "_" + self.name]
+
+    def is_scalar(self): return len(self.elements) == 1
 
 
 class Element(object):
