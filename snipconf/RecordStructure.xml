@@ -41,7 +41,7 @@
   </Group>
 
   <Group id="EFFECT" optional="1" repeat="1">
-    <Subrecord name="EFID" desc="Magic Effect" size="4">
+    <Subrecord name="EFID" desc="Magic Effect">
       <Element name="Magic Effect" type="formid" reftype="MGEF" />
     </Subrecord>
     <Subrecord name="EFIT" desc="EFIT" optional="1">
@@ -71,11 +71,11 @@
     <Subrecord name="TINP" desc="TINP" optional="1" size="2">
       <Element name="Unknown short" type="short" />
     </Subrecord>
-    <Subrecord name="TIND" desc="Color-Tint" optional="1" size="4">
+    <Subrecord name="TIND" desc="Color-Tint" optional="1">
       <Element name="Color-Tint" type="formid" reftype="CLFM" />
     </Subrecord>
     <Group optional="1" repeat="1">
-      <Subrecord name="TINC" desc="Color-Tint" size="4">
+      <Subrecord name="TINC" desc="Color-Tint">
         <Element name="Color-Tint" type="formid" reftype="CLFM" />
       </Subrecord>
       <Subrecord name="TINV" desc="TINV" optional="1" size="4">
@@ -196,10 +196,10 @@
   </Group>
 
   <Group id="CARRYABLE">
-    <Subrecord name="YNAM" desc="Pickup Sound" optional="1" size="4">
+    <Subrecord name="YNAM" desc="Pickup Sound" optional="1">
       <Element name="Pickup Sound" type="formid" reftype="SNDR" />
     </Subrecord>
-    <Subrecord name="ZNAM" desc="Drop Sound" optional="1" size="4">
+    <Subrecord name="ZNAM" desc="Drop Sound" optional="1">
       <Element name="Droup Sound" type="formid" reftype="SNDR" />
     </Subrecord>
   </Group>
@@ -221,12 +221,12 @@
         <Element name="Spawn Number" type="ulong" />
       </Subrecord>
       <Group id="Leveled_Entry_Owner">
-        <Subrecord name="COED" desc="Faction Owner Condition" optional="1" size="12">
+        <Subrecord name="COED" desc="Faction Owner Condition" optional="1">
           <Element name="Owner" type="formid" reftype="FACT" />
           <Element name="Required Rank" type="int" />
           <Element name="Condition" type="float" />
         </Subrecord>
-        <Subrecord name="COED" desc="Actor Owner Condition" optional="1" size="12">
+        <Subrecord name="COED" desc="Actor Owner Condition" optional="1">
           <Element name="Owner" type="formid" reftype="NPC_" />
           <Element name="Value" type="formid" reftype="GLOB" />
           <Element name="Condition" type="float" />
@@ -386,58 +386,65 @@
   </Record>
   <Record name="FACT" desc="Faction">
     <Group id="CONCEPT" />
-    <Subrecord name="XNAM" desc="(FACT)" optional="1" repeat="1" size="12">
+    <Subrecord name="XNAM" desc="(FACT)" optional="1" repeat="1">
       <Element name="FormID" type="formid" reftype="FACT" />
-      <Element name="Unknown int 1" type="int" />
-      <Element name="Unknown int 2" type="int" />
+      <Element name="Mod" type="int" />
+      <Element name="Combat" type="int" /> <!-- TODO flags -->
     </Subrecord>
-    <Subrecord name="DATA" desc="DATA" optional="1">
-      <Element name="Name" type="lstring" />
+    <Subrecord name="DATA" desc="flags">
+      <Element name="flags" type="uint" /> <!-- TODO flags -->
     </Subrecord>
-    <Subrecord name="JAIL" desc="Jail" optional="1" size="4">
+    <Subrecord name="JAIL" desc="Jail Exterior Marker" optional="1">
+      <Element name="Jail Exterior Marker" type="formid" reftype="REFR" />
+    </Subrecord>
+    <Subrecord name="WAIT" desc="Follower Wait Marker" optional="1">
+      <Element name="Follower Wait Marker" type="formid" reftype="REFR" />
+    </Subrecord>
+    <Subrecord name="STOL" desc="Evidence Chest" optional="1">
+      <Element name="Evidence Chest" type="formid" reftype="REFR" />
+    </Subrecord>
+    <Subrecord name="PLCN" desc="Player Belongings Chest" optional="1">
+      <Element name="Player Belongings Chest" type="formid" reftype="REFR" />
+    </Subrecord>
+    <Subrecord name="CRGR" desc="Crime Factions" optional="1">
+      <Element name="Crime Factions" type="formid" reftype="FLST" />
+    </Subrecord>
+    <Subrecord name="JOUT" desc="Jail Outfit" optional="1">
+      <Element name="Jail Outfit" type="formid" reftype="OTFT" />
+    </Subrecord>
+
+    <Subrecord name="CRVA" desc="Crime Gold" optional="1">
+      <Element name="Flags" type="ushort" />
+      <Element name="Murder" type="ushort" />
+      <Element name="Assault" type="ushort" />
+      <Element name="Trespass" type="ushort" />
+      <Element name="Pickpocket" type="ushort" />
+      <Element name="unused" type="ushort" />
+      <Element name="Steal multi" type="float" />
+      <Element name="Escape" type="ushort" />
+      <Element name="Werewolf" type="ushort" />
+    </Subrecord>
+
+    <Subrecord name="VEND" desc="Vendor List" optional="1">
+      <Element name="Vendor List" type="formid" reftype="FLST" />
+    </Subrecord>
+    <Subrecord name="VENC" desc="Vendor Chest" optional="1">
       <Element name="FormID" type="formid" reftype="REFR" />
     </Subrecord>
-    <Subrecord name="WAIT" desc="Jail Bed?" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="REFR" />
+    <Subrecord name="VENV" desc="VENV" size = "12">
+      <Element name="Unknown1" type="int" />
+      <Element name="Unknown2" type="int" />
+      <Element name="Unknown3" type="int" />
     </Subrecord>
-    <Subrecord name="STOL" desc="Jail Chest?" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="REFR" />
-    </Subrecord>
-    <Subrecord name="PLCN" desc="PLCN" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="REFR" />
-    </Subrecord>
-    <Subrecord name="CRGR" desc="Crime Group Form List" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="FLST" />
-    </Subrecord>
-    <Subrecord name="JOUT" desc="Jail Outfit?" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="OTFT" />
-    </Subrecord>
-    <Subrecord name="CRVA" desc="CRVA" optional="1" notininfo="1">
-      <Element name="Unknown" type="blob" />
-    </Subrecord>
+
     <Group optional="1" repeat="1">
       <Subrecord name="RNAM" desc="Rank ID" size="4">
-        <Element name="Unknown 4bytes" type="int" />
+        <Element name="Rank ID" type="int" />
       </Subrecord>
       <Subrecord name="MNAM" desc="Rank Name?" optional="1">
         <Element name="Name" type="lstring" />
       </Subrecord>
-      <Subrecord name="FNAM" desc="FNAM" optional="1">
-        <Element name="Name" type="lstring" />
-      </Subrecord>
     </Group>
-    <Subrecord name="VEND" desc="Vendor Form List" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="FLST" />
-    </Subrecord>
-    <Subrecord name="VENC" desc="Vendor Chest" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="REFR" />
-    </Subrecord>
-    <Subrecord name="VENV" desc="VENV" optional="1">
-      <Element name="Unknown" type="short" />
-      <Element name="Unknown" type="short" />
-      <Element name="FormID" type="formid" reftype="WEAP" />
-      <Element name="Unknown 2" type="lstring" />
-    </Subrecord>
     <Subrecord name="PLVD" desc="PLVD (related to services)" optional="1" size="12">
       <Element name="Unknown 4bytes 1" type="int" />
       <Element name="Unknown 4bytes 2" type="int" />
@@ -448,6 +455,9 @@
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
   </Record>
+
+  <!-- ====== -->
+
   <Record name="HDPT" desc="Head-Part Mesh">
     <Group id="CONCEPT" />
     <Group id="BASE_MODEL" />
@@ -1043,7 +1053,7 @@
     </Subrecord>
     <Subrecord name="COED" desc="CND extra data" optional="1" size="12">
       <Element name="Faction" type="formid" reftype="FACT" />
-      <Element name="??" type="int" notininfo="1" />
+      <Element name="Unknown" type="int" notininfo="1" />
       <Element name="item condition" type="float" />
     </Subrecord>
     <Subrecord name="DATA" desc="Container Data">
@@ -1471,8 +1481,8 @@
     <Subrecord name="ATKE" desc="ATKE" optional="1">
       <Element name="Name" type="string" />
     </Subrecord>
-    <Subrecord name="ECOR" desc="? Form List" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="FLST" />
+    <Subrecord name="ECOR" desc="ECOR" optional="1" size="4">
+      <Element name="ECOR" type="formid" reftype="FLST" />
     </Subrecord>
     <Subrecord name="PRKZ" desc="Total Perk Count" optional="1" size="4">
       <Element name="Count" type="int" />
@@ -2004,9 +2014,9 @@
 		<Element name="Fog Near, Night G" type="byte" />
 		<Element name="Fog Near, Night B" type="short" />
 		<Element name="Cloud Layer (are ALWAYS zeroes)" type="int" hexview="1" />
-		<Element name="" type="float" notininfo="1" />
-		<Element name="" type="float" notininfo="1" />
-		<Element name="" type="float" notininfo="1" />
+		<Element name="UNKNOWN1" type="float" notininfo="1" />
+		<Element name="UNKNOWN2" type="float" notininfo="1" />
+		<Element name="UNKNOWN3" type="float" notininfo="1" />
 		<Element name="Ambient, Sunrise R" type="byte" />
 		<Element name="Ambient, Sunrise G" type="byte" />
 		<Element name="Ambient, Sunrise B" type="short" />
@@ -3367,8 +3377,8 @@
       <Subrecord name="EPFD" desc="==> Float Value" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="1">
         <Element name="float value" type="float" />
       </Subrecord>
-      <Subrecord name="EPFD" desc="==> 8 Byte Struct" optional="1" size="8" repeat="1" condid="2" condition="equal" condvalue="2">
-        <Element name="8 byte struct" type="blob" />
+      <Subrecord name="EPFD" desc="Unknown 8 byte struct" optional="1" size="8" repeat="1" condid="2" condition="equal" condvalue="2">
+        <Element name="Unknown 8 byte struct" type="blob" />
       </Subrecord>
       <Subrecord name="EPFD" desc="==> FormID" optional="1" size="4" repeat="1" condid="2" condition="equal" condvalue="3">
         <Element name="FormID" type="formid" />
@@ -4454,8 +4464,8 @@
       <Element name="Unknown 10" type="int" />
       <Element name="Unknown 11" type="int" />
     </Subrecord>
-    <Subrecord name="XSPC" desc="?" optional="1" size="4">
-      <Element name="FormID" type="formid" reftype="REFR" />
+    <Subrecord name="XSPC" desc="XSPC" optional="1" size="4">
+      <Element name="XSPC" type="formid" reftype="REFR" />
     </Subrecord>
     <Group optional="1" repeat="1">
       <Subrecord name="XACT" desc="XACT" optional="1" size="4">
@@ -4479,8 +4489,8 @@
       <Subrecord name="XTNM" desc="MessageBox" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="MESG" />
       </Subrecord>
-      <Subrecord name="XMBR" desc="?" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="REFR" />
+      <Subrecord name="XMBR" desc="XMBR" optional="1" size="4">
+        <Element name="XMBR" type="formid" reftype="REFR" />
       </Subrecord>
       <Subrecord name="XRGB" desc="XRGB" optional="1" size="12">
         <Element name="Unknown" type="float" />
@@ -4490,8 +4500,8 @@
       <Subrecord name="XALP" desc="XALP" optional="1" size="2">
         <Element name="Unknown short" type="short" />
       </Subrecord>
-      <Subrecord name="XLTW" desc="?" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="REFR" />
+      <Subrecord name="XLTW" desc="XLTW" optional="1" size="4">
+        <Element name="XLTW" type="formid" reftype="REFR" />
       </Subrecord>
       <Subrecord name="XRGD" desc="Rag Doll Data" optional="1" notininfo="1">
         <Element name="Unknown" type="blob" />
@@ -4512,8 +4522,8 @@
         <Subrecord name="XEMI" desc="Emittance" optional="1" size="4">
           <Element name="FormID" type="formid" reftype="LIGH" />
         </Subrecord>
-        <Subrecord name="XPWR" desc="?" optional="1" repeat="1" size="4">
-          <Element name="FormID" type="formid" reftype="REFR" />
+        <Subrecord name="XPWR" desc="XPWR" optional="1" repeat="1" size="4">
+          <Element name="XPWR" type="formid" reftype="REFR" />
         </Subrecord>
         <Subrecord name="XLIG" desc="Light Data" optional="1" size="16">
           <Element name="Unknown float 1" type="float" />
@@ -4577,8 +4587,8 @@
       <Subrecord name="XLRT" desc="Location Ref" optional="1" size="4">
         <Element name="FormID" type="formid" reftype="LCRT" />
       </Subrecord>
-      <Subrecord name="XCZC" desc="?" optional="1" size="4">
-        <Element name="FormID" type="formid" reftype="CELL" />
+      <Subrecord name="XCZC" desc="XCZC" optional="1" size="4">
+        <Element name="XCZC" type="formid" reftype="CELL" />
       </Subrecord>
       <Subrecord name="XCZA" desc="XCZA" optional="1" size="4">
         <Element name="Unknown 4bytes" type="int" />
@@ -4935,7 +4945,7 @@
 	  <Element name="Vertex Xpos (continues..)" type="float" />
 	  <Element name="Vertex Ypos (until before..)" type="float" />
 	  <Element name="Vertex Zpos (FFs start)" type="float" />
-	  <Element name="5-00s near end starts Tri's" type="blob" />
+	  <Element name="UNKNWON 5-00s near end starts Tri's" type="blob" />
     </Subrecord>
     <Subrecord name="ONAM" desc="Unknown ONAM" optional="1">
       <Element name="FormID" type="formid" reftype="STAT" repeat="1" optional="1" />
