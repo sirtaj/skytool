@@ -26,6 +26,13 @@ def record_type(rec_tag):
 
 
 ##########################################
+# Manage smart, ordered attr descriptors.
+#
+# When new subclasses of BaseRecord are created, any declared OrderedDescriptor
+# subclasses are ordered into a "__order__" class attribute, based on the
+# "declaration_order" attribute, which is expected to be an integer set by the
+# descriptor's constructor.
+
 DEFINITION_COUNTER = 0
 
 class OrderedDescriptor(object):
@@ -35,8 +42,13 @@ class OrderedDescriptor(object):
         DEFINITION_COUNTER += 1
         self.attribute_name = None          # will be set by __new__
 
+        ####
+
+    def __repr__(self):
+        return '<%s: %s>' % (self.__class__.__name__, self.attribute_name)
+
     def __set__(self, obj, value):
-        raise NotImplementedError
+        raise NotImplementedError, ("set %s.%s to %s" % (self, self.attribute_name, value))
 
     def __get__(self, obj):
         raise NotImplementedError
@@ -48,22 +60,17 @@ class OrderedDescriptor(object):
         raise NotImplementedError
 
 
-class OrderedAttributes(object):
+class OrderedAttributes(type):
     def __new__(cls, name, supers, class_dict):
-        '''When new subclasses of BaseRecord are created, any declared OrderedDescriptor
-        subclasses are ordered into a "__order__" class attribute, based on the
-        "declaration_order" attribute, which is expected to be an integer set by the
-        descriptor's constructor.
-        '''
-        print name, supers
-        sub_cls = type(name, supers, class_dict)
+
+        sub_cls = super(OrderedAttributes, cls).__new__(cls, name, supers, class_dict)
 
         # configure __order__ class attribute to match declaration order of descriptors.
         attr_order = []
-        for attr_name, attr_descriptor in class_dict.iteritems():
-            if isinstance(attr_descriptor, OrderedDescriptor):
-                attr_order.append((attr_descriptor.declaration_order, attr_descriptor))
-                attr_descriptor.attribute_name = attr_name
+        for attr_name, descriptor in class_dict.iteritems():
+            if isinstance(descriptor, OrderedDescriptor):
+                attr_order.append((descriptor.declaration_order, descriptor))
+                descriptor.attribute_name = attr_name
 
         attr_order.sort()
 
@@ -72,6 +79,8 @@ class OrderedAttributes(object):
 
         return sub_cls
 
+
+##################################################
 
 class BaseRecord(object):
     '''Core superclass for TES ESP/ESM records and subrecords.
@@ -104,18 +113,18 @@ class BaseRecord(object):
 
         rc_class = RECORD_TYPES[rec_type]
         rec = rc_class()
-        rec.type = rec_type
-        rec.file_offset = record_offset
+        rec._tag = rec_type
+        rec._file_offset = record_offset
         rec.read_header(fd)
         return rec
 
     ## Concrete subclasses should override
     def read_header(self, fd):  raise NotImplementedError
     def has_subrecords(self):   return False
-    def record_size(self):      return self.HEADER_SIZE + self.dataSize
-    def data_size(self):        return self.dataSize
-    def data_offset(self):      return self.file_offset + self.HEADER_SIZE
-    def data_end_offset(self):  return self.file_offset + self.record_size()
+    def record_size(self):      return self.HEADER_SIZE + self._dataSize
+    def data_size(self):        return self._dataSize
+    def data_offset(self):      return self._file_offset + self.HEADER_SIZE
+    def data_end_offset(self):  return self._file_offset + self.record_size()
 
     ## Convenience functions - common
 
@@ -140,18 +149,18 @@ class Record(BaseRecord):
     HEADER_SIZE = HEADER_STRUCT.size + 4
 
     def read_header(self, fd):
-        (self.dataSize,
-         self.flags,
-         self.record_id,
-         self.revision,
-         self.version,
-         self.unknown) = self.HEADER_STRUCT.unpack(
+        (self._dataSize,
+         self._flags,
+         self._record_id,
+         self._revision,
+         self._version,
+         self._unknown) = self.HEADER_STRUCT.unpack(
                 fd.read(self.HEADER_STRUCT.size))
 
     def has_subrecords(self):   return True
 
     def read_subrecords(self, fd):
-        if self.flags & self.F_COMPRESSED:
+        if self._flags & self.F_COMPRESSED:
             raise Warning, "No reading of compressed data yet."
             self.skip(fd)
             return
@@ -188,14 +197,10 @@ class Record(BaseRecord):
 
     def flag_list(self):
         return [fname for (fname, mask) in self.__FLAGS__.items()
-                        if self.flags & mask]
+                        if self._flags & mask]
 
 
 Record.__FLAGS__ = dict((fk,fv) for (fk,fv) in Record.__dict__.items() if fk.startswith('F_'))
-
-
-@record_type('TES4')
-class PluginHeader(Record): pass
 
 @record_type('GRUP')
 class Group(BaseRecord):
@@ -204,16 +209,16 @@ class Group(BaseRecord):
 
     def read_header(self, fd):
         self.label = [0, 0, 0, 0]
-        (self.groupSize,
+        (self._groupSize,
         self.label[0], self.label[1], self.label[2], self.label[3],
         self.groupType,
         self.stamp,
-        self.unknown1,
-        self.version,
-        self.unknown2) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
+        self._unknown1,
+        self._version,
+        self._unknown2) = self.HEADER_STRUCT.unpack(fd.read(self.HEADER_STRUCT.size))
 
-    def record_size(self):  return self.groupSize
-    def data_size(self):    return self.groupSize - self.HEADER_SIZE
+    def record_size(self):  return self._groupSize
+    def data_size(self):    return self._groupSize - self.HEADER_SIZE
     def flag_list(self):    return [] # TODO
     def has_subrecords(self): return True
     def has_subrecords(self): return False
@@ -233,13 +238,13 @@ class Subrecord(BaseRecord):
     @classmethod
     def read(cls, fd):
         rec = cls()
-        rec.file_offset = fd.tell()
-        rec.type, = st_unpack("4s", fd.read(4))
+        rec._file_offset = fd.tell()
+        rec._tag, = st_unpack("4s", fd.read(4))
         rec.read_header(fd)
         return rec
 
     def read_header(self, fd):
-        self.dataSize, = self.HEADER_STRUCT.unpack(
+        self._dataSize, = self.HEADER_STRUCT.unpack(
             fd.read(self.HEADER_STRUCT.size))
 
     def __repr__(self):
@@ -380,15 +385,10 @@ class ReferenceSequence(ReferenceBase): pass
 
 
 class subrecord(OrderedDescriptor):
-    def __init__(self,
-                class_name,
-                tag,
-                null = False,
-                size = None,
-                default_value = None,
+    def __init__(self, class_name, tag, null = False, size = None, default_value = None,
                 fixed_value = None):
-
         super(subrecord, self).__init__()
+
         self.class_name = class_name
         self.tag = tag
         self.null = null
@@ -399,15 +399,10 @@ class subrecord(OrderedDescriptor):
 subrecord_set = subrecord
 
 class scalar(OrderedDescriptor):
-    def __init__(self,
-                tag,
-                data_type,
-                null = False,
-                size = None,
-                default_value = None,
+    def __init__(self, tag, data_type, null = False, size = None, default_value = None,
                 fixed_value = None):
-
         super(scalar, self).__init__()
+
         self.tag = tag
         self.data_type = data_type
         self.null = null
@@ -418,15 +413,10 @@ class scalar(OrderedDescriptor):
 scalar_set = scalar
 
 class structure(OrderedDescriptor):
-    def __init__(self,
-                struct_type,
-                tag,
-                null = False,
-                size = None,
-                default_value = None,
+    def __init__(self, struct_type, tag, null = False, size = None, default_value = None,
                 fixed_value = None):
-
         super(structure, self).__init__()
+
         self.struct_type = struct_type
         self.tag = tag
         self.null = null
@@ -438,12 +428,9 @@ structure_set = structure
 
 
 class field(OrderedDescriptor):
-    def __init__(self,
-            data_type,
-            null = False,
-            default_value = True,
-            fixed_value = True):
+    def __init__(self, data_type, null = False, default_value = True, fixed_value = None):
         super(field, self).__init__()
+
         self.data_type = data_type
         self.null = null
         self.default_value = None
@@ -453,10 +440,9 @@ class field(OrderedDescriptor):
 field_set = field
 
 class reference_field(OrderedDescriptor):
-    def __init__(self,
-            refers_to,
-            null = False):
+    def __init__(self, refers_to, null = False):
         super(reference_field, self).__init__()
+
         self.refers_to = refers_to
         self.null = null
 
@@ -477,30 +463,11 @@ reference_set = reference
 class subrecord_group(OrderedDescriptor):
     def __init__(self, subrecord_type, null = True):
         super(subrecord_group, self).__init__()
+
         self.subrecord_type = subrecord_type
         self.null = null
 
 subrecord_group_set = subrecord_group
 
 
-def test_read(plugin):
-    import estest
-    with plugin.open() as fd:
-        while True:
-            rec = Record.read_from(fd)
-            if rec is None: break
 
-            print "=== %s: size %s ===" % (rec, rec.record_size())
-            flag_list = rec.flag_list()
-            if flag_list:
-                print "flags:", ", ".join(flag_list)
-            for f in rec.read_subrecords(fd):
-                print "F:", f.type, repr(f.read_data(fd))
-            if not rec.has_subrecords():
-                rec.skip(fd)
-
-if __name__ == '__main__':
-    game = game_.Skyrim()
-    plugin = game.plugins.get(game.MASTER_PLUGIN)
-    #plugin = game.plugins.get("Skyrim.esm")
-    test_read(plugin)
