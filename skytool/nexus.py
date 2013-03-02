@@ -81,7 +81,27 @@ class DumbModCollection(ModCollection):
         self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
 
 
+class FileList(DumbModCollection):
+    def __init__(self, game, file_list_path):
+        super(FileList, self).__init__(game)
+        self.file_list_path = file_list_path
 
+    def parse_install(self):
+        with open(self.file_list_path, 'r') as fd:
+            for line in fd.readlines():
+                line = line.strip()
+                if not line or line.startswith('#') : continue
+                words = line.split()
+                if len(words) > 1:
+                    path, checksum = words
+                else:
+                    path = line
+                    checksum = None
+
+                if path.endswith('/'):
+                    self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
+                else:
+                    self.add_data_file(path)
 
 
 
