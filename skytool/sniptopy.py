@@ -1,11 +1,15 @@
 
-import esp
-import tessnip
+__doc__=\
+'''Convert TesSnip RecordStructure.xml document to python code using the esp module.
+'''
+
+import esp, tessnip
 from tessnip import *
+
 import re
 
 
-###################################
+#############################
 # Type and identifier mapping
 
 DATA_TYPES = {
@@ -70,7 +74,8 @@ class Linker:
 
 ident_re = re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$").match
 
-def is_ident(word): return (word is not None) and (ident_re(word) is not None)
+def is_ident(word):
+    return (word is not None) and (ident_re(word) is not None)
 
 def strip_non_ident(word):
     return ''.join(c for c in str(word) if c.isalnum() or c.isspace() or c == '_')
@@ -89,10 +94,14 @@ def arg_list(*seq):
                         for s in seq if s)
 
 
-#############
-# Code gen
+#################
+# Code generation
 
 def generate_python(snip_file, py_file):
+    '''Parse RecordStructure.xml at snip_file and generate a python module.
+
+    Types are mapped to skytool.esp module.
+    '''
     import xrev, pytext
     records = xrev.parse_xreved(snip_file, tessnip)
     group_order = [(r.name, r) for r in records if isinstance(r, Record)]
@@ -176,12 +185,6 @@ def write_class(py, record, linker):
 
     for child in record:
         write_class(py, child, linker)
-
-def element_type(e):
-    if e.reftype:
-        return ('refers_to', repr(str(e.reftype)))
-    else:
-        return ('field', map_type(child.type))
 
 
 def write_attributes(py, rec, linker):
