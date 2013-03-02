@@ -18,9 +18,9 @@
         options="equal;0;or equal;1;not equal;32;or not equal;33;greater;64;or greater;65;greater/equal;96;or greater/equal;97;less;128;or less;129;less/equal;160;or less/equal;161"
         flags="OR;Run on target;Use global"
         />
-      <Element name = "Unknown 1" type = "byte" hexview="1"/>
-      <Element name = "Unknown 2" type = "byte" hexview="1"/>
-      <Element name = "Unknown 3" type = "byte" hexview="1"/>
+      <Element name = "Unknown 1" type = "byte"/>
+      <Element name = "Unknown 2" type = "byte"/>
+      <Element name = "Unknown 3" type = "byte"/>
       <Element name = "Comparison Value" type = "float"/>
       <Element name = "Function (+4096)" type = "short"/>
       <Element name = "unused" type = "short" notininfo="1"/>
@@ -282,7 +282,7 @@
       </Subrecord>
     </Group>
     <Subrecord name="INTV" desc="Unknown Fixed" optional="1" size="4">
-      <Element name="Unknown Fixed" type="uint" hexview="1" fixedValue="1" />
+      <Element name="Unknown Fixed" type="uint" fixedValue="1" />
     </Subrecord>
   </Record>
 
@@ -542,7 +542,7 @@
         <Element name="Scale, Female" type="float" />
         <Element name="Unknown 6" type="float" />
         <Element name="Unknown 7" type="float" />
-        <Element name="Player Flag" type="uint" hexview='1' desc="Seems to set if a race is playable or not, also has values to designate as a vampire evolution of another race"/>
+        <Element name="Player Flag" type="uint" desc="Seems to set if a race is playable or not, also has values to designate as a vampire evolution of another race"/>
         <Element name="Base Health" type="float" desc="Seems to be half of the game value"/>
         <Element name="Base Magika" type="float" desc="Seems to be half of the game value"/>
         <Element name="Base Stamina" type="float" desc="Seems to be half of the game value"/>
@@ -659,7 +659,7 @@
       </Subrecord>
     </Group>
     <Subrecord name="VNAM" desc="VNAM" optional="1" size="4">
-      <Element name="Unknown 4bytes" type="uint" hexview='1'/>
+      <Element name="Unknown 4bytes" type="uint"/>
     </Subrecord>
     <Subrecord name="QNAM" desc="? Equipment Slot" optional="1" repeat="1" size="4">
       <Element name="FormID" type="formid" reftype="EQUP" />
@@ -805,7 +805,7 @@
       <Element name="Targeted ID" type="formid"/>
       <Element name="Primary Skill" type="int" options="OneHanded;6;TwoHanded;7;Marksman;8;Block;9;Smithing;10;HeavyArmor;11;LightArmor;12;Pickpocket;13;Lockpicking;14;Sneak;15;Alchemy;16;Speechcraft;17;Alteration;18;Conjuration;19;Destruction;20;Illusion;21;Restoration;22;Enchanting;23;Fame;60;Infamy;61"/>
       <Element name="Resistance" type="int" options="DamageResist;39;PoisonResist;40;FireResist;41;ElectricResist;42;FrostResist;43;MagicResist;44;DiseaseResist;45;NormalWeaponsResist;164;None;-1;Zero;0;"/>
-      <Element name="Unknown1" type="uint" hexview="1" desc="Mask of 0xffff0000 (lower 2 bytes always 0)"/>
+      <Element name="Unknown1" type="uint" desc="Mask of 0xffff0000 (lower 2 bytes always 0)"/>
       <Element name="Light" type="formid" reftype="LIGH" />
       <Element name="Taper Weight" type="float" desc="Somehow controls the tapering of the spell over time, 0-1 typically"/>
       <Element name="Hit EFSH" type="formid" reftype="EFSH" />
@@ -1052,7 +1052,7 @@
       <Element name="Spell to Cast" type="formid" reftype="SPEL" condition="equal" condid="1" condvalue="4"/>
       <Element name="Unused" type="int" condition="equal" condid="1" condvalue="0"/>
       -->
-      <Element name="Skill To Increase/Spell To Cast" type="formid" hexview="1" desc="FormID" />
+      <Element name="Skill To Increase/Spell To Cast" type="formid" desc="FormID" />
       <Element name="Book Value" type="int" />
       <Element name="Book Weight" type="float" />
     </Subrecord>
@@ -1384,17 +1384,17 @@
       <Element name="unknown form byte 2" type="byte"/>
       <Element name="# of Projectiles" type="byte"/>
       <Element name="unknown form byte 4" type="byte"/>
-      <Element name="MinimumSpread?/Initial Speed?/Min Range? " type="int" hexview="1"/>
-      <Element name="MaximumSpread?/Maximum Speed?/Max Range?" type="int" hexview="1"/>
+      <Element name="MinimumSpread?/Initial Speed?/Min Range? " type="int"/>
+      <Element name="MaximumSpread?/Maximum Speed?/Max Range?" type="int"/>
       <Element name="Zoom FOV" type="int" />
-      <Element name="Flags" type="int" hexview="1" flags="0;1;2;3;4;5;6;TrapRelatedFlag?;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;"/>
-      <Element name="Projectile Form ID?/Bool value related to bows?" type="float" hexview="1"/>
-      <Element name="Unknown Value(Spread?)" type="int" hexview="1"/>
+      <Element name="Flags" type="int" flags="0;1;2;3;4;5;6;TrapRelatedFlag?;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;"/>
+      <Element name="Projectile Form ID?/Bool value related to bows?" type="float"/>
+      <Element name="Unknown Value(Spread?)" type="int"/>
       <Element name="Weapon Firing Animation" type="float" />
-      <Element name="Unknown Value(Damage Multiplier/#Projectiles?)" type="int" hexview="1"/>
+      <Element name="Unknown Value(Damage Multiplier/#Projectiles?)" type="int"/>
       <Element name="Critical Death Effect Chance?" type="float" />
-      <Element name="Min Range?/(ProjectileVelocity?)" type="int" hexview="1"/>
-      <Element name="Max Range?" type="int" hexview="1"/>
+      <Element name="Min Range?/(ProjectileVelocity?)" type="int"/>
+      <Element name="Max Range?" type="int"/>
       <Element name="Projectile Behavior/On Hit Dismemberment" type="int" desc="Normal;0;MainlyChestKills;1;MostlyHeadCuts;6;"/>
       <Element name="Weapon Skill Use" type="int" />
       <Element name="Weapon Stance Override?" type="int" desc="6=1Hand;7=2Handed;8=Archery;14=Destruction;35=Unarmed"/>
@@ -1438,7 +1438,7 @@
     <Group id="SCRIPTS" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="ACBS" desc="Traits" size="24">
-		<Element name="UAGEPRUN" type="byte" hexview="1" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
+		<Element name="UAGEPRUN" type="byte" options="Male;00;Female;01;Male-Essential;02;Female-Essential;03;Male-Preset;04;Female-Preset;05;Male-Essential-Preset;06;Female-Essential-Preset;07;Male-Respawn;08;Female-Respawn;09;Male-Essential-Respawn;10;Female-Essential-Respawn;11;Male-Preset-Respawn;12;Female-Preset-Respawn;13;Male-Essen-Preset-Respawn;14;Female-Essen-Preset-Respawn;15;
 		Male-AutoCalc;16;Female-AutoCalc;17;Male-AutoCalc-Essential;18;Female-AutoCalc-Essential;19;Male-AutoCalc-Preset;20;Female-AutoCalc-Preset;21;Male-AutoCalc-Essen-Preset;22;Female-AutoCalc-Essen-Preset;23;Male-AutoCalc-Respawn;24;Female-AutoCalc-Respawn;25;Male-AutoCalc-Essen-Respawn;26;Female-AutoCalc-Essen-Respawn;27;Male-AutoCalc-Preset-Respawn;28;Female-AutoCalc-Preset-Respawn;29;Male-AutoC-Essen-Preset-Respawn;30;Female-AutoC-Essen-Preset-Respawn;31;
 		Male-Unique;32;Female-Unique;33;Male-Essential-Unique;34;Female-Essential-Unique;35;Male-Preset-Unique;36;Female-Preset-Unique;37;Male-Essen-Preset-Unique;38;Female-Essen-Preset-Unique;39;Male-Respawn-Unique;40;Female-Respawn-Unique;41;Male-Essen-Respawn-Unique;42;Female-Essen-Respawn-Unique;43;Male-Preset-Respawn-Unique;44;Female-Preset-Respawn-Unique;45;Male-Essen-Preset-Respawn-Unique;46;Female-Essen-Preset-Respawn-Unique;47;
 		Male-AutoCalc-Unique;48;Female-AutoCalc-Unique;49;Male-AutoCalc-Essen-Unique;50;Female-AutoCalc-Essen-Unique;51;Male-AutoCalc-Preset-Unique;52;Female-AutoCalc-Preset-Unique;53;Male-AutoC-Essen-Preset-Unique;54;Female-AutoC-Essen-Preset-Unique;55;Male-AutoCalc-Respawn-Unique;56;Female-AutoCalc-Respawn-Unique;57;Male-AutoC-Essen-Respawn-Unique;58;Female-AutoC-Essen-Respawn-Unique;59;Male-AutoC-Pre-Respawn-Unique;60;Female-AutoC-Pre-Respawn-Unique;61;Male-AutoC-Essen-Pre-Respawn-Unique;62;Female-AutoC-Essen-Pre-Respawn-Unique;63;
@@ -1451,9 +1451,9 @@
 		Male-UserLevel-NoAffStealth;208;Female-UserLevel-NoAffSt;209;Male-UserLev-Essen-NoAffSt;210;Female-UserLev-Ess-NoAffSt;211;Male-UserLev-Preset-NoAffSt;212;Female-UserLev-Preset-NoAffSt;213;Male-UserLev-Ess-Preset-NoAffSt;214;Female-UserLev-Ess-Preset-NoAffSt;215;Male-UserLev-Respwn-NoAffSt;216;Female-UserLev-Respwn-NoAffSt;217;Male-UserLev-Ess-Respwn-NoAffSt;218;Female-UserLev-Ess-Respwn-NoAffSt;219;Male-UserLev-Pre-Respwn-NoAffSt;220;Female-ULev-Pre-Respwn-NoAffSt;221;Male-ULev-Ess-Pre-Respwn-NoAffSt;222;Female-ULev-Ess-Pre-Respwn-NoAffSt;223;
 		Male-UserLev-NoAffSt-Uni;240;Female-UserLev-NoAffSt-Uni;241;Male-UserLev-Essen-NoAffSt-Uni;242;Female-ULev-Ess-NoAffSt-Uni;243;Male-UserLev-Pre-NoAffSt-Uni;244;Female-ULev-Pre-NoAffSt-Uni;245;Male-ULev-Ess-Pre-NoAffSt-Uni;246;Female-ULev-Ess-Pre-NAffSt-Uni;247;Male-ULev-Respwn-NoAffSt-Uni;248;Female-ULev-Resp-NoAffSt-Uni;249;Male-ULev-Ess-Respwn-NoAffSt-Uni;250;Female-ULev-Ess-Resp-NAffSt-Uni;251;Male-ULev-Pre-Resp-NAffSt-Uni;252;Female-ULev-Pre-Resp-NAffSt-Uni;253;Male-ULev-Ess-Pre-Resp-NAffSt-Uni;254;Female-ULev-Ess-Pre-Resp-NAffSt-Uni;255
 		" />
-		<Element name="Summonable-Protected" type="byte" hexview="1" options="No/No;00;Yes/No;64;No/Yes;08;Yes/Yes;72" />
-		<Element name="OppGendAnims-NoBleed-SimpActor" type="byte" hexview="1" options="No/No/No;00;Yes/No/No;08;No/No/No;32;No/Yes/No;33;No/No/Yes;48" />
-		<Element name="Invulnerable-IsGhost" type="byte" hexview="1" options="No/No;16;Yes/No;144;No/Yes;48;Yes/Yes;176" />
+		<Element name="Summonable-Protected" type="byte" options="No/No;00;Yes/No;64;No/Yes;08;Yes/Yes;72" />
+		<Element name="OppGendAnims-NoBleed-SimpActor" type="byte" options="No/No/No;00;Yes/No/No;08;No/No/No;32;No/Yes/No;33;No/No/Yes;48" />
+		<Element name="Invulnerable-IsGhost" type="byte" options="No/No;16;Yes/No;144;No/Yes;48;Yes/Yes;176" />
       <Element name="Spell Points" type="ushort" />
       <Element name="Fatigue" type="ushort" />
       <Element name="Base Level" type="byte" desc="Forces Level"/>
@@ -1525,7 +1525,7 @@
     </Subrecord>
     <Subrecord name="PRKR" desc="Perk" optional="1" repeat="1" size="8">
       <Element name="FormID" type="formid" reftype="PERK" />
-      <Element name="Unknown" type="uint" hexview="1" />
+      <Element name="Unknown" type="uint" />
     </Subrecord>
     <Subrecord name="COCT" desc="Container Total Item Count" optional="1" size="4">
       <Element name="Count" type="int" />
@@ -1682,7 +1682,7 @@
       <Element name="Chin Length" type="float" />
       <Element name="Chin Depth" type="float" />
       <Element name="Eyes Depth" type="float" />
-      <Element name="buffer/flags? 4bytes" type="uint" hexview="1" />
+      <Element name="buffer/flags? 4bytes" type="uint" />
     </Subrecord>
     <Subrecord name="NAMA" desc="CharGen Morphs tab pulldowns (face-parts)" optional="1" size="16">
       <Element name="NoseType" type="int" />
@@ -1745,7 +1745,7 @@
     <Group id="EDITORID" />
     <Group id="OBJECT_BOUNDS" optional = "1"/>
     <Subrecord name="IDLF" desc="IDLF" optional="1" size="1">
-      <Element name="Value" type="byte" hexview="1"/>
+      <Element name="Value" type="byte"/>
     </Subrecord>
     <Subrecord name="IDLC" desc="Idle Count" optional="1" size="1">
       <Element name="Value" type="byte" />
@@ -1784,29 +1784,29 @@
     <Group id="BASE_MODEL" />
     <Group id="DESTRUCTIBLE"/>
     <Subrecord name="DATA" desc="Projectile Data" optional="1">
-      <Element name="Flags?" type="int" hexview="1"/>
+      <Element name="Flags?" type="int"/>
       <Element name="Acceleration?" type="float"/>
       <Element name="Initial Speed?/MinimumRange?" type="float"/>
       <Element name="Max Speed?/Maximum Range?" type="float"/>
       <Element name="Light" type="formid" reftype="LIGH"/>
       <Element name="Light2" type="formid" reftype="LIGH"/>
-      <Element name="Value6" type="int" hexview="1"/>
-      <Element name="End of Row2" type="int" hexview="1"/>
-      <Element name="Value8" type="int" hexview="1"/>
+      <Element name="Value6" type="int"/>
+      <Element name="End of Row2" type="int"/>
+      <Element name="Value8" type="int"/>
       <Element name="Explosion1" type="formid" reftype="EXPL"/>
       <Element name="Sound1" type="formid" reftype="SNDR"/>
-      <Element name="End of Row3" type="int" hexview="1"/>
+      <Element name="End of Row3" type="int"/>
       <Element name="Value10" type="float"/>
       <Element name="Value11" type="float"/>
-      <Element name="Value12" type="int" hexview="1"/>
-      <Element name="End of Row4" type="int" hexview="1"/>
-      <Element name="Value13" type="int" hexview="1"/>
+      <Element name="Value12" type="int"/>
+      <Element name="End of Row4" type="int"/>
+      <Element name="Value13" type="int"/>
       <Element name="Value14" type="float"/>
       <Element name="ForceMultiplier?" type="float"/>
-      <Element name="End of Row5" type="int" hexview="1"/>
+      <Element name="End of Row5" type="int"/>
       <Element name="Value16" type="float"/>
-      <Element name="Value17" type="int" hexview="1"/>
-      <Element name="Value18" type="int" hexview="1" optional="1"/>
+      <Element name="Value17" type="int"/>
+      <Element name="Value18" type="int" optional="1"/>
     </Subrecord>
     <Subrecord name="NAM1" desc="Effect Model" optional="1">
       <Element name="Path" type="string" />
@@ -2059,7 +2059,7 @@
 		<Element name="Fog Near, Night R" type="byte" />
 		<Element name="Fog Near, Night G" type="byte" />
 		<Element name="Fog Near, Night B" type="short" />
-		<Element name="Cloud Layer (are ALWAYS zeroes)" type="int" hexview="1" />
+		<Element name="Cloud Layer (are ALWAYS zeroes)" type="int" />
 		<Element name="UNKNOWN1" type="float" notininfo="1" />
 		<Element name="UNKNOWN2" type="float" notininfo="1" />
 		<Element name="UNKNOWN3" type="float" notininfo="1" />
@@ -2533,6 +2533,7 @@
     </Subrecord>
     <Subrecord name="ALED" desc="ALED" optional="1" repeat="1" size="0" />
   </Group>
+
   <!-- =========================================================== -->
   <Record name="QUST" desc="Quest">
     <Group id="SCRIPTED_CONCEPT" />
@@ -4260,9 +4261,9 @@
       <Element name="Direction 3?" type="float" />
     </Subrecord>
     <Subrecord name="INAM" desc="INAM" optional="1" size="12">
-      <Element name="Unknown" type="int" hexview="1" />
-      <Element name="Unknown 1" type="int" hexview="1"/>
-      <Element name="Unknown 2" type="int" hexview="1"/>
+      <Element name="Unknown" type="int" />
+      <Element name="Unknown 1" type="int"/>
+      <Element name="Unknown 2" type="int"/>
     </Subrecord>
   </Record>
 
@@ -4415,7 +4416,7 @@
     </Subrecord>
     <Subrecord name="NVMI" desc="NavMesh Data (if UNSORTED DATA exists, below Zpos will be inaccurate)" optional="1" repeat="1">
 		<Element name="Actual NAVM FormID" type="formid" reftype="NAVM" />
-		<Element name="(all are 00 20 or 40)" type="uint" hexview="1" />
+		<Element name="(all are 00 20 or 40)" type="uint" />
 		<Element name="NAVM Xpos" type="float" />
 		<Element name="NAVM Ypos" type="float" />
 		<Element name="NAVM Zpos" type="float" />
@@ -4425,9 +4426,9 @@
 		<Element name="# of Preferred Merges" type="uint" />
 		<Element name="Linked Doors" type="uint" />
 		<Element name="Island Flag" type="byte" options="Non-Island;0;Island;1" />
-		<Element name="(always A5E9A03C)" type="uint" hexview="1" />
+		<Element name="(always A5E9A03C)" type="uint" />
 		<Element name="Linked-To NAVM FormID" type="formid" reftype="NAVM" />
-		<Element name="Cell-Grid or CELL FormID" type="uint" hexview="1" />
+		<Element name="Cell-Grid or CELL FormID" type="uint" />
 		<Element name="(unsorted data)" type="blob" />
     </Subrecord>
     <Subrecord name="NVPP" desc="Cumulative NavMesh Data?" optional="1" notininfo="1">
@@ -4904,7 +4905,7 @@
       <Subrecord name="BTXT" desc="Base Texture by Quardrant" optional="1" size="8">
         <Element name="LTEX FormID" type="formid" reftype="LTEX" />
         <Element name="Quadrant" type="short" options="Bottom Left;0;Bottom Right;1;Upper Left;2;Upper Right;3"/>
-        <Element name="buffer/flag?" type="short" hexview="1"/>
+        <Element name="buffer/flag?" type="short"/>
       </Subrecord>
       <Group optional="1" repeat="1">
         <Subrecord name="ATXT" desc="Additional Texture" size="8">
@@ -5055,10 +5056,10 @@
 
   <Record name="NAVM" desc="NavMesh Reference">
     <Subrecord name="NVNM" desc="NavMesh Geometry" optional="1">
-	  <Element name="Unknown value 1" type="uint" hexview="1" />
-	  <Element name="Possibly Location Marker" type="uint" hexview="1" />
+	  <Element name="Unknown value 1" type="uint" />
+	  <Element name="Possibly Location Marker" type="uint" />
       <Element name="World Space" type="formid" reftype="WRLD" />
-	  <Element name="Cell Or Grid" type="uint" hexview="1" />
+	  <Element name="Cell Or Grid" type="uint" />
 	  <Element name="Vertex Count" type="int" calculated="1" />
 	  <Element name="Vertex Xpos (continues..)" type="float" />
 	  <Element name="Vertex Ypos (until before..)" type="float" />
