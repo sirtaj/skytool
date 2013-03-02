@@ -1,50 +1,35 @@
-
-Known "distribution" Skyrim Data files (incomplete!)
-----------------------------------------------------
-
-Skyrim.esm
-
-Update.bsa
-Update.esm
-
-Skyrim - Textures.bsa
-Skyrim - Sounds.bsa
-Skyrim - Shaders.bsa
-Skyrim - Misc.bsa
-Skyrim - Meshes.bsa
-Skyrim - Interface.bsa
-Skyrim - Animations.bsa
-Skyrim - VoicesExtra.bsa
-Skyrim - Voices.bsa
-Skyrim - Textures.bsa
-Skyrim - Textures.bsa
-
-HighResTexturePack01.bsa
-HighResTexturePack01.esp
-
-HighResTexturePack02.bsa
-HighResTexturePack02.esp
-
-HighResTexturePack03.bsa
-HighResTexturePack03.esp
-
-HighResTexturePack04.bsa
-HighResTexturePack04.esp
-
-Video (folder)
-    BGS_Logo.bik
-
-Interface (folder)
-    Translate_ENGLISH.txt
-
-Strings (folder)
-    Update_English.STRINGS
-    Update_English.ILSTRINGS
-    Update_English.DLSTRINGS
-    Skyrim_English.STRINGS
-    Skyrim_English.ILSTRINGS
-    Skyrim_English.DLSTRINGS
-
-Scripts
-
-Scripts/Source
+TESV.exe
+SkyrimLauncher.exe
+CreationKit.exe
+Data/Skyrim.esm
+Data/Update.bsa
+Data/Update.esm
+Data/Skyrim - Textures.bsa
+Data/Skyrim - Sounds.bsa
+Data/Skyrim - Shaders.bsa
+Data/Skyrim - Misc.bsa
+Data/Skyrim - Meshes.bsa
+Data/Skyrim - Interface.bsa
+Data/Skyrim - Animations.bsa
+Data/Skyrim - VoicesExtra.bsa
+Data/Skyrim - Voices.bsa
+Data/Skyrim - Textures.bsa
+Data/Skyrim - Textures.bsa
+Data/HighResTexturePack01.bsa
+Data/HighResTexturePack01.esp
+Data/HighResTexturePack02.bsa
+Data/HighResTexturePack02.esp
+Data/HighResTexturePack03.bsa
+Data/HighResTexturePack03.esp
+Data/HighResTexturePack04.bsa
+Data/HighResTexturePack04.esp
+Data/Video/BGS_Logo.bik
+Data/Interface/Translate_ENGLISH.txt
+Data/Strings/Update_English.STRINGS
+Data/Strings/Update_English.ILSTRINGS
+Data/Strings/Update_English.DLSTRINGS
+Data/Strings/Skyrim_English.STRINGS
+Data/Strings/Skyrim_English.ILSTRINGS
+Data/Strings/Skyrim_English.DLSTRINGS
+Data/Scripts/
+Data/Scripts/Source/
