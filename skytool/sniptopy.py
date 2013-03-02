@@ -102,7 +102,7 @@ def generate_python(snip_file, py_file):
 
     Types are mapped to skytool.esp module.
     '''
-    import xrev, pytext
+    import util.xrev as xrev, util.pytext as pytext
     records = xrev.parse_xreved(snip_file, tessnip)
     group_order = [(r.name, r) for r in records if isinstance(r, Record)]
 

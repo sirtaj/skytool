@@ -9,7 +9,7 @@ import PyQt4.uic as uic
 
 import sys, os.path
 
-from qutil import qmicro, widget_update, MyThread
+from util.qutil import qmicro, widget_update, MyThread
 from contextlib import contextmanager
 
 
