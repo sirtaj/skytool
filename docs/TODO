@@ -17,10 +17,22 @@ Create common subgroups only once:
                 element and attribute order is the same
 
 
+Declaration of calculated "count" fields, which reference other subrecords or fields
+
+Subrecord size:
+    If not explicitly declared, derive size from child elements.
+    If both derivable and declared, compare sizes and notify on mismatch.
+    If not derivable or declared, notify failure.
+
+
 Resolve named types once all records and subrecords are declared, but before instantiation
 of anything.
     How do we know when to do this?
     How do we lookup types that may not be in the same module?
+
+Reading and writing:
+    Generate a parser state machine for reading records and subrecords efficiently.
+        An LL parser should be enough
 
 SkyScraper GUI
 --------------
