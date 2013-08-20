@@ -180,3 +180,47 @@ class FileList(DumbModCollection):
                     self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
                 else:
                     self.add_data_file(path)
+
+
+class UnionCollection(ModCollection):
+    '''A union of file collections.
+    '''
+    def __init__(self, game):
+        super(UnionCollection, self).__init__(game)
+
+        self.sub_collections = []
+        self.initialized_collections = []
+        self.parsed = False
+
+    ### New Methods
+
+    def add_collection(self, collection):
+        self.sub_collections.append(collection)
+
+        if self.parsed:
+            collection.parse_install()
+            self.initialized_collections.append(collection)
+
+
+    ### ModCollection Interface
+
+    def parse_install(self):
+        for collection in self.sub_collections:
+            if collection not in self.initialized_collections:
+                collection.parse_install()
+        self.parsed = True
+
+    def has_file(self, relative_path):
+        for collection in self.sub_collections:
+            if collection.has_file(relative_path):
+                return True
+        return False
+
+    def has_dir(self, relative_path):
+        for collection in self.sub_collections:
+            if collection.has_dir(relative_path):
+                return True
+        return False
+
+
+
