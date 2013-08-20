@@ -92,3 +92,91 @@ class MetadataOverlay:
 class PhysicalFileTree(FileTree):
     def exists(self, fent):
         return path_exists(fent.full_path())
+
+
+###################
+
+class Mod(FileSource):
+    def __init__(self, name, key, path, version, install_date):
+        FileSource.__init__(self, name, path)
+
+        self.key = key
+        self.version = version
+        self.install_date = install_date
+
+
+class DataFile:
+    def __init__(self, path, installing_mods):
+        self.path = path
+        self.installing_mods = installing_mods
+
+    F_OK = 0
+    F_MISSING = 1
+    F_CHANGED = 2
+
+
+class ModCollection(object):
+    def __init__(self, game):
+        self.game = game
+
+    def parse_install(self):
+        '''Update information on available and installed mods.
+
+        This is a separate method since it's expected to be slow.
+
+        Users of the collection should assume that info is not available until this is
+        called.
+        '''
+        pass
+
+    def has_file(self, relative_path):
+        raise NotImplementedError
+
+    def has_dir(self, relative_path):
+        raise NotImplementedError
+
+
+class DumbModCollection(ModCollection):
+    '''Tracks paths with dictionaries
+    '''
+    def __init__(self, game):
+        super(DumbModCollection, self).__init__(game)
+        self.mods = {}
+        self.data_files = {}        # relative data file name -> DataFile Object
+        self.contained_dirs = {}
+
+        # implement the lookup interface
+        self.has_file = self.data_files.get
+        self.has_dir = self.contained_dirs.get
+
+    # build helpers
+
+    def add_mod(self, mod):
+        self.mods[mod.key] = mod
+
+    def add_data_file(self, data_file):
+        df_idx = data_file.path.lower().replace('\\', '/')
+
+        self.data_files[df_idx] = data_file
+        self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
+
+
+class FileList(DumbModCollection):
+    def __init__(self, game, file_list_path):
+        super(FileList, self).__init__(game)
+        self.file_list_path = file_list_path
+
+    def parse_install(self):
+        with open(self.file_list_path, 'r') as fd:
+            for line in fd.readlines():
+                line = line.strip()
+                if not line or line.startswith('#') : continue
+
+                words = line.split()
+                path = words.pop(0)
+                checksum = words[0] if words else None
+
+                if path.endswith('/'):
+                    self.contained_dirs.update((sup, True) for sup in all_super_dirs(df_idx))
+                else:
+                    self.add_data_file(path)
