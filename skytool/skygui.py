@@ -87,7 +87,7 @@ class App(qc.QObject):
     GUI_FILE = 'skytool.ui'
 
     def create_gui(self):
-        self.ui = uic.loadUi(self.resource_file('gui/skytool.ui'))
+        self.ui = uic.loadUi(self.get_resource('gui/skytool.ui'))
         self.ui.mainTabs.setCurrentIndex(0)
         self.ui.show()
 
@@ -103,7 +103,7 @@ class App(qc.QObject):
     ##############
     # Subsystem UI support
 
-    def resource_file(self, relative_path):
+    def get_resource(self, relative_path):
         '''Returns full path for a relative GUI resource file.
         '''
         path = [self.resource_base] + relative_path.split('/')
@@ -116,12 +116,11 @@ class App(qc.QObject):
         self.ui.statusBar().clearMessage()
 
 
-
 class Subsystem(qc.QObject):
     '''A subsystem plugin. Receives ui and game variables. parent is set to application.
     '''
     def __init__(self, parent):
-        super(qc.QObject, self).__init__(self, parent)
+        super(qc.QObject, self).__init__(parent)
 
         self.game = None
         self.ui = None
@@ -132,6 +131,12 @@ class Subsystem(qc.QObject):
     def status(self, message):
         return self.parent().status(message)
 
+    def get_resource(self, resource_name):
+        return self.parent().get_resource(resource_name)
+
+
 if __name__ == '__main__':
     from databrowser import DataBrowser
-    App.main([DataBrowser])
+    from pluginbrowser import ModBrowser
+
+    App.main([ModBrowser, DataBrowser])

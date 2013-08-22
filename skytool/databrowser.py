@@ -11,6 +11,7 @@ import PyQt4.QtGui as qg
 
 from util.qutil import qmicro, widget_update, MyThread
 
+
 class DataBrowser(Subsystem):
     '''Instantiates the GUI and implements user actions.
     '''
@@ -150,6 +151,3 @@ class ModFilterModel(qg.QSortFilterProxyModel):
         self.filterAcceptsRow = self.fast_filter if enable else self.null_filter
         self.invalidateFilter()
 
-
-if __name__ == '__main__':
-    App.main()

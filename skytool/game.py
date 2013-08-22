@@ -3,6 +3,8 @@
 '''
 
 import os, os.path
+from datetime import datetime
+
 path_join = os.path.join
 
 class Game:
@@ -49,8 +51,12 @@ class Plugins:
         self.game = game
         self.loadorder_path = path_join(game.user_data_path, self.ORDER_FILE)
         self.plugins_txt_path = path_join(game.user_data_path, self.PLUGINS_FILE)
-        self.by_name = {}
-        self.by_order = [] # INCLUDES game master
+        self.by_name = {}  # plugin name -> Plugin
+        self.by_order = [] # INCLUDES game master(s)
+        self.modified_date = None
+
+        self.dirty_order = False
+        self.dirty_list = False
 
         self.read_load_order()
         self.read_active_plugins()
@@ -106,6 +112,8 @@ class Plugins:
                 if p.active and p.name != game.MASTER_PLUGIN and p.exists():
                     out.write("%s\n" % (p.name,))
 
+        self.dirty_order = False
+
     def __iter__(self):
         return iter(self.by_order)
 
@@ -142,6 +150,12 @@ class Plugin:
     def open(self, mode='rb'):
         return open(self.full_path, mode)
 
+
+    def modified_date(self):
+        return datetime.fromtimestamp(os.path.getmtime(self.full_path))
+
+
+#####################
 ### Specific plugins
 
 class PluginASIS(Plugin):
