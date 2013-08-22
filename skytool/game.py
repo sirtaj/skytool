@@ -141,7 +141,7 @@ class Plugin:
 
     def open(self, mode='rb'):
         return open(self.full_path, mode)
-        
+
 ### Specific plugins
 
 class PluginASIS(Plugin):
