@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 __doc__=\
-'''SkyScraper main GUI app.
+'''Tree Browse/Query for Skyrim data directory.
 '''
 
 from skygui import Subsystem
@@ -17,28 +17,25 @@ class DataBrowser(Subsystem):
     '''
     def __init__(self, parent):
         super(Subsystem, self).__init__(parent)
-        self.mod_collection = None
+        self.mods = None
 
     def start(self):
-        self.mod_collection = self.create_mod_collection()
-        #self.mod_collection.parse_install()
-        MyThread.one_shot(  self.mod_collection.parse_install,
+        from files import UnionCollection
+        self.mods = UnionCollection(self.game)
+
+        MyThread.one_shot(  self.load_collection,
                             on_finish = lambda v: self.populate_file_tree(),
                             parent = self.ui)
-    def stop(self):
-        self.mod_collection = None
 
+    def stop(self):
+        self.mods = None
 
     #################
 
-    def create_mod_collection(self):
-        from files import UnionCollection
+    def load_collection(self):
         from nexus import Nexus
-
-        mods = UnionCollection(self.game)
-        mods.add_collection(Nexus(self.game))
-
-        return mods
+        self.mods.add_collection(Nexus(self.game))
+        self.mods.parse_install()
 
     #@qmicro(iterations=1)
     def populate_file_tree(self):
@@ -54,7 +51,7 @@ class DataBrowser(Subsystem):
             root_idx = tree_model.setRootPath( self.game.install_path )
 
             tree_model = ModFilterModel(self.game,
-                                        self.mod_collection,
+                                        self.mods,
                                         tree_model,
                                         parent = tree)
             root_idx = tree_model.mapFromSource( root_idx )
@@ -150,4 +147,3 @@ class ModFilterModel(qg.QSortFilterProxyModel):
         self.enabled = enable
         self.filterAcceptsRow = self.fast_filter if enable else self.null_filter
         self.invalidateFilter()
-

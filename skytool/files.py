@@ -208,6 +208,7 @@ class UnionCollection(ModCollection):
         for collection in self.sub_collections:
             if collection not in self.initialized_collections:
                 collection.parse_install()
+                self.initialized_collections.append(collection)
         self.parsed = True
 
     def has_file(self, relative_path):
