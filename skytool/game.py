@@ -1,8 +1,8 @@
 
-'''Core TES/GameBryo game access.
+'''Core TES/GameBryo game and plugin access.
 '''
 
-import os, os.path
+import os, os.path, re, weakref
 from datetime import datetime
 
 path_join = os.path.join
@@ -46,6 +46,40 @@ class Plugins:
     Alows reading and writing of the load order.
 
     Currently this is implemented for Skyrim (new style loadorder.txt) only.
+
+
+    Sources of info:
+        PT plugins.txt
+        LO loadorder.txt
+        FS skyrim Data dir (*.esp, *.esm)
+        RU Runtime plugin registry
+
+        When in FS and not elsewhere, add
+        when not in FS but present elsewhere, remove internal
+
+        Do we maintain a loadorder cache?
+
+        () == not present
+
+        PT LO FS (RU)       add to RU
+        PT LO (FS) (RU)     remove from lo, pt
+        PT LO (FS)  RU      remove from lo, ru
+
+        PT (LO) FS (RU)     add to RU, LO (end?)
+        PT (LO) FS  RU      add to LO (end?)
+        PT (LO) (FS) (RU)   remove from PT
+        PT (LO) (FS)  RU    add to PT, LO
+
+        (PT) LO FS (RU)     add to PT, RU
+        (PT) LO FS  RU      add to PT
+        (PT) LO (FS) (RU)
+        (PT) LO (FS)  RU
+
+        (PT) (LO) FS (RU)
+        (PT) (LO) FS  RU
+        (PT) (LO) (FS) (RU)
+        (PT) (LO) (FS)  RU
+
     '''
     def __init__(self, game):
         self.game = game
@@ -56,10 +90,10 @@ class Plugins:
         self.modified_date = None
 
         self.dirty_order = False
-        self.dirty_list = False
+        self.dirty_active = False
 
         self.read_load_order()
-        self.read_active_plugins()
+        self.read_active()
 
     PLUGINS_FILE = "plugins.txt"
     ORDER_FILE = "loadorder.txt"
@@ -67,6 +101,14 @@ class Plugins:
     def get(self, name):
         return self.by_name.get(name)
 
+
+    def add_plugin(self, plugin):
+        plugin.registry = weakref.ref(self)
+        self.by_name[plugin.name] = plugin
+        self.by_order.append(plugin)
+
+
+    # Load Order
     def read_load_order(self):
         with open(self.loadorder_path) as plugf:
             for order_idx, plugin_name in enumerate(plugf.readlines()):
@@ -74,11 +116,31 @@ class Plugins:
                 plugin = Plugin( game = self.game, name = plugin_name,
                         registered = True,
                         active = (plugin_name == self.game.MASTER_PLUGIN))
+                self.add_plugin(plugin)
 
-                self.by_name[plugin_name] = plugin
-                self.by_order.append(plugin)
+    def sync(self, force = False):
+        '''Write out plugins.txt and loadorder.txt
+        '''
+        # Order
+        if force or self.dirty_order:
+            new_file = self.loadorder_path + ".new"
+            with open(new_file, "w") as out:
+                for p in self.by_order:
+                    out.write("%s\n" % (p.name,))
+        # Active
+        if force or self.dirty_active:
+            new_file = self.plugins_txt_path + ".new"
+            with open(new_file, "w") as out:
+                for p in self.by_order:
+                    if p.active and p.name != game.MASTER_PLUGIN and p.exists():
+                        out.write("%s\n" % (p.name,))
 
-    def read_active_plugins(self):
+        self.dirty_order = False
+        seld.dirty_active = False
+
+
+    # Active
+    def read_active(self):
         with open(self.plugins_txt_path) as plugf:
             for order_idx, plugin_name in enumerate(plugf.readlines()):
                 plugin_name = plugin_name.strip()
@@ -88,8 +150,9 @@ class Plugins:
                 else:
                     plugin = Plugin( game = self.game, name = plugin_name,
                             registered = True, active = True)
-                    self.by_name[plugin_name] = plugin
-                    self.by_order.append(plugin)
+                    self.add_plugin(plugin)
+
+    # Filesystem
 
     def get_plugin_files(self):
         for fname in os.listdir(self.game.data_path):
@@ -97,28 +160,27 @@ class Plugins:
             if loname.endswith(".esp") or loname.endswith(".esm"):
                 yield fname
 
-    def sync_order(self):
-        '''Write out plugins.txt and loadorder.txt
-        '''
-        # Order
-        new_file = self.loadorder_path + ".new"
-        with open(new_file, "w") as out:
-            for p in self.by_order:
-                out.write("%s\n" % (p.name,))
-        # Active
-        new_file = self.plugins_txt_path + ".new"
-        with open(new_file, "w") as out:
-            for p in self.by_order:
-                if p.active and p.name != game.MASTER_PLUGIN and p.exists():
-                    out.write("%s\n" % (p.name,))
-
-        self.dirty_order = False
+    # Queries
 
     def __iter__(self):
         return iter(self.by_order)
 
 
-########### ES* Files
+    def iterate_order(self):
+        '''Generates (index, load order (or None), plugin obj) tuples.
+        '''
+
+        next_order = iter(range(len(self.by_order))).next
+
+        for index, plugin in enumerate(self.by_order):
+            order = next_order() if plugin.active else None
+            yield (index, order, plugin)
+
+    # Changes
+    def sync(self, force = False):
+        if force or self.dirty_order or self.dirty_lidst:
+            self.sync()
+
 
 class Plugin:
     def __init__(self, game, name, registered, active):
@@ -150,16 +212,53 @@ class Plugin:
     def open(self, mode='rb'):
         return open(self.full_path, mode)
 
-
     def modified_date(self):
         return datetime.fromtimestamp(os.path.getmtime(self.full_path))
+
+    def set_dirty(self, dirty = True):
+        self.dirty = dirty
+
+    def set_name(self, new_name):
+        # validate name for structure and uniqueness
+        if not plugin_name_match(new_name):
+            raise ValueError, "Invalid plugin name"
+
+        plugins = self.registry()
+
+        for plugin in plugins:
+            if plugin.name == new_name:
+                raise ValueError, "Duplicate plugin name"
+
+        # Change physical name
+        old_path = self.full_path
+        new_path = path_join(self.game.data_path, new_name)
+
+        os.rename(self.old_path, self.new_path)
+
+        # Change registry
+        del registry.by_name[self.name]
+        self.name = new_name
+        registry.by_name[new_name] = self
+
+        registry.sync(True)
+
+
+plugin_name_match = re.compile('^[\\w\d\\s_\\.-]+\\.[eE][sS][pPmM]$').match
 
 
 #####################
 ### Specific plugins
 
-class PluginASIS(Plugin):
+
+class DynamicPlugin(Plugin):
     generated = True
+
+
+class SkyProcPatch(DynamicPlugin):
+    pass
+
+
+class PluginASIS(SkyProcPatch):
     RUNNER_PATH = "SkyProc Patchers\\ASIS"
     JAR_EXE = "ASIS.jar"
 
@@ -172,8 +271,12 @@ class PluginASIS(Plugin):
             os.chdir(old_cwd)
 
 
+class PluginBashedPatch(DynamicPlugin):
+    pass
+
 
 ##############
+
 if __name__ == '__main__':
     game = Skyrim()
     print game.name, "is installed in", game.install_path
