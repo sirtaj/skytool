@@ -157,6 +157,6 @@ class Subsystem(qc.QObject):
 
 if __name__ == '__main__':
     from databrowser import DataBrowser
-    from pluginbrowser import ModBrowser
+    from pluginbrowser import PluginBrowser
 
-    App.main([ModBrowser, DataBrowser])
+    App.main_debug([PluginBrowser, DataBrowser])

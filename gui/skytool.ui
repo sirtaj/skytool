@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>959</width>
-    <height>845</height>
+    <width>1020</width>
+    <height>822</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="dataFileTab">
          <property name="sizePolicy">
@@ -147,7 +147,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="nexusModsTab">
+        <widget class="QWidget" name="pluginsTab">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -155,11 +155,11 @@
           </sizepolicy>
          </property>
          <attribute name="title">
-          <string>Mods</string>
+          <string>Plugins</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QHBoxLayout" name="searchBox">
             <property name="sizeConstraint">
              <enum>QLayout::SetMinimumSize</enum>
             </property>
@@ -212,17 +212,103 @@
             </item>
            </layout>
           </item>
-          <item row="1" column="0">
-           <widget class="QTreeView" name="modTreeBrowser">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="sortingEnabled">
-             <bool>true</bool>
-            </property>
+          <item>
+           <widget class="QStackedWidget" name="horizontalStackedWidget">
+            <widget class="QWidget" name="horizontalStackedWidgetPage1">
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <item>
+               <widget class="QSplitter" name="pluginPage">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <widget class="QTreeView" name="modTreeBrowser">
+                 <property name="dragDropMode">
+                  <enum>QAbstractItemView::InternalMove</enum>
+                 </property>
+                 <property name="alternatingRowColors">
+                  <bool>true</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::ExtendedSelection</enum>
+                 </property>
+                 <property name="selectionBehavior">
+                  <enum>QAbstractItemView::SelectRows</enum>
+                 </property>
+                 <property name="uniformRowHeights">
+                  <bool>true</bool>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+                <widget class="QWidget" name="verticalLayoutWidget">
+                 <layout class="QVBoxLayout" name="verticalLayout_2">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                  <property name="leftMargin">
+                   <number>16</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="lblMasters">
+                    <property name="text">
+                     <string>Masters</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QListView" name="pluginMasterList">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblDescription">
+                    <property name="text">
+                     <string>Description</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPlainTextEdit" name="pluginDescriptionEditor">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="plainText">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="lblBashTags">
+                    <property name="text">
+                     <string>Bash Tags</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPlainTextEdit" name="pluginBashTagsEditor">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -238,7 +324,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>959</width>
+     <width>1020</width>
      <height>21</height>
     </rect>
    </property>
