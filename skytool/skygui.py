@@ -48,6 +48,26 @@ class App(qc.QObject):
         app = None
         print "exit"
 
+    @classmethod
+    def main_debug(Cls, plugin_classes = None):
+        # init
+        first_run = getattr(qg, 'first_run', True)
+
+        if first_run:
+            qg.qApp = qg.QApplication(sys.argv)
+            qg.first_run = False
+
+        app = Cls(qg.qApp)
+
+        if plugin_classes:
+            for plugin in plugin_classes:
+                app.add_plugin(plugin(app))
+
+        #start
+        app.run()
+
+        # stop
+        print "exit"
 
     def add_plugin(self, plugin):
         self.plugins.append(plugin)
