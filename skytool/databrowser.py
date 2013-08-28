@@ -33,8 +33,8 @@ class DataBrowser(Subsystem):
     #################
 
     def load_collection(self):
-        from nexus import Nexus
-        self.mods.add_collection(Nexus(self.game))
+        from nexus import NexusMods
+        self.mods.add_collection(NexusMods(self.game))
         self.mods.parse_install()
 
     #@qmicro(iterations=1)

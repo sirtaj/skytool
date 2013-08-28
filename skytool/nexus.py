@@ -7,7 +7,7 @@ and comparing it with the data folder of an installed TES game.
 '''
 
 from files import DumbModCollection, Mod, DataFile
-from game import Skyrim
+
 
 from datetime import datetime
 import os, os.path, re
@@ -18,9 +18,9 @@ path_exists = os.path.exists
 
 ################
 
-class Nexus(DumbModCollection):
+class NexusMods(DumbModCollection):
     def __init__(self, game):
-        super(Nexus, self).__init__(game)
+        super(NexusMods, self).__init__(game)
         self.install_log_path = path_join(self.game.install_path, 'Install Info', 'InstallLog.xml')
         self.mod_respository = path_join(self.game.install_path, 'Mods')
 
@@ -107,8 +107,9 @@ def missing_files(mod_collection):
 # Main
 
 def test_run():
+    from game import Skyrim
     game = Skyrim()
-    n = Nexus(game)
+    n = NexusMods(game)
 
     print "loading..."
     n.parse_install()
