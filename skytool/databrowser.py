@@ -34,7 +34,9 @@ class DataBrowser(Subsystem):
 
     def load_collection(self):
         from nexus import NexusMods
+        from workshop import SteamWorkshopMods
         self.mods.add_collection(NexusMods(self.game))
+        self.mods.add_collection(SteamWorkshopMods(self.game))
         self.mods.parse_install()
 
     #@qmicro(iterations=1)
