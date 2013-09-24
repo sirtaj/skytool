@@ -29,6 +29,9 @@ class FileTree:
         self.file_tree = {}
         self.path_index = {}
 
+    def exists(self, fent):
+        raise NotImplementedError
+
     def walk(self, breadth_first = True):
         assert breadth_first, "Depth-first not implemented"
         raise NotImplementedError
@@ -45,10 +48,6 @@ class FileTree:
 
         return keys
 
-    def exists(self, fent):
-        raise NotImplementedError
-
-
 
 class FileSource:
     def __init__(self, name, path):
@@ -58,7 +57,7 @@ class FileSource:
 
 class FileEntry:
     '''Contains information about a single file in a file tree.
-    
+
     The metadata dict can contain metadata info from a number of different file tree types.
     '''
     def __init__(self, path, tree, metadata = None):
@@ -88,13 +87,13 @@ class MetadataOverlay:
         return file_entry.metadata.get(self.keys_complete[key], self.defaults[key])
 
 
-
 class PhysicalFileTree(FileTree):
     def exists(self, fent):
         return path_exists(fent.full_path())
 
 
 ###################
+
 
 class Mod(FileSource):
     def __init__(self, name, key, path, version, install_date):
@@ -137,7 +136,7 @@ class ModCollection(object):
 
 
 class DumbModCollection(ModCollection):
-    '''Tracks paths with dictionaries
+    '''Tracks paths with dictionaries.
     '''
     def __init__(self, game):
         super(DumbModCollection, self).__init__(game)

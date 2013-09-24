@@ -39,7 +39,7 @@ class SteamWorkshopMods(DumbModCollection):
 
 
     def read_subscriptions(self):
-        '''Read subscriptions and generates (esp_name, mod_name, subscription int) tuples.
+        '''Read subscriptions file and generate (esp_name, mod_name, subscription int).
         '''
         esp_name = mod_name = None
 

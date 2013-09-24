@@ -45,7 +45,7 @@ class PythonFile(object):
         self.tab_level -= levels
         self.tab_pfx = TAB * self.tab_level
 
-    
+
     def tab_allup(self):
         self.tab_up(self, self.tab_level)
 
@@ -107,7 +107,7 @@ class PythonFile(object):
     def slots(self, slot_attrs):
         self.assign('__slots__', "(%s)" % ', '.join(repr(v) for v in slot_attrs))
 
-    
+
     @contextmanager
     def python_class(self, name, superclasses=['object'], doc=''):
         self.blank()

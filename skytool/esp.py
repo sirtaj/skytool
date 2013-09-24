@@ -1,6 +1,9 @@
 
 __doc__=\
-'''Core object model for ESP/ESM files.
+'''Object model for the ESP/ESM file format.
+
+This is all hand-written at the moment. It forms the substructure for
+the actual records and fields that are currently generated using sniptopy.py.
 '''
 
 import game as game_
