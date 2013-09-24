@@ -1765,17 +1765,17 @@
     </Subrecord>
     <Subrecord name="CNTO" desc="Component Object" optional="1" repeat="1" size="8">
       <Element name="Object" type="formid" reftype="MISC" />
-      <Element name="Count" type="int" />
+      <Element name="Required Quantity" type="int" />
     </Subrecord>
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Subrecord name="CNAM" desc="Output Object" optional="1" repeat="1">
       <Element name="Output Object" type="formid" />
     </Subrecord>
-    <Subrecord name="BNAM" desc=" Crafting Station" optional="1" size="4">
+    <Subrecord name="BNAM" desc="Crafting Station" optional="1" size="4">
       <Element name="Crafting Station" type="formid" reftype="KYWD" />
     </Subrecord>
     <Subrecord name="NAM1" desc="Resulting Quantity" optional="1" size="2">
-      <Element name="Count" type="short" />
+      <Element name="Resulting Quantity" type="short" />
     </Subrecord>
   </Record>
 
@@ -2498,11 +2498,11 @@
     <Group id="CONDITIONAL" optional="1" repeat="1"/>
     <Group id="KEYWORDS" optional="1"/>
     <Subrecord name="COCT" desc="Container Total Item Count" optional="1" repeat="1" size="4">
-      <Element name="Count" type="int" />
+      <Element name="Container Total Item Count" type="int" />
     </Subrecord>
     <Subrecord name="CNTO" desc="Container Item" optional="1" repeat="1" size="8">
-      <Element name="FormID" type="formid" />
-      <Element name="Count" type="int" />
+      <Element name="Item" type="formid" />
+      <Element name="Quantity" type="int" />
     </Subrecord>
     <Subrecord name="SPOR" desc="? Form List" optional="1" size="4">
       <Element name="FormID" type="formid" reftype="FLST" />
