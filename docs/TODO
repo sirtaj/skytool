@@ -34,6 +34,21 @@ Reading and writing:
     Generate a parser state machine for reading records and subrecords efficiently.
         An LL parser should be enough
 
+
 SkyScraper GUI
 --------------
 
+Allow saving of GUI preferences
+    Window geometry
+    Selections?
+    Views
+        Sort order
+        column sizes
+
+Data Browser
+
+Mod Browser
+
+Plugin Browser
+    Sync active toggling to file
+    Monitor filesystem for changes to plugins and active/load order.
