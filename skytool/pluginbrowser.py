@@ -1,9 +1,15 @@
+__doc___=\
+'''
+ESP/ESM plugin browser/manager UI.
+
+'''
 
 
 from skygui import Subsystem
 
 import PyQt4.QtGui as qg
 import PyQt4.QtCore as qc
+from PyQt4.QtCore import Qt
 
 from util.qutil import qmicro, widget_update, MyThread
 
@@ -46,7 +52,7 @@ class PluginItemModel(qg.QStandardItemModel):
         self.plugins = plugins
 
         self.itemChanged.connect(self.updatePluginFromItem)
-        self.setSortRole(qc.Qt.UserRole)
+        self.setSortRole(Qt.UserRole)
 
         self.setRowCount(len(plugins.by_order))
         self.setColumnCount(len(COLUMNS))
@@ -107,12 +113,12 @@ class Filename(Column):
             print "UPDATE FAIL:", repr(exc)
             self.reset_value(item, plugin)
         finally:
-            item.setData(plugin.name, qc.Qt.UserRole)
+            item.setData(plugin.name, Qt.UserRole)
 
     def reset_value(self, item, plugin):
-        item.setData(plugin.name, qc.Qt.UserRole)
-        item.setData(plugin.name, qc.Qt.UserRole)
-        item.setCheckState(qc.Qt.Checked if plugin.active else qc.Qt.Unchecked)
+        item.setData(plugin.name, Qt.DisplayRole)
+        item.setData(plugin.name, Qt.UserRole)
+        item.setCheckState(Qt.Checked if plugin.active else Qt.Unchecked)
 
 
 class LoadOrder(Column):
@@ -120,12 +126,12 @@ class LoadOrder(Column):
 
     def create_item(self, index, load_order, plugin):
         item = qg.QStandardItem()
-        item.setData(index, qc.Qt.UserRole)
+        item.setData(index, Qt.UserRole)
 
         return item
 
     def reset_value(self, item, plugin):
-        item.setData((u'%02X' % load_order) if plugin.active else '')
+        item.setData((u'%02X' % load_order) if plugin.active else '', Qt.DisplayRole)
 
 
 class ModTime(Column):
@@ -135,8 +141,10 @@ class ModTime(Column):
     def create_item(self, index, load_order, plugin):
         ts = plugin.modified_date()
         item = qg.QStandardItem(ts.strftime(self.TIME_FORMAT))
-        item.setData(ts.toordinal(), qc.Qt.UserRole)
+        item.setData(ts.toordinal(), Qt.UserRole)
 
         return item
 
+
 COLUMNS = [Filename(), LoadOrder(), ModTime()]
+
